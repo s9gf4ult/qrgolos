@@ -1,9 +1,17 @@
 class MeetingsController < ApplicationController
+  before_filter :authenticate_user!, :only => [:create, :update, :destroy, :new, :edit]
+  before_filter :is_meeting_my, :only => [:update, :destroy]
+  
   # GET /meetings
   # GET /meetings.json
   def index
-    @meetings = Meeting.all
-
+    if user_signed_in?
+      @my_meetings = current_user.meetings
+      @meetings = current_user.meetings.find_foreign(current_user)
+    else 
+      @meetings = Meeting.all
+    end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @meetings }
@@ -40,7 +48,7 @@ class MeetingsController < ApplicationController
   # POST /meetings
   # POST /meetings.json
   def create
-    @meeting = Meeting.new(params[:meeting])
+    @meeting = current_user.meetings.build(params[:meeting])
 
     respond_to do |format|
       if @meeting.save
@@ -56,8 +64,6 @@ class MeetingsController < ApplicationController
   # PUT /meetings/1
   # PUT /meetings/1.json
   def update
-    @meeting = Meeting.find(params[:id])
-
     respond_to do |format|
       if @meeting.update_attributes(params[:meeting])
         format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
@@ -72,7 +78,6 @@ class MeetingsController < ApplicationController
   # DELETE /meetings/1
   # DELETE /meetings/1.json
   def destroy
-    @meeting = Meeting.find(params[:id])
     @meeting.destroy
 
     respond_to do |format|
@@ -80,4 +85,15 @@ class MeetingsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+  
+  def is_meeting_my
+    @meeting = Meeting.find(params[:id])
+    if @meeting.user != current_user
+      flash[:error] = "You have no rignts to do that"
+      redirect_to meetings_path
+    end
+  end
+     
 end
