@@ -7,7 +7,7 @@ class MeetingsController < ApplicationController
   def index
     if user_signed_in?
       @my_meetings = current_user.meetings
-      @meetings = current_user.meetings.find_foreign(current_user)
+      @meetings = current_user.find_foreign
     else 
       @meetings = Meeting.all
     end
