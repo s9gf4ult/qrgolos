@@ -1,4 +1,6 @@
 Ruvote::Application.routes.draw do
+  resources :sections
+
   resources :meetings
 
   devise_for :users
