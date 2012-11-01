@@ -95,5 +95,5 @@ class MeetingsController < ApplicationController
       redirect_to meetings_path
     end
   end
-     
+
 end

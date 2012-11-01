@@ -8,15 +8,13 @@
     <th>User</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @my_meetings.each do |meeting| %>
   <tr>
-    <td><%= meeting.name %></td>
+    <td><%= link_to meeting.name, meeting %></td>
     <td><%= meeting.descr %></td>
     <td><%= meeting.user.email %></td>
-    <td><%= link_to 'Смотреть', meeting %></td>
     <td><%= link_to 'Редактировать', edit_meeting_path(meeting) %></td>
     <td><%= link_to 'Удалить', meeting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
