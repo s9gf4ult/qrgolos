@@ -15,10 +15,9 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :meeting_id %><br />
-    <%= f.number_field :meeting_id %>
-  </div>
+  <%= fields_for @section.meeting do |mf| %>
+    <%= mf.hidden_field :id %>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

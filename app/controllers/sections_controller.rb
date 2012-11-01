@@ -24,7 +24,8 @@ class SectionsController < ApplicationController
   # GET /sections/new
   # GET /sections/new.json
   def new
-    @section = Section.new
+    @meeting = Meeting.find(params[:meeting_id])
+    @section = @meeting.sections.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,7 +41,8 @@ class SectionsController < ApplicationController
   # POST /sections
   # POST /sections.json
   def create
-    @section = Section.new(params[:section])
+    meeting = Meeting.find(params[:meeting][:id])
+    @section = meeting.sections.build(params[:section])
 
     respond_to do |format|
       if @section.save
@@ -73,10 +75,11 @@ class SectionsController < ApplicationController
   # DELETE /sections/1.json
   def destroy
     @section = Section.find(params[:id])
+    meeting = Meeting.find(@section.meeting)
     @section.destroy
 
     respond_to do |format|
-      format.html { redirect_to sections_url }
+      format.html { redirect_to meeting }
       format.json { head :no_content }
     end
   end

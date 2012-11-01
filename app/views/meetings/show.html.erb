@@ -10,11 +10,29 @@
   <%= @meeting.descr %>
 </p>
 
-<p>
-  <b>User:</b>
-  <%= link_to @meeting.user %>
-</p>
+<h1>Список секций</h1>
 
+<table>
+  <tr>
+    <th>Название</th>
+    <th></th>
+    <th></th>
+  </tr>
 
-<%= link_to 'Edit', edit_meeting_path(@meeting) %> |
-<%= link_to 'Back', meetings_path %>
+<% @meeting.sections.each do |section| %>
+  <tr>
+    <td><%= link_to section.name, section  %></td>
+    <td><%= link_to 'Edit', edit_section_path(section) %></td>
+    <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<div>
+  <%= link_to 'Новая секция', new_meeting_section_path(@meeting) %>
+</div>
+
+<div>
+  <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
+  <%= link_to 'Back', meetings_path %>
+</div>

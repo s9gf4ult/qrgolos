@@ -1,7 +1,9 @@
 Ruvote::Application.routes.draw do
-  resources :sections
+  resources :sections, :only => [:show, :edit, :create, :update, :destroy]
 
-  resources :meetings
+  resources :meetings do
+    resources :sections, :only => [:new]
+  end
 
   devise_for :users
 
