@@ -1,20 +1,9 @@
 class QuestionsController < ApplicationController
-  # GET /questions
-  # GET /questions.json
-  def index
-    @questions = Question.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @questions }
-    end
-  end
-
   # GET /questions/1
   # GET /questions/1.json
   def show
     @question = Question.find(params[:id])
-
+    add_brc(@question)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @question }
@@ -24,7 +13,8 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   # GET /questions/new.json
   def new
-    @question = Question.new
+    @section = Section.find(params[:section_id])
+    @question = @section.questions.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,7 +30,8 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(params[:question])
+    section = Section.find(params[:section][:id])
+    @question = section.questions.build(params[:question])
 
     respond_to do |format|
       if @question.save
@@ -73,11 +64,21 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1.json
   def destroy
     @question = Question.find(params[:id])
+    section = Section.find(@question.section)
     @question.destroy
 
     respond_to do |format|
-      format.html { redirect_to questions_url }
+      format.html { redirect_to section }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def add_brc(question)
+    s = question.section
+    m = s.meeting
+    add_breadcrumb m.name, m
+    add_breadcrumb s.name, s
   end
 end

@@ -1,7 +1,9 @@
 Ruvote::Application.routes.draw do
-  resources :questions
+  resources :questions, :only => [:show, :edit, :create, :update, :destroy]
 
-  resources :sections, :only => [:show, :edit, :create, :update, :destroy]
+  resources :sections, :only => [:show, :edit, :create, :update, :destroy] do
+    resources :questions, :only => [:new]
+  end
 
   resources :meetings do
     resources :sections, :only => [:new]

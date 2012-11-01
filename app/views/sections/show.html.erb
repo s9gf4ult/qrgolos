@@ -10,6 +10,33 @@
   <%= @section.meeting.name %>
 </p>
 
+<h1>Список вопросов</h1>
 
-<%= link_to 'Edit', edit_section_path(@section) %> |
-<%= link_to 'Back', @section.meeting %>
+<table>
+  <tr>
+    <th>Question</th>
+    <th>State</th>
+    <th>Kind</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @section.questions.each do |question| %>
+  <tr>
+    <td><%= link_to question.question, question %></td>
+    <td><%= question.state %></td>
+    <td><%= question.kind %></td>
+    <td><%= link_to 'Edit', edit_question_path(question) %></td>
+    <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<div>
+  <%= link_to 'New Question', new_section_question_path(@section) %>
+</div>
+
+<div>
+  <%= link_to 'Edit', edit_section_path(@section) %> |
+  <%= link_to 'Back', @section.meeting %>
+</div>

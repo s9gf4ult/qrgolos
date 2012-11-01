@@ -11,10 +11,10 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :section_id %><br />
-    <%= f.number_field :section_id %>
-  </div>
+  <%= fields_for @question.section do |sf| %>
+    <%= sf.hidden_field :id %>
+  <% end %>
+  
   <div class="field">
     <%= f.label :question %><br />
     <%= f.text_field :question %>
