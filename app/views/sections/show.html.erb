@@ -14,9 +14,9 @@
 
 <table>
   <tr>
-    <th>Question</th>
-    <th>State</th>
-    <th>Kind</th>
+    <th>Вопрос</th>
+    <th>Состояние</th>
+    <th>Тип</th>
     <th></th>
     <th></th>
   </tr>
@@ -24,8 +24,8 @@
 <% @section.questions.each do |question| %>
   <tr>
     <td><%= link_to question.question, question %></td>
-    <td><%= question.state %></td>
-    <td><%= question.kind %></td>
+    <td><%= t question.state %></td>
+    <td><%= t question.kind %></td>
     <td><%= link_to 'Edit', edit_question_path(question) %></td>
     <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -37,6 +37,6 @@
 </div>
 
 <div>
-  <%= link_to 'Edit', edit_section_path(@section) %> |
-  <%= link_to 'Back', @section.meeting %>
+  <%= link_to (t :edit), edit_section_path(@section) %> |
+  <%= link_to (t :back), @section.meeting %>
 </div>

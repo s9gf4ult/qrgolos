@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
 
   private
   def set_initial_breadcrumbs
-    add_breadcrumb "Home", "/"
+    add_breadcrumb (t :home), "/"
   end
 end
