@@ -1,16 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
+  <b><%= t "sections.name" %></b>
   <%= @section.name %>
 </p>
 
-<p>
-  <b>Meeting:</b>
-  <%= @section.meeting.name %>
-</p>
-
-<h1>Список вопросов</h1>
+<h1><%= t "sections.questions" %></h1>
 
 <table>
   <tr>

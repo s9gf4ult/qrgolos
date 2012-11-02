@@ -1,4 +1,8 @@
 ru:
+  sections:
+    name: "Название секции"
+    questions: "Список вопросов"
+  question: "вопрос"
   active: "Активный"
   new: "Новый"
   answered: "Отвеченный"
