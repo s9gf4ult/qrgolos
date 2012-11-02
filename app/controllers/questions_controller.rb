@@ -34,7 +34,7 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     section = Section.find(params[:section][:id])
-    @question = section.questions.build(params[:question])
+    @question = section.questions.build(params[:question].except(:state).merge(:state => "new"))
 
     respond_to do |format|
       if @question.save
@@ -53,7 +53,7 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
 
     respond_to do |format|
-      if @question.update_attributes(params[:question])
+      if @question.update_attributes(params[:question].except(:state))
         format.html { redirect_to @question, notice: 'Question was successfully updated.' }
         format.json { head :no_content }
       else

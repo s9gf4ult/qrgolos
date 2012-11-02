@@ -14,19 +14,17 @@
   <%= fields_for @question.section do |sf| %>
     <%= sf.hidden_field :id %>
   <% end %>
+
   
   <div class="field">
     <%= f.label :question %><br />
-    <%= f.text_field :question %>
+    <%= f.text_area :question %>
   </div>
-  <div class="field">
-    <%= f.label :state %><br />
-    <%= f.text_field :state %>
+
+  <div>
+  <%= f.collection_select :kind, @question.kinds, :first, :last %>
   </div>
-  <div class="field">
-    <%= f.label :kind %><br />
-    <%= f.text_field :kind %>
-  </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>
