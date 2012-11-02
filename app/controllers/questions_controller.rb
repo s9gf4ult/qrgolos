@@ -1,9 +1,11 @@
 class QuestionsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:show]
+  
   # GET /questions/1
   # GET /questions/1.json
   def show
     @question = Question.find(params[:id])
-    add_brc(@question)
+    question_breadcrumb @question
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @question }
@@ -15,7 +17,7 @@ class QuestionsController < ApplicationController
   def new
     @section = Section.find(params[:section_id])
     @question = @section.questions.build
-
+    question_breadcrumb @question
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @question }
@@ -25,6 +27,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
+    question_breadcrumb @question
   end
 
   # POST /questions
@@ -71,14 +74,5 @@ class QuestionsController < ApplicationController
       format.html { redirect_to section }
       format.json { head :no_content }
     end
-  end
-
-  private
-
-  def add_brc(question)
-    s = question.section
-    m = s.meeting
-    add_breadcrumb m.name, m
-    add_breadcrumb s.name, s
   end
 end

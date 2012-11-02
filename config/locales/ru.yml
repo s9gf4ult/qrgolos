@@ -2,6 +2,9 @@ ru:
   sections:
     name: "Название секции"
     questions: "Список вопросов"
+    no-access: "Вы не можете менять эту секцию"
+  meetings:
+    no-access: "У вас нет прав изменять это мероприятие"
   question: "вопрос"
   active: "Активный"
   new: "Новый"

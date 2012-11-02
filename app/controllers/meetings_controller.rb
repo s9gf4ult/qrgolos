@@ -1,6 +1,6 @@
 class MeetingsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:create, :update, :destroy, :new, :edit]
-  before_filter :is_meeting_my, :only => [:update, :destroy]
+  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :just_my_meetings, :only => [:update, :destroy]
   
   # GET /meetings
   # GET /meetings.json
@@ -22,6 +22,7 @@ class MeetingsController < ApplicationController
   # GET /meetings/1.json
   def show
     @meeting = Meeting.find(params[:id])
+    meeting_breadcrumb @meeting
 
     respond_to do |format|
       format.html # show.html.erb
@@ -33,6 +34,7 @@ class MeetingsController < ApplicationController
   # GET /meetings/new.json
   def new
     @meeting = Meeting.new
+    meeting_breadcrumb @meeting
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,6 +45,7 @@ class MeetingsController < ApplicationController
   # GET /meetings/1/edit
   def edit
     @meeting = Meeting.find(params[:id])
+    meeting_breadcrumb @meeting
   end
 
   # POST /meetings
@@ -85,15 +88,14 @@ class MeetingsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
   
-  def is_meeting_my
+  def just_my_meetings
     @meeting = Meeting.find(params[:id])
-    if @meeting.user != current_user
-      flash[:error] = "You have no rignts to do that"
+    if not meeting_owner?(@meeting)
+      flash[:error] = t "meetings.no-access"
       redirect_to meetings_path
     end
   end
-
 end

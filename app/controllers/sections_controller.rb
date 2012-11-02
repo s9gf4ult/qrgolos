@@ -1,9 +1,12 @@
 class SectionsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:show]
+  before_filter :just_my_sections, :only => [:update, :destroy]
+  
   # GET /sections/1
   # GET /sections/1.json
   def show
     @section = Section.find(params[:id])
-    add_breadcrumb @section.meeting.name, @section.meeting
+    section_breadcrumb @section
     
     respond_to do |format|
       format.html # show.html.erb
@@ -16,6 +19,7 @@ class SectionsController < ApplicationController
   def new
     @meeting = Meeting.find(params[:meeting_id])
     @section = @meeting.sections.build
+    section_breadcrumb @section
     
     respond_to do |format|
       format.html # new.html.erb
@@ -26,6 +30,7 @@ class SectionsController < ApplicationController
   # GET /sections/1/edit
   def edit
     @section = Section.find(params[:id])
+    section_breadcrumb
   end
 
   # POST /sections
@@ -48,8 +53,6 @@ class SectionsController < ApplicationController
   # PUT /sections/1
   # PUT /sections/1.json
   def update
-    @section = Section.find(params[:id])
-
     respond_to do |format|
       if @section.update_attributes(params[:section])
         format.html { redirect_to @section, notice: 'Section was successfully updated.' }
@@ -64,13 +67,21 @@ class SectionsController < ApplicationController
   # DELETE /sections/1
   # DELETE /sections/1.json
   def destroy
-    @section = Section.find(params[:id])
     meeting = Meeting.find(@section.meeting)
     @section.destroy
 
     respond_to do |format|
       format.html { redirect_to meeting }
       format.json { head :no_content }
+    end
+  end
+
+  private
+  def just_my_sections
+    @section = Section.find(params[:id])
+    if not section_owner?(@section)
+      flash[:error] = t "sections.no-access"
+      redirect_to @section.meeting
     end
   end
 end
