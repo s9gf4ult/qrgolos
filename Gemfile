@@ -12,6 +12,7 @@ group :test, :development do
 end
 
 gem 'devise'
+gem 'devise-russian'
 gem 'rails-breadcrumbs'
 gem 'russian', '~> 0.6.0'
 

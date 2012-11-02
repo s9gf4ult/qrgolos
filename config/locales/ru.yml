@@ -10,3 +10,5 @@ ru:
   back: "Назад"
   home: "Главная"
   delete: "Удалить"
+  logout: "Выйти"
+  login: "Войти"
