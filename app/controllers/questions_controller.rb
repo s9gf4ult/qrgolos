@@ -75,4 +75,32 @@ class QuestionsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def activate
+    @question = Question.find(params[:id])
+    @question.state = "active"
+    respond_to do |format|
+      if @question.save
+        format.html { redirect_to @question.section, notice: (t "questions.activated") }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def cancel
+    @question = Question.find(params[:id])
+    @question.state = "canceled"
+    respond_to do |format|
+      if @question.save
+        format.html { redirect_to @question.section, notice: (t "questions.canceled") }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 end

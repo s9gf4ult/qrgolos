@@ -1,5 +1,10 @@
 Ruvote::Application.routes.draw do
-  resources :questions, :only => [:show, :edit, :create, :update, :destroy]
+  resources :questions, :only => [:show, :edit, :create, :update, :destroy] do
+    member do
+      post 'activate'
+      post 'cancel'
+    end
+  end
 
   resources :sections, :only => [:show, :edit, :create, :update, :destroy] do
     resources :questions, :only => [:new]

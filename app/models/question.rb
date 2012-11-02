@@ -1,4 +1,6 @@
 class Question < ActiveRecord::Base
+  before_save :deactivate_others
+  
   attr_accessible :kind, :question, :state
   belongs_to :section
   validates :question, :kind, :state, :presence => true
@@ -21,4 +23,19 @@ class Question < ActiveRecord::Base
       [k, I18n.translate(k)]
     end
   end
+
+  private
+
+  def deactivate_others
+    if self.state == "active"
+      self.section.questions.each do |q|
+        if q != self and q.state == 'active'
+          q.state = "answered"
+          q.save
+        end
+      end
+    end
+  end
+
+
 end

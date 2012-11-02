@@ -5,6 +5,11 @@ ru:
     no-access: "Вы не можете менять эту секцию"
   meetings:
     no-access: "У вас нет прав изменять это мероприятие"
+  questions:
+    activated: "Вопрос активирован"
+    activate: "Активировать"
+    canceled: "Вопрос отменен"
+    cancel: "Отменить"
   question: "вопрос"
   active: "Активный"
   new: "Новый"
