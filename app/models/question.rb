@@ -28,8 +28,8 @@ class Question < ActiveRecord::Base
 
   def deactivate_others
     if self.state == "active"
-      self.section.questions.each do |q|
-        if q != self and q.state == 'active'
+      self.section.questions.where(:state => "active").each do |q|
+        if q != self
           q.state = "answered"
           q.save
         end

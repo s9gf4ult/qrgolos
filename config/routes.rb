@@ -1,4 +1,6 @@
 Ruvote::Application.routes.draw do
+  resources :answer_variants
+
   resources :questions, :only => [:show, :edit, :create, :update, :destroy] do
     member do
       post 'activate'
