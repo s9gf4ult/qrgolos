@@ -3,6 +3,7 @@ class Question < ActiveRecord::Base
   
   attr_accessible :kind, :question, :state
   belongs_to :section
+  has_many :answer_variants, :order => "position asc"
   validates :question, :kind, :state, :presence => true
   validates :question, :uniqueness => {:scope => [:section_id]}
   validates :kind, :inclusion => {:in => %w(radio check stars)}

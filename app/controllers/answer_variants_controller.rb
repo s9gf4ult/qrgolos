@@ -1,15 +1,4 @@
 class AnswerVariantsController < ApplicationController
-  # GET /answer_variants
-  # GET /answer_variants.json
-  def index
-    @answer_variants = AnswerVariant.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @answer_variants }
-    end
-  end
-
   # GET /answer_variants/1
   # GET /answer_variants/1.json
   def show
@@ -24,7 +13,8 @@ class AnswerVariantsController < ApplicationController
   # GET /answer_variants/new
   # GET /answer_variants/new.json
   def new
-    @answer_variant = AnswerVariant.new
+    question = Question.find(params[:question_id])
+    @answer_variant = question.answer_variants.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,7 +30,8 @@ class AnswerVariantsController < ApplicationController
   # POST /answer_variants
   # POST /answer_variants.json
   def create
-    @answer_variant = AnswerVariant.new(params[:answer_variant])
+    question = Question.find(params[:question][:id])
+    @answer_variant = question.answer_variants.build(params[:answer_variant])
 
     respond_to do |format|
       if @answer_variant.save
@@ -73,10 +64,11 @@ class AnswerVariantsController < ApplicationController
   # DELETE /answer_variants/1.json
   def destroy
     @answer_variant = AnswerVariant.find(params[:id])
+    question = Question.find(@answer_variant.question)
     @answer_variant.destroy
 
     respond_to do |format|
-      format.html { redirect_to answer_variants_url }
+      format.html { redirect_to question }
       format.json { head :no_content }
     end
   end

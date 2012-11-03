@@ -11,10 +11,10 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :question_id %><br />
-    <%= f.number_field :question_id %>
-  </div>
+  <%= fields_for @answer_variant.question do |qf| %>
+  <%= qf.hidden_field :id %>
+  <% end %>
+  
   <div class="field">
     <%= f.label :text %><br />
     <%= f.text_field :text %>

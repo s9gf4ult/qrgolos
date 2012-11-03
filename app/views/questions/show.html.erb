@@ -2,19 +2,39 @@
 
 <p>
   <b>Question:</b>
-  <%= @question.question %>
+  <div>
+    <%= @question.question %>
+  </div>
 </p>
 
 <p>
   <b>State:</b>
-  <%= @question.state %>
+  <%= t @question.state %>
 </p>
 
 <p>
   <b>Kind:</b>
-  <%= @question.kind %>
+  <%= t @question.kind %>
 </p>
 
+<h1>Варианты ответа</h1>
 
-<%= link_to 'Edit', edit_question_path(@question) %> |
-<%= link_to 'Back', @question.section %>
+<table>
+<% @question.answer_variants.each do |answer_variant| %>
+  <tr>
+    <td><%= answer_variant.position %></td>
+    <td><%= link_to answer_variant.text, answer_variant %></td>
+    <td><%= link_to (t :edit), edit_answer_variant_path(answer_variant) %></td>
+    <td><%= link_to (t :delete), answer_variant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<div>
+  <%= link_to 'New Answer variant', new_question_answer_variant_path(@question) %>
+</div>
+
+<div>
+  <%= link_to 'Edit', edit_question_path(@question) %> |
+  <%= link_to 'Back', @question.section %>
+</div>
