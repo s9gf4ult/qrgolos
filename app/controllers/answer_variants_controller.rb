@@ -31,7 +31,8 @@ class AnswerVariantsController < ApplicationController
   # POST /answer_variants.json
   def create
     question = Question.find(params[:question][:id])
-    @answer_variant = question.answer_variants.build(params[:answer_variant])
+    @answer_variant = question.answer_variants.build(params[:answer_variant].except(:position))
+    @answer_variant.position = @answer_variant.last_position
 
     respond_to do |format|
       if @answer_variant.save
@@ -50,7 +51,7 @@ class AnswerVariantsController < ApplicationController
     @answer_variant = AnswerVariant.find(params[:id])
 
     respond_to do |format|
-      if @answer_variant.update_attributes(params[:answer_variant])
+      if @answer_variant.update_attributes(params[:answer_variant].except(:position))
         format.html { redirect_to @answer_variant, notice: 'Answer variant was successfully updated.' }
         format.json { head :no_content }
       else
@@ -72,4 +73,32 @@ class AnswerVariantsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def bringup
+    @answer_variant = AnswerVariant.find(params[:id])
+    respond_to do |format|
+      if @answer_variant.bringup
+        format.html { redirect_to @answer_variant.question, :notice => (t :bringed_up) }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @answer_variant.question, :error => "Error" }
+        format.json { render :json => "can not bring up", :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  def bringdown
+    @answer_variant = AnswerVariant.find(params[:id])
+    respond_to do |format|
+      if @answer_variant.bringdown
+        format.html { redirect_to @answer_variant.question, :notice => (t :bringed_down) }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @answer_variant.question, :error => "Error" }
+        format.json { render :json => "can not bring up", :status => :unprocessable_entity }
+      end
+    end
+  end
+  
+  
 end
