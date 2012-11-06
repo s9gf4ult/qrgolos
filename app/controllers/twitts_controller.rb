@@ -1,0 +1,2 @@
+class TwittsController < ApplicationController
+end

@@ -1,4 +1,6 @@
 Ruvote::Application.routes.draw do
+  resources :twitts
+
   resources :answer_variants, :only => [:show, :edit, :create, :update, :destroy] do
     member do
       post 'bringup'
