@@ -30,7 +30,7 @@ class SectionsController < ApplicationController
   # GET /sections/1/edit
   def edit
     @section = Section.find(params[:id])
-    section_breadcrumb
+    section_breadcrumb @section
   end
 
   # POST /sections

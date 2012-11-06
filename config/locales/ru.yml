@@ -11,6 +11,7 @@ ru:
     canceled: "Вопрос отменен"
     cancel: "Отменить"
   active: "Активный"
+  anonymous_count: "Количество табличек"
   answered: "Отвеченный"
   back: "Назад"
   bring_down: "Вниз"

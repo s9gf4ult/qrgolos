@@ -18,6 +18,12 @@
   <%= fields_for @section.meeting do |mf| %>
     <%= mf.hidden_field :id %>
   <% end %>
+
+  <div class="field">
+    <%= f.label (t :anonymous_count) %> <br />
+    <%= f.number_field :anonymous_count %>
+  </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>
