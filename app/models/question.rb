@@ -1,4 +1,5 @@
 class Question < ActiveRecord::Base
+  after_initialize :set_defaults
   before_save :deactivate_others
   
   attr_accessible :kind, :question, :state
@@ -38,5 +39,8 @@ class Question < ActiveRecord::Base
     end
   end
 
-
+  def set_defaults
+    self.state ||= "new"
+    self.kind ||= "radio"
+  end
 end

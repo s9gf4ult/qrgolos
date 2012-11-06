@@ -3,6 +3,8 @@ class Anonymous < ActiveRecord::Base
   
   attr_accessible :active, :aid, :fake
   belongs_to :section
+  has_many :twitts
+  
   validates :aid, :presence => true
   validates :aid, :uniqueness => true
   validates_each :fake do |record, attr, value|
