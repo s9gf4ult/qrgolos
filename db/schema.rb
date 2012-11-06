@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121103185601) do
+ActiveRecord::Schema.define(:version => 20121106034313) do
+
+  create_table "anonymous", :force => true do |t|
+    t.integer  "section_id"
+    t.string   "aid"
+    t.boolean  "fake"
+    t.boolean  "active"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "answer_variants", :force => true do |t|
     t.integer  "question_id"
