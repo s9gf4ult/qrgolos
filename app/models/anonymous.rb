@@ -3,9 +3,13 @@ class Anonymous < ActiveRecord::Base
   
   attr_accessible :active, :aid, :fake
   belongs_to :section
-  validates :active, :aid, :fake, :presence => true
-  validates :fake, :uniqueness => {:scope => [:section_id]}
+  validates :aid, :presence => true
   validates :aid, :uniqueness => true
+  validates_each :fake do |record, attr, value|
+    if value and record.section.anonymouss.where(:fake => true).first
+      record.errors.add(attr, "Fake already exists in this section")
+    end
+  end
 
   def find_aid
     def gen_numbers(count)
@@ -27,7 +31,9 @@ class Anonymous < ActiveRecord::Base
 
   private
   def set_defaults
-    self.active ||= true
+    if self.active != false
+      self.active = true
+    end
     self.aid ||= self.find_aid
     self.fake ||= false
   end
