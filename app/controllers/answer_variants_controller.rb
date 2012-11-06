@@ -3,7 +3,7 @@ class AnswerVariantsController < ApplicationController
   # GET /answer_variants/1.json
   def show
     @answer_variant = AnswerVariant.find(params[:id])
-
+    answer_variant_breadcrumb @answer_variant
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @answer_variant }
@@ -15,7 +15,7 @@ class AnswerVariantsController < ApplicationController
   def new
     question = Question.find(params[:question_id])
     @answer_variant = question.answer_variants.build
-
+    answer_variant_breadcrumb @answer_variant
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @answer_variant }
@@ -25,6 +25,7 @@ class AnswerVariantsController < ApplicationController
   # GET /answer_variants/1/edit
   def edit
     @answer_variant = AnswerVariant.find(params[:id])
+    answer_variant_breadcrumb @answer_variant
   end
 
   # POST /answer_variants

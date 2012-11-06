@@ -24,6 +24,11 @@ class ApplicationController < ActionController::Base
     add_breadcrumb question.question, question
   end
 
+  def answer_variant_breadcrumb(answer_variant)
+    question_breadcrumb answer_variant.question
+    add_breadcrumb answer_variant.text, answer_variant
+  end
+
   def meeting_owner?(meeting)
     user_signed_in? and meeting.user == current_user
   end
