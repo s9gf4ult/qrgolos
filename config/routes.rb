@@ -1,4 +1,7 @@
 Ruvote::Application.routes.draw do
+
+  resources :s, :only => [:show, :index]
+  
   resources :twitts, :only => [:create, :update, :destroy]
 
   resources :answer_variants, :only => [:show, :edit, :create, :update, :destroy] do
