@@ -3,7 +3,9 @@ class Anonymous < ActiveRecord::Base
   
   attr_accessible :active, :aid, :fake
   belongs_to :section
-  has_many :twitts
+  has_many :twitts, :dependent => :delete_all
+  has_many :votes, :dependent => :delete_all
+  has_many :answer_variants, :through => :votes
   
   validates :aid, :presence => true
   validates :aid, :uniqueness => true

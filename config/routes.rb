@@ -1,10 +1,11 @@
 Ruvote::Application.routes.draw do
 
-  resources :votes
 
   get "home" => 'static#home'
 
-  resources :s, :only => [:show, :index]
+  resources :s, :only => [:show, :index] do
+    resources :votes, :only => [:create]
+  end
   
   resources :twitts, :only => [:create, :update, :destroy]
 
