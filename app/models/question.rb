@@ -1,6 +1,5 @@
 class Question < ActiveRecord::Base
   after_initialize :set_defaults
-  before_save :deactivate_others
   
   attr_accessible :kind, :question, :state
   belongs_to :section
@@ -27,17 +26,6 @@ class Question < ActiveRecord::Base
   end
 
   private
-
-  def deactivate_others
-    if self.state == "active"
-      self.section.questions.where(:state => "active").each do |q|
-        if q != self
-          q.state = "answered"
-          q.save
-        end
-      end
-    end
-  end
 
   def set_defaults
     self.state ||= "new"

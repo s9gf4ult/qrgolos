@@ -7,7 +7,20 @@ class Section < ActiveRecord::Base
   validates :name, :uniqueness => {:scope => :meeting_id}
 
   def active_question
-    self.questions.where(:active => true).first
+    self.questions.where(:state => "active").first
+  end
+
+  def active_question=(question)
+    if question == nil or (question.section == self and question.state != "active")
+      self.transaction do
+        self.questions.where(:state => "active").each do |q|
+          q.update_attribute(:state, "answered")
+        end
+        if question
+          question.update_attribute(:state, "active")
+        end
+      end
+    end
   end
 
   def anonymous_count=(need)

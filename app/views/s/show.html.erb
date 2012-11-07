@@ -1,3 +1,20 @@
-<% if @anonymous %>
-<%= @anonymous.id %>
+<div>
+  <b><%= t "sections.name" %></b>
+  <%= @anonymous.section.name %>
+</div>
+
+<% if @active %>
+<div>
+  <% if @active.kind == "radio"%>
+    <%= render 'radio_question' %>
+  <% elsif @active.kind == "check"%>
+    <%= render 'check_question' %>
+  <% elsif @active.kind == "stars"%>
+    <%= render 'stars_question' %>
+  <% end %>
+</div>
+<% else %>
+<div>
+  Сейчас нет активных вопросов
+</div>
 <% end %>

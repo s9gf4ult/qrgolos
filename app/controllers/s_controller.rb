@@ -8,7 +8,7 @@ class SController < ApplicationController
   end
 
   def show
-    
+    @active = @anonymous.section.active_question
   end
 
   private
