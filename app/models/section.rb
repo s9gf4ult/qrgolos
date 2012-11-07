@@ -6,6 +6,10 @@ class Section < ActiveRecord::Base
   validates :name, :presence => true
   validates :name, :uniqueness => {:scope => :meeting_id}
 
+  def active_question
+    self.questions.where(:active => true).first
+  end
+
   def anonymous_count=(need)
     need = need.to_i
     self.transaction do 
