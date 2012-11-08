@@ -37,10 +37,11 @@ class SectionsController < ApplicationController
   # POST /sections.json
   def create
     meeting = Meeting.find(params[:meeting][:id])
-    @section = meeting.sections.build(params[:section])
+    @section = meeting.sections.build(params[:section].except(:anonymous_count))
 
     respond_to do |format|
       if @section.save
+        @section.anonymous_count = params[:section][:anonymous_count]
         format.html { redirect_to @section, notice: 'Section was successfully created.' }
         format.json { render json: @section, status: :created, location: @section }
       else
