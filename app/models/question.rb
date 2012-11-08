@@ -13,6 +13,10 @@ class Question < ActiveRecord::Base
     self.answer_variants.joins(:votes => :anonymous).where("anonymous.id" => anonymous)
   end
 
+  def question_answered?(anonymous)
+    self.voted_variants(anonymous).first != nil
+  end
+
   def kinds
     Question.validators_on(:kind).select do |v|
       v.kind_of? ActiveModel::Validations::InclusionValidator

@@ -5,12 +5,18 @@
 
 <% if @active %>
 <div>
-  <% if @active.kind == "radio"%>
-    <%= render 'radio_question' %>
-  <% elsif @active.kind == "check"%>
-    <%= render 'check_question' %>
-  <% elsif @active.kind == "stars"%>
-    <%= render 'stars_question' %>
+  <% if @active.question_answered? @anonymous %>
+  <div>
+    Вы уже ответили на этот вопрос, ожидайте пожалуйста.
+  </div>
+  <% else %>
+    <% if @active.kind == "radio"%>
+      <%= render 'radio_question' %>
+    <% elsif @active.kind == "check"%>
+      <%= render 'check_question' %>
+    <% elsif @active.kind == "stars"%>
+      <%= render 'stars_question' %>
+    <% end %>
   <% end %>
 </div>
 <% else %>

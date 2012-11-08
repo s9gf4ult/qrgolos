@@ -14,7 +14,7 @@ class SController < ApplicationController
   private
   def get_anonymous
     @anonymous = Anonymous.where(:fake => false, :aid => params[:id]).first
-    #  FIXME: make anonymous remember last time link pass
+    #  FIXME: make anonymous remember last time user entered
     if @anonymous
       session[:anonymous_id] = @anonymous.id
     else
