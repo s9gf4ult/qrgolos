@@ -1,50 +1,30 @@
-
 <% if user_signed_in? %>
-<h2>Мои мероприятия</h2>
-<table>
-  <tr>
-    <th><%= t "meetings.name" %></th>
-    <th>Descr</th>
-    <th>User</th>
-    <th></th>
-    <th></th>
-  </tr>
+  <div id="formHeader">Мои мероприятия</div>
 
-<% @my_meetings.each do |meeting| %>
-  <tr>
-    <td><%= link_to meeting.name, meeting %></td>
-    <td><%= meeting.descr %></td>
-    <td><%= meeting.user.email %></td>
-    <td><%= link_to 'Редактировать', edit_meeting_path(meeting) %></td>
-    <td><%= link_to 'Удалить', meeting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+    <div id="mtng">
+      <% @my_meetings.each do |meeting| %>
+      <div id="mtng" class="name"><%= link_to meeting.name, meeting %></div>
+      <div id="mtng" class="descr"><%= meeting.descr %></div>
+      <div id="mtng" class="edit">
+	<%= link_to 'Редактировать', edit_meeting_path(meeting) %>
+	<%= link_to 'Удалить', meeting, method: :delete, data: { confirm: 'Are you sure?' } %>    
+      </div>
+      <% end %>
+    </div>
 
-<br />
-
-<%= link_to 'Создать', new_meeting_path %>
+    <%= link_to 'Создать', new_meeting_path, :class => "button" %>
 
 <% end %>
 
 <% if user_signed_in? %>
-	<h2>Все мерприятия</h2>
+  <div id="formHeader">Все мерприятия</div>
 <% else %>
-	<h2>Мероприятия</h2>
+  <div id="formHeader">Мероприятия</div>
 <% end %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Descr</th>
-    <th>User</th>
-  </tr>
-
+<div class="meetings">
 <% @meetings.each do |meeting| %>
-  <tr>
-    <td><%= meeting.name %></td>
-    <td><%= meeting.descr %></td>
-    <td><%= meeting.user.email %></td>
-  </tr>
+    <div id="mtng" class="name"><%= link_to meeting.name, meeting %></div>
+    <div id="mtng" class="descr"><%= meeting.descr %></div>
 <% end %>
-</table>
+</div>

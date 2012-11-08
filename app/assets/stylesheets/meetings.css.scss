@@ -1,15 +1,42 @@
-// Place all the styles related to the meetings controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-#meeting_descr {
-	width: 100%;
-	border-color: #CCC;
+#mtng.descr {
+  width: 100%;
+  border-color: #CCC;
 }
 
-#meeting_name {
-	width: 100%;
-	border-color: #CCC;
-	border-style: solid;
-	border-width: 1px;
+#mtng.name a {
+  color: #333;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: arial, serif;
+}
+#mtng.name {
+  color: #333;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: arial, serif;
+}
+
+#mtng.edit {
+  float: right;
+}
+
+#sctn.name a {
+  color: #333;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: arial, serif;
+}
+#sctn.name {
+  color: #333;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: arial, serif;
+}
+
+#sctn.edit {
+  float: right;
 }

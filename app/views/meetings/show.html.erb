@@ -1,38 +1,31 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b><%= t "meetings.name" %></b>
-  <%= @meeting.name %>
-</p>
+<div id="formHeader"></div>
 
-<p>
-  <b>Descr:</b>
-  <%= @meeting.descr %>
-</p>
+<div id="mtng">
+    <div id="mtng" class="name"><%= @meeting.name %></div>
+    <div id="mtng" class="descr"><%= @meeting.descr %></div>
+</div>
 
-<h1>Список секций</h1>
 
-<table>
-  <tr>
-    <th>Название</th>
-    <th></th>
-    <th></th>
-  </tr>
+<div id="formHeader">Список секций</div>
 
+<div id="sctn">
 <% @meeting.sections.each do |section| %>
-  <tr>
-    <td><%= link_to section.name, section  %></td>
-    <td><%= link_to 'Edit', edit_section_path(section) %></td>
-    <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+    <div id="sctn" class="name"><%= link_to section.name, section  %></div>
+    <!--<div id="sctn" class="descr">< %= link_to section.descr, section  %></div>-->
+    <div id="sctn" class="edit">
+      <%= link_to 'Edit', edit_section_path(section) %>
+      <%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
 <% end %>
-</table>
-
-<div>
-  <%= link_to 'Новая секция', new_meeting_section_path(@meeting) %>
 </div>
 
 <div>
-  <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
-  <%= link_to 'Back', meetings_path %>
+  <%= link_to 'Новая секция', new_meeting_section_path(@meeting), :class => "button"%>
 </div>
+
+<!--
+  < %= link_to 'Edit', edit_meeting_path(@meeting) %> |
+  < %= link_to 'Back', meetings_path %>
+-->
