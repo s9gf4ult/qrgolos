@@ -4,10 +4,11 @@
     <div id="mtng">
       <% @my_meetings.each do |meeting| %>
       <div id="mtng" class="name"><%= link_to meeting.name, meeting %></div>
-      <div id="mtng" class="descr"><%= meeting.descr %></div>
-      <div id="mtng" class="edit">
-	<%= link_to 'Редактировать', edit_meeting_path(meeting) %>
-	<%= link_to 'Удалить', meeting, method: :delete, data: { confirm: 'Are you sure?' } %>    
+      <div id="mtng" class="descr"><div><%= meeting.descr %></div>
+	<div id="mtng" class="edit">
+	  <%= link_to 'Редактировать', edit_meeting_path(meeting), :class => "small_button" %>
+	  <%= link_to 'Удалить', meeting, method: :delete, data: { confirm: 'Удалить ?' }, :class => "small_button"%>
+	</div>
       </div>
       <% end %>
     </div>

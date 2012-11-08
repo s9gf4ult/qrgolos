@@ -11,20 +11,23 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="input-wrapper">
+        <%= f.text_field :name, :placeholder => "Название секции" %>
+  </div>
+  <br />
+    <div class="input-wrapper">
+        <%= f.text_area :descr, :placeholder => "Описание секции, тезисы" %>
   </div>
   <%= fields_for @section.meeting do |mf| %>
     <%= mf.hidden_field :id %>
   <% end %>
-
-  <div class="field">
-    <%= f.label (t :anonymous_count) %> <br />
-    <%= f.number_field :anonymous_count %>
+<br />
+  <div class="input-wrapper-num">
+    <%= f.label "Количество участников секции" %>: <%= f.number_field :anonymous_count, :min => 0, :max => 1000, :value => 10, :step => 10 %>
   </div>
-  
-  <div class="actions">
-    <%= f.submit %>
+<hr>
+  <div class="action2s">
+    <%= link_to 'Back', @section.meeting, :class => "button" %>
+    <%= f.submit :class => "button", :style => "float: right;"%>
   </div>
 <% end %>

@@ -37,10 +37,11 @@
 </table>
 
 <div>
-  <%= link_to 'New Question', new_section_question_path(@section) %>
+  <%= link_to 'Создать', new_section_question_path(@section), :class => "button" %>
 </div>
 
-<div>
-  <%= link_to (t :edit), edit_section_path(@section) %> |
-  <%= link_to (t :back), @section.meeting %>
-</div>
+
+<!--
+< %= link_to (t :edit), edit_section_path(@section) %> |
+< %= link_to (t :back), @section.meeting %> -->
+
