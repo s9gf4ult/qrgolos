@@ -37,7 +37,7 @@ class AnswerVariantsController < ApplicationController
 
     respond_to do |format|
       if @answer_variant.save
-        format.html { redirect_to @answer_variant, notice: 'Answer variant was successfully created.' }
+        format.html { redirect_to @answer_variant.question, notice: 'Answer variant was successfully created.' }
         format.json { render json: @answer_variant, status: :created, location: @answer_variant }
       else
         format.html { render action: "new" }

@@ -1,0 +1,16 @@
+<div>
+<%= @active.question %>
+</div>
+<div>
+  <%= form_tag check_path(@anonymous.aid), :method => :post do %>
+  <div>
+    <% @active.answer_variants.each do |aw| %>
+    <div>
+      <%= check_box_tag 'answer_variant[id][]', aw.id %>
+      <%= label :answer_variant, :id, aw.text, :value => aw.id %>
+    </div>
+    <% end %>
+  </div>
+  <%= submit_tag (t 'votes.do-vote') %>
+  <% end %>
+</div>

@@ -5,6 +5,7 @@ Ruvote::Application.routes.draw do
 
   resources :s, :only => [:show, :index] do
     post 'radio' => 'votes#radio_vote'
+    post 'check' => 'votes#check_vote'
   end
   
   resources :twitts, :only => [:create, :update, :destroy]
