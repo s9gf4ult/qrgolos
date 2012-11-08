@@ -1,36 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ruvote</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="resource-type" content="document" />
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="images/favicon.ico" />
+<link rel="apple-touch-icon-precomposed" type="image/png" href="images/icon-for-apple-114x114.png" />
+<title>RuVote</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-	<nav>
-		<% if user_signed_in? %>
-			<%= link_to (t :logout), destroy_user_session_path, :method => :delete %>
-		<% else %>
-			<%= link_to (t :login), new_user_session_path %> 
-		<% end %>
-	</nav>
-    <div>
-      <%= breadcrumbs("/") %>
-    </div>
-	<div class="messages">
-	    <% if flash[:notice] %>
-	      <p class="notice"><%= flash[:notice] %></p>
-	    <% end %>
-	    <% if flash[:alert] %>
-	      <p class="alert"><%= flash[:alert] %></p>
-	    <% end %>
 
-	    <% if flash[:error] %>
-	      <p class="error"><%= flash[:error] %></p>
-	    <% end %>
-	</div>
-	
+<body>
+
+<div id="header" class="home">
+    <h1 id="logo"><a href="index.html">QR-голос</a></h1>
+    <ul class="navigation">
+		<li><%= link_to (t :meetings_link), meetings_path %></li>
+	<% if user_signed_in? %>
+		<li><%= link_to (t :logout), destroy_user_session_path, :method => :delete %></li>
+	<% else %>
+		<li><%= link_to (t :login), new_user_session_path %></li>
+		<li><%= link_to (t :register), user_registration_path %></li>
+	<% end %>
+    </ul>
+</div>
+
+<div class="messages">
+    <% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:alert] %>
+      <p class="alert"><%= flash[:alert] %></p>
+    <% end %>
+    <% if flash[:error] %>
+      <p class="error"><%= flash[:error] %></p>
+    <% end %>
+</div>
+
+
+<div class="bodyBox">
+<%= breadcrumbs("/") %>
 <%= yield %>
+</div>
+
+<!--end bodyBox-->
+
+<div id="footer">
+    <ul class="footerLinks">
+        <li><a href="#"><%= t :AboutAs %></a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#"><%= t :Contact %></a></li>
+    </ul>
+    
+    <p class="footerCopyright">&copy;IRIS.Integration</p>
+    
+    <ul class="footerLinks right">
+        <li><a href="http://www.facebook.com/scanpage" class="facebook"></a></li>
+        <li><a href="http://www.youtube.com/ScanChannel" class="youTube"></a></li>
+        <li><a href="http://twitter.com/#!/scan" class="twitter"></a></li>
+    </ul>
+</div>
+
 
 </body>
 </html>
