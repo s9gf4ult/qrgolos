@@ -11,6 +11,7 @@ class MeetingsController < ApplicationController
     else 
       @meetings = Meeting.all
     end
+    meetings_breadcrumb
     
     respond_to do |format|
       format.html # index.html.erb

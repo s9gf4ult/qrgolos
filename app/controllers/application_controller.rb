@@ -15,7 +15,12 @@ class ApplicationController < ActionController::Base
     add_breadcrumb section.name, section
   end
 
+  def meetings_breadcrumb
+    add_breadcrumb (t 'meetings.meetings'), meetings_path
+  end
+
   def meeting_breadcrumb(meeting)
+    meetings_breadcrumb
     add_breadcrumb meeting.name, meeting
   end
 
