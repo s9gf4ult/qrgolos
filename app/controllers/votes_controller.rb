@@ -64,7 +64,7 @@ class VotesController < ApplicationController
 
   def check_answer_variant_id_array
     check_answer_variant_id do |id|
-      id.is_a? Array and id.length > 1
+      id.is_a? Array and id.length > 0
     end
   end
   
