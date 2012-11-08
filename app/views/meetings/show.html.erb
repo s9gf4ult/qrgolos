@@ -6,26 +6,25 @@
     <div id="mtng" class="name"><%= @meeting.name %></div>
     <div id="mtng" class="descr"><%= @meeting.descr %></div>
 </div>
-
-
+<br />
+<hr>
 <div id="formHeader">Список секций</div>
 
 <div id="sctn">
 <% @meeting.sections.each do |section| %>
-    <div id="sctn" class="name"><%= link_to section.name, section  %></div>
-    <!--<div id="sctn" class="descr">< %= link_to section.descr, section  %></div>-->
-    <div id="sctn" class="edit">
-      <%= link_to 'Edit', edit_section_path(section) %>
-      <%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <div id="sctn" class="name"><%= link_to section.name, section  %></div>
+    <div id="sctn" class="descr"><%= section.descr %>
+      <div id="sctn" class="edit">
+	<%= link_to 'Редактировать', edit_section_path(section), :class => "small_button" %>
+	<%= link_to 'Удалить', section, method: :delete, data: { confirm: 'Удалить ?' }, :class => "small_button"%>
+      </div>
     </div>
 <% end %>
 </div>
-
-<div>
-  <%= link_to 'Новая секция', new_meeting_section_path(@meeting), :class => "button"%>
+<div style="clear: both;"></div>
+<hr>
+  <div>
+  <%= link_to 'Back', meetings_path, :class => "button" %>
+  <%= link_to 'Edit', edit_meeting_path(@meeting), :class => "button" %> 
+  <%= link_to 'Новая секция', new_meeting_section_path(@meeting), :class => "button", :style => "float: right;" %>  
 </div>
-
-<!--
-  < %= link_to 'Edit', edit_meeting_path(@meeting) %> |
-  < %= link_to 'Back', meetings_path %>
--->

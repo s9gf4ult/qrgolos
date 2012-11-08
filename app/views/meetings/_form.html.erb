@@ -11,15 +11,16 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="input-wrapper">
+       <%= f.text_field :name, :placeholder => "Название мероприятия" %>
   </div>
-  <div class="field">
-    <%= f.label :descr %><br />
-    <%= f.text_area :descr %>
+  <br />
+  <div class="input-wrapper">
+    <%= f.text_area :descr, :placeholder => "Описание мероприятия" %>
   </div>
+<hr>
   <div class="actions">
-    <%= f.submit %>
+   <%= link_to 'Back', meetings_path, :class => "button" %>
+   <%= f.submit :class => "button", :style => "float: right;" %>
   </div>
 <% end %>

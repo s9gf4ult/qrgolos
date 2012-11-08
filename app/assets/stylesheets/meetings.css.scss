@@ -1,42 +1,59 @@
 #mtng.descr {
   width: 100%;
   border-color: #CCC;
+  display: inline-block;   
 }
 
 #mtng.name a {
   color: #333;
   text-decoration: none;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   font-family: arial, serif;
 }
 #mtng.name {
   color: #333;
   text-decoration: none;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   font-family: arial, serif;
 }
 
 #mtng.edit {
   float: right;
+  display: inline;
 }
 
 #sctn.name a {
   color: #333;
   text-decoration: none;
-  font-size: 30px;
-  font-weight: bold;
-  font-family: arial, serif;
-}
-#sctn.name {
-  color: #333;
-  text-decoration: none;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
   font-family: arial, serif;
 }
 
+#sctn.name:first-child {
+  /*padding-top: 20px;*/
+}
+#sctn {
+  
+}
+
+#sctn.name {
+  padding-top: 20px;
+  color: #333;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: arial, serif;
+}
+#sctn.descr {
+  /*width: 100%;*/
+  border-color: #CCC;
+  display: inline;   
+}
+
 #sctn.edit {
   float: right;
+  display: inline;
 }
