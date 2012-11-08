@@ -11,5 +11,15 @@ class Vote < ActiveRecord::Base
     if anonymous.section != question.section
       record.errors.add(:answer_variant, (I18n.translate "votes.wrong-section"))
     end
+    if question.kind == "radio"
+      if question.voted_variants(anonymous).first
+        record.errors.add(:answer_variant, (I18n.translate "votes.already-voted"))
+      end
+    end
+    if ["radio", "check"].include? question.kind
+      if value != 1
+        record.errors.add(attr, (I18n.translate "votes.wrong-vote-value"))
+      end
+    end
   end
 end

@@ -2,11 +2,15 @@
 <%= @active.question %>
 </div>
 <div>
-  <%= form_tag do %>
-  <ul>
+  <%= form_tag radio_path(@anonymous.aid), :method => :post do %>
+  <div>
     <% @active.answer_variants.each do |aw| %>
-    
+    <div>
+      <%= radio_button_tag 'answer_variant[id]', aw.id %>
+      <%= label :answer_variant, :id, aw.text, :value => aw.id %>
+    </div>
     <% end %>
-  </ul>
+  </div>
+  <%= submit_tag (t 'votes.do-vote') %>
   <% end %>
 </div>

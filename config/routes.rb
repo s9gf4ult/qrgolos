@@ -4,7 +4,7 @@ Ruvote::Application.routes.draw do
   get "home" => 'static#home'
 
   resources :s, :only => [:show, :index] do
-    resources :votes, :only => [:create]
+    post 'radio' => 'votes#radio_vote'
   end
   
   resources :twitts, :only => [:create, :update, :destroy]
