@@ -1,5 +1,5 @@
 class Section < ActiveRecord::Base
-  attr_accessible :name, :anonymous_count, :desc
+  attr_accessible :name, :anonymous_count, :descr
   has_many :questions, :dependent => :destroy
   has_many :anonymouss, :dependent => :destroy
   belongs_to :meeting
