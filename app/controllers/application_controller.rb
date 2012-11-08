@@ -42,4 +42,8 @@ class ApplicationController < ActionController::Base
     meeting_owner?(section.meeting) #  FIXME: Here must be check of section
   end
 
+  def s_anonymous_path(anonymous)
+    aid = if anonymous.is_a?(Anonymous); then anonymous.aid else anonymous end
+    "/s/#{aid}"
+  end
 end
