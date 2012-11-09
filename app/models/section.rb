@@ -9,6 +9,10 @@ class Section < ActiveRecord::Base
   def twitts
     Twitt.joins(:anonymous => :section).where('anonymous.fake' => false, 'sections.id' => self.id).reorder('twitts.created_at asc')
   end
+  
+  def active_twitts
+    Twitt.joins(:anonymous => :section).where('anonymous.fake' => false, 'sections.id' => self.id, 'twitts.state' => "active").reorder('twitts.created_at asc')
+  end
 
   def active_question
     self.questions.where(:state => "active").first

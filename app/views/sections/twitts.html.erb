@@ -1,0 +1,7 @@
+<div>
+  <% @section.active_twitts.limit(20).each do |twitt| %>
+  <div>
+    <%= twitt.text %>
+  </div>
+  <% end %>
+</div>
