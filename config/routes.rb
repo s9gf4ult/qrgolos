@@ -16,11 +16,7 @@ Ruvote::Application.routes.draw do
     end
   end
 
-  resources :twitts, :only => [:create, :destroy] do
-    member do
-      post 'activate'
-    end
-  end
+  resources :twitts, :only => [:create, :destroy]
 
   resources :answer_variants, :only => [:show, :edit, :create, :update, :destroy] do
     member do
@@ -40,7 +36,11 @@ Ruvote::Application.routes.draw do
   resources :sections, :only => [:show, :edit, :create, :update, :destroy] do
     resources :questions, :only => [:new]
     member do
+      get 'twitts_edit'
       get 'twitts'
+    end
+    collection do
+      post '/twitt/:twitt_id/activate' => 'sections#activate_twitt'
     end
   end
 

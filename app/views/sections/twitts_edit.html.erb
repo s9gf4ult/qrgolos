@@ -1,0 +1,13 @@
+<div>
+  <% @section.twitts.limit(20).each do |twitt| %>
+  <div>
+    <%= twitt.text %>
+    <%= t twitt.state %>
+    <% if twitt.state == "new" %>
+      <%= link_to (t 'buttons.activate'), activate_section_twitt(twitt), :method => :post, :class => "small_button" %>
+    <% else  %>
+      <%= link_to (t 'buttons.deactivate'), activate_section_twitt(twitt), :method => :post, :class => "small_button" %>
+    <% end %>
+  </div>
+  <% end %>
+</div>

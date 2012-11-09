@@ -7,6 +7,16 @@
 
 <br /><b><%= t "anonymous_count" %></b><%= @section.anonymous_count %>
 
+<div>
+  <h1>
+    <%= t 'twitts' %>
+  </h1>
+
+  <div>
+    <%= link_to (t 'buttons.edit'), twitts_edit_section_path(@section), :class => "small_button" %>
+    <%= link_to (t 'buttons.show'), twitts_section_path(@section), :class => "small_button" %>
+  </div>
+</div>
 
 <div id="formHeader"><%= t "sections.questions" %></div>
 

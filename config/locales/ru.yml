@@ -2,7 +2,9 @@ ru:
   buttons:
     activate: "Активировать"
     cancel: "Отменить"
+    deactivate: "Деактивировать"
     edit: "Редактировать"
+    show: "Смотреть"
     editq: "Редактировать вопрос"
     delete: "Удалить"
     back: "Назад"
@@ -17,6 +19,7 @@ ru:
     name: "Название секции"
     questions: "Вопросы секции"
     no-access: "Вы не можете менять эту секцию"
+    twitts: "Чат"
   meetings_link: "Мероприятия"
   meetings:
     name: "Название мероприятия"

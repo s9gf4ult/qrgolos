@@ -1,6 +1,32 @@
 class SectionsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
   before_filter :just_my_sections, :only => [:update, :destroy]
+
+  def twitts_edit
+    @section = Section.find(params[:id])
+    section_breadcrumb @section
+    add_breadcrumb twitts_edit_section_path(@section)
+  end
+
+  def twitts
+    @section = Section.find(params[:id])
+    section_breadcrumb @section
+    add_breadcrumb twitts_section_path(@section)
+  end
+
+  def activate_twitt
+    twitt = Twitt.find(params[:twitt_id])
+    twitt.state = if twitt.state == "new"; then "active" else "new" end
+    respond_to do |format|
+      if twitt.save
+        format.html {redirect_to twitts_edit_section_path(twitt.anonymous.section)}
+        format.json {header :no_content}
+      else
+        format.html {redirect_to twitts_edit_section_path(twitt.anonymous.section)}
+        format.json {render :json => twitt.errors, :status => :unprocessable_entity}
+      end
+    end
+  end
   
   # GET /sections/1
   # GET /sections/1.json

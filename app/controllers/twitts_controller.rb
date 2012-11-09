@@ -14,10 +14,6 @@ class TwittsController < ApplicationController
     end
   end
 
-  def activate
-    #  FIXME: fill this later
-  end
-
   def destroy
     #  FIXME: fill this later
   end

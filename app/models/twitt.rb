@@ -5,7 +5,7 @@ class Twitt < ActiveRecord::Base
 
   belongs_to :anonymous
   validates :state, :text, :presence => true
-  validates :state, :inclusion => {:in => %w(new canceled active)}
+  validates :state, :inclusion => {:in => %w(new active)}
 
   def states
     Twitt.validators_on(:state).select do |v|
