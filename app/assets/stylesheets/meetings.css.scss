@@ -1,10 +1,10 @@
-#mtng.descr {
+#mtng .descr {
   width: 100%;
   border-color: #CCC;
   display: inline-block;   
 }
 
-#mtng.name a {
+#mtng .name a {
   color: #F46430;
   text-decoration: none;
   font-size: 25px;
@@ -12,11 +12,11 @@
   font-family: arial, serif;
 }
 
-#mtng.name a:hover {
+#mtng .name a:hover {
     text-decoration: underline;
 }
 
-#mtng.name {
+#mtng .name {
   color: #333;
   text-decoration: none;
   font-size: 25px;
@@ -24,12 +24,12 @@
   font-family: arial, serif;
 }
 
-#mtng.edit {
+#mtng .edit {
   float: right;
   display: inline;
 }
 
-#sctn.name a {
+#sctn .name a {
   color: #F46430;
   text-decoration: none;
   font-size: 20px;
@@ -37,11 +37,11 @@
   font-family: arial, serif;
 }
 
-#sctn.name a:hover {
+#sctn .name a:hover {
     text-decoration: underline;
 }
 
-#sctn.name:first-child {
+#sctn .name:first-child {
   /*padding-top: 20px;*/
 }
 #sctn {

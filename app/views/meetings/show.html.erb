@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <div id="mtng">
-    <div id="mtng" class="name"><%= @meeting.name %></div>
-    <div id="mtng" class="descr"><%= @meeting.descr %></div>
+    <div class="name"><%= @meeting.name %></div>
+    <div class="descr"><%= @meeting.descr %></div>
 </div>
 <br />
 <hr>
@@ -10,9 +10,9 @@
 
 <div id="sctn">
 <% @meeting.sections.each do |section| %>
-  <div id="sctn" class="name"><%= link_to section.name, section  %></div>
-    <div id="sctn" class="descr"><%= section.descr %>
-      <div id="sctn" class="edit">
+  <div class="name"><%= link_to section.name, section  %></div>
+    <div class="descr"><%= section.descr %>
+      <div class="edit">
 	<%= link_to (t "buttons.edit"), edit_section_path(section), :class => "small_button" %>
 	<%= link_to (t "buttons.delete"), section, method: :delete, data: { confirm: 'Удалить секцию ?' }, :class => "small_button"%>
       </div>
