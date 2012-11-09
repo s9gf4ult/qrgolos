@@ -1,11 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Question:</b>
-  <div>
-    <%= @question.question %>
-  </div>
-</p>
+<div id="formHeader"><%= @question.question %></div>
 
 <p>
   <b>State:</b>
@@ -19,24 +14,25 @@
 
 <h1>Варианты ответа</h1>
 
-<table>
+<div id="sctn">
 <% @question.answer_variants.each do |answer_variant| %>
-  <tr>
-    <td><%= answer_variant.position %></td>
-    <td><%= link_to answer_variant.text, answer_variant %></td>
-    <td><%= link_to (t "buttons.bring_up"), bringup_answer_variant_path(answer_variant), :method => :post %></td>
-    <td><%= link_to (t "buttons.bring_down"), bringdown_answer_variant_path(answer_variant), :method => :post %></td>
-    <td><%= link_to (t "buttons.edit"), edit_answer_variant_path(answer_variant) %></td>
-    <td><%= link_to (t "buttons.delete"), answer_variant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+    <div class="name"><%= link_to answer_variant.text, answer_variant %>
+      <div class="edit">
+	<%= link_to (raw "&uarr;"), bringup_answer_variant_path(answer_variant), :method => :post, :class => "small_button" %>
+	<%= link_to (raw "&darr;"), bringdown_answer_variant_path(answer_variant), :method => :post, :class => "small_button" %>
+	<%= link_to (t "buttons.edit"), edit_answer_variant_path(answer_variant), :class => "small_button" %>
+	<%= link_to (t "buttons.delete"), answer_variant, method: :delete, data: { confirm: 'Are you sure?' }, :class => "small_button" %>
+    </div>
+  </div>
 <% end %>
-</table>
-
-<div>
-  <%= link_to 'New Answer variant', new_question_answer_variant_path(@question) %>
 </div>
 
-<div>
-  <%= link_to (t "buttons.edit"), edit_question_path(@question) %> |
-  <%= link_to (t "buttons.back"), @question.section %>
+
+<div style="clear: both;"></div>
+<br />
+<hr>
+  <div>
+  <%= link_to (t "buttons.back"), @question.section, :class => "button" %>
+  <%= link_to (t "buttons.edit"), edit_question_path(@question), :class => "button" %> 
+  <%= link_to (t "buttons.newAnswer"), new_question_answer_variant_path(@question), :class => "button", :style => "float: right;" %>  
 </div>
