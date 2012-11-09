@@ -21,7 +21,14 @@
   </div>
 
   <div>
-  <%= f.collection_select :kind, @question.kinds, :first, :last %>
+    <% @question.kinds.each do |id, txt| %>
+    <label>
+      <%= f.radio_button :kind, id %>
+      <span>
+        <%= txt %>
+      </span>
+    </label>
+    <% end %>
   </div>
   
 
