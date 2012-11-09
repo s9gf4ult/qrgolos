@@ -48,7 +48,7 @@
   
 }
 
-#sctn.name {
+#sctn .name {
   padding-top: 20px;
   color: #333;
   text-decoration: none;
@@ -56,13 +56,13 @@
   font-weight: bold;
   font-family: arial, serif;
 }
-#sctn.descr {
+#sctn .descr {
   /*width: 100%;*/
   border-color: #CCC;
   display: inline;   
 }
 
-#sctn.edit {
+#sctn .edit {
   float: right;
   display: inline;
 }

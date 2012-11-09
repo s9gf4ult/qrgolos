@@ -12,10 +12,10 @@
 
 <div id="sctn">
 <% @section.questions.each do |question| %>
-  <div id="sctn" class="name"><%= link_to question.question, question %></div>
-    <div id="sctn" class="descr"><%= t question.state %> <%= t question.kind %>
+  <div class="name"><%= link_to question.question, question %></div>
+    <div class="descr"><%= t question.state %> <%= t question.kind %>
     
-    <div id="sctn" class="edit">
+    <div class="edit">
 	<%= link_to (t "buttons.activate"), activate_question_path(question), :method => :post, :class => "small_button" %>
 	<%= link_to (t "buttons.cancel"), cancel_question_path(question), :method => :post, :class => "small_button" %>
 	<%= link_to (t "buttons.edit"), edit_question_path(question), :class => "small_button" %>
