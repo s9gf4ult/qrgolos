@@ -1,3 +1,76 @@
 // Place all the styles related to the Questions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#kind {
+  margin: 25px 0 0 55px;
+}
+
+#kind label {
+    float:left;
+    width:270px;
+    height:56px;
+    margin:4px;
+    zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #f5f5f5 #e5e5e5 #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 2px rgba(0,0,0,.2);
+    overflow: hidden;
+    color: #444;
+    background: #DDD; 
+}
+
+#kind label span {
+    text-align:center;
+    text-decoration: none;
+    font-size: 0px;
+    display:block;
+    height: 100%;
+}
+
+#kind label input {
+      display: none;
+  position:absolute;
+    top:-20px;
+}
+
+#kind input:checked + span {
+    background-color: #eee;
+    /*#F46430;    */
+    top: 10px;
+    /*color: white;*/
+    top: 2px;
+    box-shadow: 0 0 0px rgba(0,0,0,.2);
+}
+
+#kind span:hover {
+	text-decoration: none;
+	color: white;
+	background-color: #F46430;
+}
+#kind label:active {
+	position: relative;
+	top: 2px;
+	box-shadow: 0 0 0px rgba(0,0,0,.2);
+}
+
+#kind input[value="radio"] + span {
+    background-image: url("/images/radio_btn.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#kind input[value="check"] + span {
+    background-image: url("/images/check_btn.png");
+    background-repeat: no-repeat;
+    background-position: center;  
+}
+
+#kind input[value="stars"] + span {
+    background-image: url("/images/stars_btn.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
