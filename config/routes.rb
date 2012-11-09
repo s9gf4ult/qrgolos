@@ -4,11 +4,23 @@ Ruvote::Application.routes.draw do
   get "home" => 'static#home'
 
   resources :s, :only => [:show, :index] do
-    post 'radio' => 'votes#radio_vote'
-    post 'check' => 'votes#check_vote'
+    member do 
+      get 'twitt'
+    end
   end
-  
-  resources :twitts, :only => [:create, :update, :destroy]
+
+  resources :votes, :only => [] do
+    collection do
+      post 'radio'
+      post 'check'
+    end
+  end
+
+  resources :twitts, :only => [:index, :create, :destroy] do
+    member do
+      post 'activate'
+    end
+  end
 
   resources :answer_variants, :only => [:show, :edit, :create, :update, :destroy] do
     member do

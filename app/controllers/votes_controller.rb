@@ -1,9 +1,9 @@
 class VotesController < ApplicationController
-  before_filter :get_anonymous
-  before_filter :check_answer_variant_id_string, :only => [:radio_vote]
-  before_filter :check_answer_variant_id_array, :only => [:check_vote]
+  before_filter :get_and_check_anonymous
+  before_filter :check_answer_variant_id_string, :only => [:radio]
+  before_filter :check_answer_variant_id_array, :only => [:check]
   
-  def radio_vote
+  def radio
     answer_variant = AnswerVariant.find(params[:answer_variant][:id])
     vote = @anonymous.votes.build :vote => 1
     vote.answer_variant = answer_variant
@@ -21,8 +21,7 @@ class VotesController < ApplicationController
     end
   end
 
-  def check_vote
-    logger.debug ">>>>>>>>>>>>>>>>>>>>>>> #{params[:answer_variant][:id]}"
+  def check
     answer_variants = params[:answer_variant][:id].map do |awid|
       AnswerVariant.find(awid)
     end
@@ -47,41 +46,34 @@ class VotesController < ApplicationController
   end
 
   private
-  def get_anonymous
-    @anonymous = Anonymous.where(:fake => false, :aid => params[:_id]).first
-    #  FIXME: make anonymous remember last time user entered
-    if @anonymous == nil
-      flash[:error] = t :wrong_aid
-      redirect_to s_path
-    end
-  end
 
   def check_answer_variant_id_string
-    check_answer_variant_id do |id|
+    check_params 'votes.choose_variant' do
+      id = params[:answer_variant][:id]
       id.is_a? String
     end
   end
 
   def check_answer_variant_id_array
-    check_answer_variant_id do |id|
+    check_params 'votes.choose_variant' do
+      id = params[:answer_variant][:id]
       id.is_a? Array and id.length > 0
     end
   end
-  
-  def check_answer_variant_id
+
+  def check_params(message)
     begin
-      if not yield(params[:answer_variant][:id])
-        raise "id is wrong"
+      if not yield
+        raise "is bad"
       end
     rescue 
       respond_to do |format|
         format.html do
-          flash[:notice] = t 'votes.choose_variant'
+          flash[:error] = t message
           redirect_to s_anonymous_path(@anonymous)
         end
         format.json { head :no_content, :status => :bad_request }
       end
     end
   end
-
 end

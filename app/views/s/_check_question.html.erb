@@ -2,8 +2,9 @@
 <%= @active.question %>
 </div>
 <div>
-  <%= form_tag check_path(@anonymous.aid), :method => :post do %>
+  <%= form_tag check_votes_path, :method => :post do %>
   <div>
+    <%= hidden_field_tag 'anonymous[id]', @anonymous.id %>
     <% @active.answer_variants.each do |aw| %>
     <div>
       <%= check_box_tag 'answer_variant[id][]', aw.id %>

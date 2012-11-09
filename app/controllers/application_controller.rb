@@ -46,4 +46,13 @@ class ApplicationController < ActionController::Base
     aid = if anonymous.is_a?(Anonymous); then anonymous.aid else anonymous end
     "/s/#{aid}"
   end
+
+  def get_and_check_anonymous   #  FIXME: moved to helper, fix in controllers
+    @anonymous = Anonymous.find(params[:anonymous][:id])
+    #  FIXME: make anonymous remember last time user entered
+    if @anonymous.id != session[:anonymous_id]
+      flash[:error] = t :wrong_aid
+      redirect_to s_path
+    end
+  end
 end

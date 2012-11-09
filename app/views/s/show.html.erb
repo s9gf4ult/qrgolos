@@ -2,7 +2,7 @@
   <b><%= t "sections.name" %></b>
   <%= @anonymous.section.name %>
 </div>
-
+<%= link_to (t :twitts), twitt_path(@anonymous.aid) %>
 <% if @active %>
 <div>
   <% if @active.question_answered? @anonymous %>
