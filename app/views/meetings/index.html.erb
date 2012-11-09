@@ -6,14 +6,12 @@
       <div id="mtng" class="name"><%= link_to meeting.name, meeting %></div>
       <div id="mtng" class="descr"><div><%= meeting.descr %></div>
 	<div id="mtng" class="edit">
-	  <%= link_to 'Редактировать', edit_meeting_path(meeting), :class => "small_button" %>
-	  <%= link_to 'Удалить', meeting, method: :delete, data: { confirm: 'Удалить ?' }, :class => "small_button"%>
+	  <%= link_to (t "buttons.edit"), edit_meeting_path(meeting), :class => "small_button" %>
+	  <%= link_to (t "buttons.delete"), meeting, method: :delete, data: { confirm: 'Удалить ?' }, :class => "small_button"%>
 	</div>
       </div>
       <% end %>
     </div>
-
-    <%= link_to 'Создать', new_meeting_path, :class => "button" %>
 
 <% end %>
 
@@ -29,3 +27,7 @@
     <div id="mtng" class="descr"><%= meeting.descr %></div>
 <% end %>
 </div>
+
+<hr>
+<%= link_to (t "buttons.back"), meetings_path, :class => "button" %>
+<%= link_to (t "buttons.create"), new_meeting_path, :class => "button", :style => "float: right;" %>

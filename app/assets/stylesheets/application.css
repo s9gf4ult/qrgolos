@@ -19,8 +19,22 @@ body {
 }
 
 a {
-    color: #333;
+    color: #F46430;
     cursor: pointer;
+    text-decoration: none; 
+}
+
+a:hover {
+   color: #F46430;
+   cursor: pointer;
+   text-decoration: underline; 
+}
+
+hr {
+  color: #ddd;
+  background-color: #ddd;
+  height: 1px;
+  border: none;
 }
 
 /* Class Library */

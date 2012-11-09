@@ -1,7 +1,15 @@
 ru:
+  buttons:
+    activate: "Активировать"
+    cancel: "Отменить"
+    edit: "Редактировать"
+    delete: "Удалить"
+    back: "Назад"
+    create: "Создать"
+    newSection: "Новая секция"
   sections:
     name: "Название секции"
-    questions: "Список вопросов"
+    questions: "Вопросы секции"
     no-access: "Вы не можете менять эту секцию"
   meetings_link: "Мероприятия"
   meetings:
@@ -10,9 +18,7 @@ ru:
     meetings: "Мероприятия"
   questions:
     activated: "Вопрос активирован"
-    activate: "Активировать"
     canceled: "Вопрос отменен"
-    cancel: "Отменить"
   votes:
     wrong-section: "Вы пытаетесь голосовать за вопрос не из своей секции"
     already-voted: "Вы уже проголосовали"
@@ -21,9 +27,8 @@ ru:
     thanks: "Ваш ответ принят"
     choose_variant: "Выберите вариант ответа"
   active: "Активный"
-  anonymous_count: "Количество табличек"
+  anonymous_count: "Количество участников:"
   answered: "Отвеченный"
-  back: "Назад"
   bring_down: "Вниз"
   bring_up: "Вверх"
   bringed_down: "Опущено"

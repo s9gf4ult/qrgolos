@@ -24,10 +24,10 @@
   <tr>
     <td><%= answer_variant.position %></td>
     <td><%= link_to answer_variant.text, answer_variant %></td>
-    <td><%= link_to (t :bring_up), bringup_answer_variant_path(answer_variant), :method => :post %></td>
-    <td><%= link_to (t :bring_down), bringdown_answer_variant_path(answer_variant), :method => :post %></td>
-    <td><%= link_to (t :edit), edit_answer_variant_path(answer_variant) %></td>
-    <td><%= link_to (t :delete), answer_variant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to (t "buttons.bring_up"), bringup_answer_variant_path(answer_variant), :method => :post %></td>
+    <td><%= link_to (t "buttons.bring_down"), bringdown_answer_variant_path(answer_variant), :method => :post %></td>
+    <td><%= link_to (t "buttons.edit"), edit_answer_variant_path(answer_variant) %></td>
+    <td><%= link_to (t "buttons.delete"), answer_variant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
@@ -37,6 +37,6 @@
 </div>
 
 <div>
-  <%= link_to 'Edit', edit_question_path(@question) %> |
-  <%= link_to 'Back', @question.section %>
+  <%= link_to (t "buttons.edit"), edit_question_path(@question) %> |
+  <%= link_to (t "buttons.back"), @question.section %>
 </div>

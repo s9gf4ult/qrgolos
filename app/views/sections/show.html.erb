@@ -1,47 +1,37 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b><%= t "sections.name" %></b>
-  <%= @section.name %>
-</p>
-
-<p>
-  <b><%= t "anonymous_count" %></b>
-  <%= @section.anonymous_count %>
-</p>
-
-<h1><%= t "sections.questions" %></h1>
-
-<table>
-  <tr>
-    <th>Вопрос</th>
-    <th>Состояние</th>
-    <th>Тип</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @section.questions.each do |question| %>
-  <tr>
-    <td><%= link_to question.question, question %></td>
-    <td><%= t question.state %></td>
-    <td><%= t question.kind %></td>
-    <td><%= link_to (t "questions.activate"), activate_question_path(question), :method => :post %></td>
-    <td><%= link_to (t "questions.cancel"), cancel_question_path(question), :method => :post %></td>
-    <td><%= link_to 'Edit', edit_question_path(question) %></td>
-    <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<div>
-  <%= link_to 'Создать', new_section_question_path(@section), :class => "button" %>
+<div id="mtng">
+    <div id="mtng" class="name"><%= @section.name %></div>
+    <div id="mtng" class="descr"><%= @section.descr %></div>
 </div>
 
+<br /><b><%= t "anonymous_count" %></b><%= @section.anonymous_count %>
+
+
+<div id="formHeader"><%= t "sections.questions" %></div>
+
+<div id="sctn">
+<% @section.questions.each do |question| %>
+  <div id="sctn" class="name"><%= link_to question.question, question %></div>
+    <div id="sctn" class="descr"><%= t question.state %> <%= t question.kind %>
+    
+    <div id="sctn" class="edit">
+	<%= link_to (t "buttons.activate"), activate_question_path(question), :method => :post, :class => "small_button" %>
+	<%= link_to (t "buttons.cancel"), cancel_question_path(question), :method => :post, :class => "small_button" %>
+	<%= link_to (t "buttons.edit"), edit_question_path(question), :class => "small_button" %>
+	<%= link_to (t "buttons.delete"), question, method: :delete, data: { confirm: 'Удалить вопрос?' }, :class => "small_button" %>
+    </div>
+   </div> 
+<% end %>
+</div>
+
+<div style="clear: both;"></div>
+<br />
+<hr>
+  <%= link_to (t "buttons.create"), new_section_question_path(@section), :class => "button", :style => "float: right;" %>
+  <%= link_to (t "buttons.back"), @section.meeting, :class => "button" %>
 
 <!--
 < %= link_to (t :edit), edit_section_path(@section) %> |
-< %= link_to (t :back), @section.meeting %> -->
+ -->
 
