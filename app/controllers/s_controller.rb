@@ -12,7 +12,7 @@ class SController < ApplicationController
   end
 
   def twitt
-    
+    @twitt = @anonymous.twitts.build
   end
 
   private

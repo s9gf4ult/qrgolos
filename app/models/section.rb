@@ -6,6 +6,10 @@ class Section < ActiveRecord::Base
   validates :name, :presence => true
   validates :name, :uniqueness => {:scope => :meeting_id}
 
+  def twitts
+    Twitt.joins(:anonymous => :section).where('anonymous.fake' => false, 'sections.id' => self.id).reorder('twitts.created_at asc')
+  end
+
   def active_question
     self.questions.where(:state => "active").first
   end

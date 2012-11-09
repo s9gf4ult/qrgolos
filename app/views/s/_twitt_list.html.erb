@@ -1,0 +1,9 @@
+<div>
+  <ul>
+    <% @anonymous.section.twitts.limit(20).each do |twitt| %>
+      <li>
+        <%= twitt.text %>
+      </li>
+    <% end %>
+  </ul>
+</div>
