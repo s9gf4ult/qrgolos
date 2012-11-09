@@ -18,9 +18,9 @@
   <div class="input-wrapper">
     <%= f.text_area :descr, :placeholder => "Описание мероприятия" %>
   </div>
+
+<div style="clear: both;"></div>
 <hr>
-  <div class="actions">
    <%= link_to (t "buttons.back"), meetings_path, :class => "button" %>
    <%= f.submit :class => "button", :style => "float: right;" %>
-  </div>
 <% end %>

@@ -15,11 +15,11 @@
   <%= qf.hidden_field :id %>
   <% end %>
   
-  <div class="field">
-    <%= f.label :text %><br />
-    <%= f.text_field :text %>
+  <div class="input-wrapper">
+    <%= f.text_field :text, :placeholder => "Текст вопроса" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<hr>
+<div style="clear: both;"></div>
+    <%= link_to (t "buttons.back"), @answer_variant.question, :class => "button" %>
+    <%= f.submit :class => "button", :style => "float: right;"%>
 <% end %>
