@@ -20,11 +20,11 @@
     <%= f.text_area :question, :placeholder => "Текст вопроса" %>
   </div>
 
-  <div>
+  <div id="kind">
     <% @question.kinds.each do |id, txt| %>
     <label>
       <%= f.radio_button :kind, id %>
-      <span>
+      <span title="<%= txt %>">
         <%= txt %>
       </span>
     </label>
@@ -32,9 +32,8 @@
   </div>
   
 
+<div style="clear: both;"></div>
 <hr>
-  <div class="actions">
-   <%= link_to (t "buttons.back"), @question.section, :class => "button" %>
+   <%= link_to (t "buttons.back"), @question.section, :class => "button"%>
    <%= f.submit :class => "button", :style => "float: right;" %>
-  </div>
 <% end %>
