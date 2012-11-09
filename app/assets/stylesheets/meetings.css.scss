@@ -5,12 +5,17 @@
 }
 
 #mtng.name a {
-  color: #333;
+  color: #F46430;
   text-decoration: none;
   font-size: 25px;
   font-weight: bold;
   font-family: arial, serif;
 }
+
+#mtng.name a:hover {
+    text-decoration: underline;
+}
+
 #mtng.name {
   color: #333;
   text-decoration: none;
@@ -25,11 +30,15 @@
 }
 
 #sctn.name a {
-  color: #333;
+  color: #F46430;
   text-decoration: none;
   font-size: 20px;
   font-weight: bold;
   font-family: arial, serif;
+}
+
+#sctn.name a:hover {
+    text-decoration: underline;
 }
 
 #sctn.name:first-child {

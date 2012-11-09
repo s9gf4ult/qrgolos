@@ -26,8 +26,8 @@
     <%= f.label "Количество участников секции" %>: <%= f.number_field :anonymous_count, :min => 0, :max => 1000, :value => 10, :step => 10 %>
   </div>
 <hr>
-  <div class="action2s">
-    <%= link_to 'Back', @section.meeting, :class => "button" %>
+  <div class="actions">
+    <%= link_to (t "buttons.back"), @section.meeting, :class => "button" %>
     <%= f.submit :class => "button", :style => "float: right;"%>
   </div>
 <% end %>
