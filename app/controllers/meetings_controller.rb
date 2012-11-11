@@ -1,6 +1,5 @@
 class MeetingsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show]
-  before_filter :just_my_meetings, :only => [:update, :destroy]
   
   # GET /meetings
   # GET /meetings.json
@@ -46,7 +45,9 @@ class MeetingsController < ApplicationController
   # GET /meetings/1/edit
   def edit
     @meeting = Meeting.find(params[:id])
-    meeting_breadcrumb @meeting
+    when_meeting_owner @meeting do 
+      meeting_breadcrumb @meeting
+    end
   end
 
   # POST /meetings
@@ -68,13 +69,16 @@ class MeetingsController < ApplicationController
   # PUT /meetings/1
   # PUT /meetings/1.json
   def update
-    respond_to do |format|
-      if @meeting.update_attributes(params[:meeting])
-        format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @meeting.errors, status: :unprocessable_entity }
+    @meeting = Meeting.find(params[:id])
+    when_meeting_owner @meeting do 
+      respond_to do |format|
+        if @meeting.update_attributes(params[:meeting])
+          format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @meeting.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -82,21 +86,14 @@ class MeetingsController < ApplicationController
   # DELETE /meetings/1
   # DELETE /meetings/1.json
   def destroy
-    @meeting.destroy
-
-    respond_to do |format|
-      format.html { redirect_to meetings_url }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-  
-  def just_my_meetings
     @meeting = Meeting.find(params[:id])
-    if not meeting_owner?(@meeting)
-      flash[:error] = t "meetings.no-access"
-      redirect_to meetings_path
+    when_meeting_owner @meeting do 
+      @meeting.destroy
+
+      respond_to do |format|
+        format.html { redirect_to meetings_url }
+        format.json { head :no_content }
+      end
     end
   end
 end

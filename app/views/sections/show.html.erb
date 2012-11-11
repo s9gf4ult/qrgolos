@@ -13,7 +13,9 @@
   </h1>
 
   <div>
-    <%= link_to (t 'buttons.edit'), twitts_edit_section_path(@section), :class => "small_button" %>
+    <% if section_owner? @section %>
+      <%= link_to (t 'buttons.edit'), twitts_edit_section_path(@section), :class => "small_button" %>
+    <% end %>
     <%= link_to (t 'buttons.show'), twitts_section_path(@section), :class => "small_button" %>
   </div>
 </div>
@@ -24,13 +26,14 @@
 <% @section.questions.each do |question| %>
   <div class="name"><%= link_to question.question, question %></div>
     <div class="descr"><%= t question.state %> <%= t question.kind %>
-    
-    <div class="edit">
-	<%= link_to (t "buttons.activate"), activate_question_path(question), :method => :post, :class => "small_button" %>
-	<%= link_to (t "buttons.cancel"), cancel_question_path(question), :method => :post, :class => "small_button" %>
-	<%= link_to (t "buttons.edit"), edit_question_path(question), :class => "small_button" %>
-	<%= link_to (t "buttons.delete"), question, method: :delete, data: { confirm: 'Удалить вопрос?' }, :class => "small_button" %>
-    </div>
+    <% if section_owner? @section %>
+      <div class="edit">
+	  <%= link_to (t "buttons.activate"), activate_question_path(question), :method => :post, :class => "small_button" %>
+	  <%= link_to (t "buttons.cancel"), cancel_question_path(question), :method => :post, :class => "small_button" %>
+	  <%= link_to (t "buttons.edit"), edit_question_path(question), :class => "small_button" %>
+	  <%= link_to (t "buttons.delete"), question, method: :delete, data: { confirm: 'Удалить вопрос?' }, :class => "small_button" %>
+      </div>
+    <% end %>
    </div> 
 <% end %>
 </div>
@@ -38,7 +41,9 @@
 <div style="clear: both;"></div>
 <br />
 <hr>
-  <%= link_to (t "buttons.create"), new_section_question_path(@section), :class => "button", :style => "float: right;" %>
+  <% if section_owner? @section %>
+    <%= link_to (t "buttons.create"), new_section_question_path(@section), :class => "button", :style => "float: right;" %>
+  <% end %>
   <%= link_to (t "buttons.back"), @section.meeting, :class => "button" %>
 
 <!--

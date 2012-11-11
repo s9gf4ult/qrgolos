@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
   protect_from_forgery
   before_filter :set_initial_breadcrumbs
 
@@ -34,12 +35,22 @@ class ApplicationController < ActionController::Base
     add_breadcrumb answer_variant.text, answer_variant
   end
 
-  def meeting_owner?(meeting)
-    user_signed_in? and meeting.user == current_user
+  def when_meeting_owner(meeting)
+    if meeting_owner? meeting
+      yield
+    else
+      flash[:error] = t "meetings.no-access"
+      redirect_to meetings_path
+    end
   end
 
-  def section_owner?(section)
-    meeting_owner?(section.meeting) #  FIXME: Here must be check of section
+  def when_section_owner(section)
+    if section_owner? section
+      yield
+    else
+      flash[:error] = t "sections.no-access"
+      redirect_to section.meeting
+    end
   end
 
   def s_anonymous_path(anonymous)

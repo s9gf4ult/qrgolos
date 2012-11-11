@@ -16,33 +16,39 @@ class QuestionsController < ApplicationController
   # GET /questions/new.json
   def new
     @section = Section.find(params[:section_id])
-    @question = @section.questions.build
-    question_breadcrumb @question
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @question }
+    when_section_owner @section do
+      @question = @section.questions.build
+      question_breadcrumb @question
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @question }
+      end
     end
   end
 
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
-    question_breadcrumb @question
+    when_section_owner @question.section do
+      question_breadcrumb @question
+    end
   end
 
   # POST /questions
   # POST /questions.json
   def create
     section = Section.find(params[:section][:id])
-    @question = section.questions.build(params[:question].except(:state))
+    when_section_owner section do
+      @question = section.questions.build(params[:question].except(:state))
 
-    respond_to do |format|
-      if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
-        format.json { render json: @question, status: :created, location: @question }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @question.save
+          format.html { redirect_to @question, notice: 'Question was successfully created.' }
+          format.json { render json: @question, status: :created, location: @question }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @question.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -51,14 +57,15 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.json
   def update
     @question = Question.find(params[:id])
-
-    respond_to do |format|
-      if @question.update_attributes(params[:question].except(:state))
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
+    when_section_owner @question.section do
+      respond_to do |format|
+        if @question.update_attributes(params[:question].except(:state))
+          format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @question.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -68,33 +75,39 @@ class QuestionsController < ApplicationController
   def destroy
     @question = Question.find(params[:id])
     section = Section.find(@question.section)
-    @question.destroy
+    when_section_owner section do
+      @question.destroy
 
-    respond_to do |format|
-      format.html { redirect_to section }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to section }
+        format.json { head :no_content }
+      end
     end
   end
 
   def activate
     @question = Question.find(params[:id])
-    @question.section.active_question = @question
-    respond_to do |format|
-      format.html { redirect_to @question.section, notice: (t "questions.activated") }
-      format.json { head :no_content }
+    when_section_owner @question.section do
+      @question.section.active_question = @question
+      respond_to do |format|
+        format.html { redirect_to @question.section, notice: (t "questions.activated") }
+        format.json { head :no_content }
+      end
     end
   end
 
   def cancel
     @question = Question.find(params[:id])
-    @question.state = "canceled"
-    respond_to do |format|
-      if @question.save
-        format.html { redirect_to @question.section, notice: (t "questions.canceled") }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
+    when_section_owner @question.section do
+      @question.state = "canceled"
+      respond_to do |format|
+        if @question.save
+          format.html { redirect_to @question.section, notice: (t "questions.canceled") }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @question.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

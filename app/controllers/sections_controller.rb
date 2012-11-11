@@ -1,11 +1,12 @@
 class SectionsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show]
-  before_filter :just_my_sections, :only => [:update, :destroy]
+  before_filter :authenticate_user!, :except => [:show, :twitts]
 
   def twitts_edit
     @section = Section.find(params[:id])
-    section_breadcrumb @section
-    add_breadcrumb twitts_edit_section_path(@section)
+    when_section_owner @section do
+      section_breadcrumb @section
+      add_breadcrumb twitts_edit_section_path(@section)
+    end
   end
 
   def twitts
@@ -16,14 +17,16 @@ class SectionsController < ApplicationController
 
   def activate_twitt
     twitt = Twitt.find(params[:twitt_id])
-    twitt.state = if twitt.state == "new"; then "active" else "new" end
-    respond_to do |format|
-      if twitt.save
-        format.html {redirect_to twitts_edit_section_path(twitt.anonymous.section)}
-        format.json {header :no_content}
-      else
-        format.html {redirect_to twitts_edit_section_path(twitt.anonymous.section)}
-        format.json {render :json => twitt.errors, :status => :unprocessable_entity}
+    when_section_owner twitt.anonymous.section do
+      twitt.state = if twitt.state == "new"; then "active" else "new" end
+      respond_to do |format|
+        if twitt.save
+          format.html {redirect_to twitts_edit_section_path(twitt.anonymous.section)}
+          format.json {header :no_content}
+        else
+          format.html {redirect_to twitts_edit_section_path(twitt.anonymous.section)}
+          format.json {render :json => twitt.errors, :status => :unprocessable_entity}
+        end
       end
     end
   end
@@ -44,35 +47,41 @@ class SectionsController < ApplicationController
   # GET /sections/new.json
   def new
     @meeting = Meeting.find(params[:meeting_id])
-    @section = @meeting.sections.build
-    section_breadcrumb @section
-    
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @section }
+    when_meeting_owner @meeting do
+      @section = @meeting.sections.build
+      section_breadcrumb @section
+      
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @section }
+      end
     end
   end
 
   # GET /sections/1/edit
   def edit
     @section = Section.find(params[:id])
-    section_breadcrumb @section
+    when_section_owner @section do
+      section_breadcrumb @section
+    end
   end
 
   # POST /sections
   # POST /sections.json
   def create
     meeting = Meeting.find(params[:meeting][:id])
-    @section = meeting.sections.build(params[:section].except(:anonymous_count))
-
-    respond_to do |format|
-      if @section.save
-        @section.anonymous_count = params[:section][:anonymous_count]
-        format.html { redirect_to @section, notice: 'Section was successfully created.' }
-        format.json { render json: @section, status: :created, location: @section }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @section.errors, status: :unprocessable_entity }
+    when_meeting_owner meeting do
+      @section = meeting.sections.build(params[:section].except(:anonymous_count))
+      
+      respond_to do |format|
+        if @section.save
+          @section.anonymous_count = params[:section][:anonymous_count]
+          format.html { redirect_to @section, notice: 'Section was successfully created.' }
+          format.json { render json: @section, status: :created, location: @section }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @section.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -80,13 +89,16 @@ class SectionsController < ApplicationController
   # PUT /sections/1
   # PUT /sections/1.json
   def update
-    respond_to do |format|
-      if @section.update_attributes(params[:section])
-        format.html { redirect_to @section, notice: 'Section was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @section.errors, status: :unprocessable_entity }
+    @section = Section.find(params[:id])
+    when_section_owner @section do
+      respond_to do |format|
+        if @section.update_attributes(params[:section])
+          format.html { redirect_to @section, notice: 'Section was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @section.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -94,21 +106,15 @@ class SectionsController < ApplicationController
   # DELETE /sections/1
   # DELETE /sections/1.json
   def destroy
-    meeting = Meeting.find(@section.meeting)
-    @section.destroy
-
-    respond_to do |format|
-      format.html { redirect_to meeting }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-  def just_my_sections
     @section = Section.find(params[:id])
-    if not section_owner?(@section)
-      flash[:error] = t "sections.no-access"
-      redirect_to @section.meeting
+    when_section_owner @section do
+      meeting = Meeting.find(@section.meeting)
+      @section.destroy
+
+      respond_to do |format|
+        format.html { redirect_to meeting }
+        format.json { head :no_content }
+      end
     end
   end
 end

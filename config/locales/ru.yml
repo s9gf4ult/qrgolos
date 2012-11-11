@@ -30,6 +30,8 @@ ru:
     do-vote: "Голосовать"
     thanks: "Ваш ответ принят"
     choose_variant: "Выберите вариант ответа"
+  answer-variants:
+    new: "Создать вариант ответа"
   active: "Активный"
   anonymous_count: "Количество участников:"
   answered: "Отвеченный"

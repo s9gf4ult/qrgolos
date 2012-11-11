@@ -22,21 +22,26 @@
 <table>
 <% @question.answer_variants.each do |answer_variant| %>
   <tr>
-    <td><%= answer_variant.position %></td>
     <td><%= link_to answer_variant.text, answer_variant %></td>
-    <td><%= link_to (t "buttons.bring_up"), bringup_answer_variant_path(answer_variant), :method => :post %></td>
-    <td><%= link_to (t "buttons.bring_down"), bringdown_answer_variant_path(answer_variant), :method => :post %></td>
-    <td><%= link_to (t "buttons.edit"), edit_answer_variant_path(answer_variant) %></td>
-    <td><%= link_to (t "buttons.delete"), answer_variant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% if section_owner? @question.section %>
+      <td><%= link_to (t "buttons.bring_up"), bringup_answer_variant_path(answer_variant), :method => :post, :class => 'small_button' %></td>
+      <td><%= link_to (t "buttons.bring_down"), bringdown_answer_variant_path(answer_variant), :method => :post, :class => 'small_button' %></td>
+      <td><%= link_to (t "buttons.edit"), edit_answer_variant_path(answer_variant), :class => 'small_button' %></td>
+      <td><%= link_to (t "buttons.delete"), answer_variant, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'small_button' %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <div>
-  <%= link_to 'New Answer variant', new_question_answer_variant_path(@question) %>
+  <% if section_owner? @question.section %>
+  <%= link_to (t 'answer-variants.new'), new_question_answer_variant_path(@question), :class => 'small_button' %>
+  <% end %>
 </div>
 
 <div>
-  <%= link_to (t "buttons.edit"), edit_question_path(@question) %> |
-  <%= link_to (t "buttons.back"), @question.section %>
+  <% if section_owner? @question.section %>
+  <%= link_to (t "buttons.edit"), edit_question_path(@question), :class => 'small_button' %>
+  <% end %>
+  <%= link_to (t "buttons.back"), @question.section, :class => 'small_button' %>
 </div>

@@ -15,6 +15,7 @@
   <%= @answer_variant.position %>
 </p>
 
-
-<%= link_to (t "buttons.edit"), edit_answer_variant_path(@answer_variant) %> |
+<% if section_owner? @answer_variant.question.section %>
+  <%= link_to (t "buttons.edit"), edit_answer_variant_path(@answer_variant) %> |
+<% end %>
 <%= link_to (t "buttons.back"), @answer_variant.question %>

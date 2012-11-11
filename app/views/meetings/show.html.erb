@@ -11,12 +11,14 @@
 <div id="sctn">
 <% @meeting.sections.each do |section| %>
   <div class="name"><%= link_to section.name, section  %></div>
-    <div class="descr"><%= section.descr %>
-      <div class="edit">
+  <div class="descr"><%= section.descr %>
+  <% if meeting_owner? @meeting %>
+    <div class="edit">
 	<%= link_to (t "buttons.edit"), edit_section_path(section), :class => "small_button" %>
 	<%= link_to (t "buttons.delete"), section, method: :delete, data: { confirm: 'Удалить секцию ?' }, :class => "small_button"%>
-      </div>
     </div>
+  <% end %>
+  </div>
 <% end %>
 </div>
 <div style="clear: both;"></div>
@@ -24,6 +26,8 @@
 <hr>
   <div>
   <%= link_to (t "buttons.back"), meetings_path, :class => "button" %>
-  <%= link_to (t "buttons.edit"), edit_meeting_path(@meeting), :class => "button" %> 
-  <%= link_to (t "buttons.newSection"), new_meeting_section_path(@meeting), :class => "button", :style => "float: right;" %>  
+  <% if meeting_owner? @meeting %> 
+    <%= link_to (t "buttons.edit"), edit_meeting_path(@meeting), :class => "button" %> 
+    <%= link_to (t "buttons.newSection"), new_meeting_section_path(@meeting), :class => "button", :style => "float: right;" %>
+  <% end %>
 </div>
