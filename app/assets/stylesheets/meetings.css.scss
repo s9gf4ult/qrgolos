@@ -64,5 +64,22 @@
 
 #sctn .edit {
   float: right;
+  font-size: 16px;
+  font-weight: normal;
+  display: inline;
+}
+#sctn .edit a {
+  color: #444;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: normal;
+  display: inline;
+}
+
+#sctn .edit > a:hover {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: normal;
   display: inline;
 }

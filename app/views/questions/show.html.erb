@@ -1,11 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Question:</b>
-  <div>
-    <%= @question.question %>
-  </div>
-</p>
+<div id="formHeader"><%= @question.question %></div>
 
 <p>
   <b>State:</b>
@@ -19,29 +14,30 @@
 
 <h1>Варианты ответа</h1>
 
-<table>
-<% @question.answer_variants.each do |answer_variant| %>
-  <tr>
-    <td><%= link_to answer_variant.text, answer_variant %></td>
-    <% if section_owner? @question.section %>
-      <td><%= link_to (t "buttons.bring_up"), bringup_answer_variant_path(answer_variant), :method => :post, :class => 'small_button' %></td>
-      <td><%= link_to (t "buttons.bring_down"), bringdown_answer_variant_path(answer_variant), :method => :post, :class => 'small_button' %></td>
-      <td><%= link_to (t "buttons.edit"), edit_answer_variant_path(answer_variant), :class => 'small_button' %></td>
-      <td><%= link_to (t "buttons.delete"), answer_variant, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'small_button' %></td>
-    <% end %>
-  </tr>
-<% end %>
-</table>
-
-<div>
-  <% if section_owner? @question.section %>
-  <%= link_to (t 'answer-variants.new'), new_question_answer_variant_path(@question), :class => 'small_button' %>
+<div id="sctn">
+  <% @question.answer_variants.each do |answer_variant| %>
+  <div class="name">
+    <%= link_to answer_variant.text, answer_variant %>
+    <div class="edit">
+      <% if section_owner? @question.section %>
+	     <%= link_to (raw "&uarr;"), bringup_answer_variant_path(answer_variant), :method => :post, :class => "small_button" %>
+	     <%= link_to (raw "&darr;"), bringdown_answer_variant_path(answer_variant), :method => :post, :class => "small_button" %>
+	     <%= link_to (t "buttons.edit"), edit_answer_variant_path(answer_variant), :class => "small_button" %>
+	     <%= link_to (t "buttons.delete"), answer_variant, method: :delete, data: { confirm: 'Are you sure?' }, :class => "small_button" %>
+      <% end %>
+    </div>
+  </div>
   <% end %>
 </div>
 
+
+<div style="clear: both;"></div>
+<br />
+<hr />
 <div>
+  <%= link_to (t "buttons.back"), @question.section, :class => "button" %>
   <% if section_owner? @question.section %>
-  <%= link_to (t "buttons.edit"), edit_question_path(@question), :class => 'small_button' %>
+    <%= link_to (t "buttons.edit"), edit_question_path(@question), :class => "button" %> 
+    <%= link_to (t "buttons.newAnswer"), new_question_answer_variant_path(@question), :class => "button", :style => "float: right;" %>
   <% end %>
-  <%= link_to (t "buttons.back"), @question.section, :class => 'small_button' %>
 </div>
