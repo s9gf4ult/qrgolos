@@ -5,14 +5,14 @@ class SectionsController < ApplicationController
     @section = Section.find(params[:id])
     when_section_owner @section do
       section_breadcrumb @section
-      add_breadcrumb twitts_edit_section_path(@section)
+      add_breadcrumb (t 'sections.twitts-edit'), twitts_edit_section_path(@section)
     end
   end
 
   def twitts
     @section = Section.find(params[:id])
     section_breadcrumb @section
-    add_breadcrumb twitts_section_path(@section)
+    add_breadcrumb (t 'sections.twitts'), twitts_section_path(@section)
   end
 
   def activate_twitt

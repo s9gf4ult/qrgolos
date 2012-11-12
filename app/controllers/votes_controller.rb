@@ -7,16 +7,18 @@ class VotesController < ApplicationController
     answer_variant = AnswerVariant.find(params[:answer_variant][:id])
     vote = @anonymous.votes.build :vote => 1
     vote.answer_variant = answer_variant
-    respond_to do |format|
-      if vote.save
-        format.html do
-          flash[:notice] = t 'votes.thanks'
-          redirect_to s_anonymous_path(@anonymous)
+    with_current_votes [vote] do
+      respond_to do |format|
+        if vote.save
+          format.html do
+            flash[:notice] = t 'votes.thanks'
+            redirect_to s_anonymous_path(@anonymous)
+          end
+          format.json { head :no_content, :status => :created }
+        else
+          format.html { redirect_to s_anonymous_path(@anonymous) }
+          format.json { render :json => vote.errors, :status => :unprocessable_entity }
         end
-        format.json { head :no_content, :status => :created }
-      else
-        format.html { redirect_to s_anonymous_path(@anonymous) }
-        format.json { render :json => vote.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -30,17 +32,18 @@ class VotesController < ApplicationController
       vote.answer_variant = aw
       vote
     end
-
-    respond_to do |format|
-      if votes.all? {|v| v.save}
-        format.html do
-          flash[:notice] = t 'votes.thanks'
-          redirect_to s_anonymous_path(@anonymous)
+    with_current_votes votes do 
+      respond_to do |format|
+        if votes.all? {|v| v.save}
+          format.html do
+            flash[:notice] = t 'votes.thanks'
+            redirect_to s_anonymous_path(@anonymous)
+          end
+          format.json { head :no_content, :status => :created }
+        else
+          format.html { redirect_to s_anonymous_path(@anonymous) }
+          format.json { render :json => vote.errors, :status => :unprocessable_entity }
         end
-        format.json { head :no_content, :status => :created }
-      else
-        format.html { redirect_to s_anonymous_path(@anonymous) }
-        format.json { render :json => vote.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -75,5 +78,21 @@ class VotesController < ApplicationController
         format.json { head :no_content, :status => :bad_request }
       end
     end
+  end
+
+  def with_current_votes(votes)
+    votes.each do |vote|
+      if vote.anonymous.section != vote.answer_variant.question.section
+        flash[:error] = t 'votes.wrong-section'
+        redirect_to s_path
+        return
+      end
+      if vote.anonymous.section.active_question != vote.answer_variant.question
+        flash[:error] = t 'votes.wrong-question'
+        redirect_to s_path
+        return
+      end
+    end
+    yield
   end
 end

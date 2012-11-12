@@ -44,9 +44,13 @@
   
 
 <div class="bodyBox">
-  <div id="breadcrumbs-one">
-     <%= breadcrumbs '' %>
-  </div>
+  <ul id="breadcrumbs-one">
+     <% raw_breadcrumbs.each do |x| %>
+     <li>
+       <%= x %>
+     </li>
+     <% end %>
+  </ul>
   <%= yield %>
 </div>
 

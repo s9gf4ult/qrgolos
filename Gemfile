@@ -13,7 +13,7 @@ end
 
 gem 'devise'
 gem 'devise-russian'
-gem 'rails-breadcrumbs'
+gem 'rails-breadcrumbs', :git => 'git://github.com/s9gf4ult/rails-breadcrumbs.git'
 gem 'russian', '~> 0.6.0'
 
 # Gems used only for assets and not required
@@ -43,4 +43,4 @@ gem 'jquery-rails'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'debugger'
+gem 'debugger'

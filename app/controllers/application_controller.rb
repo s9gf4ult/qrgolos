@@ -62,8 +62,6 @@ class ApplicationController < ActionController::Base
     @anonymous = Anonymous.find(params[:anonymous][:id])
     #  FIXME: make anonymous remember last time user entered
     if @anonymous.id != session[:anonymous_id]
-      flash[:error] = t :wrong_aid
-      redirect_to s_path
     end
   end
 end

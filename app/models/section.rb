@@ -28,11 +28,14 @@ class Section < ActiveRecord::Base
           question.update_attribute(:state, "active")
         end
       end
+    elsif question != nil and question.state == 'active' and question.section == self
+      question.update_attribute(:state, "new")
     end
   end
 
   def anonymous_count=(need)
     need = need.to_i
+    need = 0 if need < 0
     self.transaction do 
       active_count = self.anonymous_count
       all_count = self.anonymouss.where(:fake => false).count
