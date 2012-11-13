@@ -10,6 +10,7 @@ gem 'sqlite3'
 group :test, :development do
   gem "rspec-rails", "~> 2.0"
 	gem "factory_girl_rails", "~> 4.0"
+	gem "faker"
 end
 
 gem 'devise'
