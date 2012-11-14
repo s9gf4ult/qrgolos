@@ -13,7 +13,7 @@ module Magick
       hset = height.to_f / size
       qrcode.modules.each_index do |x|
         qrcode.modules.each_index do |y|
-          if qrcode.dark? x, y
+          if qrcode.dark? y, x
             lc = left_corner + (x * wset)
             tc = top_corner + (y * hset)
             self.rectangle lc, tc, lc + wset, tc + hset

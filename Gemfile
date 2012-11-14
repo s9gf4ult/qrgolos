@@ -19,6 +19,7 @@ gem 'rails-breadcrumbs', :git => 'git://github.com/s9gf4ult/rails-breadcrumbs.gi
 gem 'russian', '~> 0.6.0'
 gem 'rqrcode'
 gem 'rmagick'
+gem 'resque'
 
 # Gems used only for assets and not required
 # in production environments by default.
