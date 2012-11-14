@@ -17,6 +17,8 @@ gem 'devise'
 gem 'devise-russian'
 gem 'rails-breadcrumbs', :git => 'git://github.com/s9gf4ult/rails-breadcrumbs.git'
 gem 'russian', '~> 0.6.0'
+gem 'rqrcode'
+gem 'rmagick'
 
 # Gems used only for assets and not required
 # in production environments by default.
