@@ -2,6 +2,9 @@ Ruvote::Application.routes.draw do
 
 
   get "home" => 'static#home'
+  get 'login/registration' => 'login#registration'
+  get 'login/forgot_password' => 'login#forgot_password'
+  get 'login/login' => 'login#login'
 
   resources :s, :only => [:show, :index] do
     member do 
