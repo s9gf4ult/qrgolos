@@ -36,7 +36,6 @@ class SectionsController < ApplicationController
   def show
     @section = Section.find(params[:id])
     section_breadcrumb @section
-    Resque.enqueue QrcodeImages, @section.id
     
     respond_to do |format|
       format.html # show.html.erb
