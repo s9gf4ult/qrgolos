@@ -459,6 +459,21 @@ body.about {
     .homeTile images {
         margin-right: 7px;
     }
+
+.dialogModalOverlay {
+    position: absolute;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    filter: alpha(opacity=50);					
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    -moz-opacity: .5;
+    -khtml-opacity: .5;
+    opacity: .5;
+    background-color: #000;
+}    
     
 .dialogWrapper .dialog {
     border: none;
@@ -466,6 +481,7 @@ body.about {
     background: #eaebeb;
     border-radius: 8px;
     box-shadow: 0 0 20px #333;
+    z-index: 9999;
 }   
 .dialogWrapper .dialog .dialogHeader {
     background: #FFF;
@@ -479,12 +495,12 @@ body.about {
     display: block;
     position: absolute;
     top: -7px;
-    left: -7px;
+    right: -7px;
     border-radius: 25px;
     color: white;
     font-weight: bold;
     text-align: center;
-    background: #444a52 url(../images/icons/close.png) no-repeat center center; /* Old browsers */
+    background: #eee url(/images/close.png) no-repeat center center; /* Old browsers */
     box-shadow: 0 0 15px #444;
     
 }

@@ -101,7 +101,7 @@ var QRGClass = Class.extend({
             'modalOverlayClass': 'formModalOverlay',
             'header': '',
             ajax: {
-                'url': '/users/sign_in',
+                'url': '/login/login',
                 'data': options,
                 'onSuccess': function() {
                     $('#loginIdentifier').focus();
@@ -217,7 +217,7 @@ var QRGClass = Class.extend({
             'modalOverlayClass': 'formModalOverlay',
             'header': '',
             ajax: {
-                'url': '/api/web/getRegisterDialog/outputType:raw/',
+                'url': '/login/registration',
                 'data': options,
                 'onSuccess': function() {
                     $('#registerEmail').focus();
