@@ -20,6 +20,7 @@ gem 'russian', '~> 0.6.0'
 gem 'rqrcode'
 gem 'rmagick'
 gem 'resque'
+gem 'rails_config'
 
 # Gems used only for assets and not required
 # in production environments by default.
