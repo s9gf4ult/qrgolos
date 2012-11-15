@@ -1,0 +1,4 @@
+host:
+  protocol: "http://"
+  name: "localhost"
+  port: "3000"

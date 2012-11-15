@@ -78,6 +78,7 @@ class SectionsController < ApplicationController
           @section.anonymous_count = params[:section][:anonymous_count]
           format.html { redirect_to @section, notice: 'Section was successfully created.' }
           format.json { render json: @section, status: :created, location: @section }
+          Resque.enqueue(QrcodeImages, @section.id) # And now we must regenerate pictures
         else
           format.html { render action: "new" }
           format.json { render json: @section.errors, status: :unprocessable_entity }

@@ -3,7 +3,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_initial_breadcrumbs
 
-
+  def default_url_options
+    if Rails.env.production?
+      {}
+    else  
+      {}
+    end
+  end
 
   private
   def set_initial_breadcrumbs
