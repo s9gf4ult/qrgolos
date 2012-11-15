@@ -5,7 +5,15 @@
     <div id="mtng" class="descr"><%= @section.descr %></div>
 </div>
 
-<br /><b><%= t "anonymous_count" %></b><%= @section.anonymous_count %>
+<div>
+  <div>
+    <b><%= t "anonymous_count" %></b><%= @section.anonymous_count %>
+  </div>
+  <div>
+    <%= link_to (t 'sections.archive'), section_archive_path(@section) %>
+  </div>
+</div>
+  
 
 <div>
   <h1>

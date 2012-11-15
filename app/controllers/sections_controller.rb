@@ -1,4 +1,5 @@
 class SectionsController < ApplicationController
+  include SectionsHelper
   before_filter :authenticate_user!, :except => [:show, :twitts]
 
   def twitts_edit
@@ -78,7 +79,7 @@ class SectionsController < ApplicationController
           @section.anonymous_count = params[:section][:anonymous_count]
           format.html { redirect_to @section, notice: 'Section was successfully created.' }
           format.json { render json: @section, status: :created, location: @section }
-          Resque.enqueue(QrcodeImages, @section.id) # And now we must regenerate pictures
+          Resque.enqueue(QrcodeImages, @section.id)
         else
           format.html { render action: "new" }
           format.json { render json: @section.errors, status: :unprocessable_entity }
@@ -96,6 +97,9 @@ class SectionsController < ApplicationController
         if @section.update_attributes(params[:section])
           format.html { redirect_to @section, notice: 'Section was successfully updated.' }
           format.json { head :no_content }
+          archname = "#{Rails.root}/public/#{section_archive_path(@section)}"
+          FileUtils.rm archname if File.exists? archname
+          Resque.enqueue(QrcodeImages, @section.id)
         else
           format.html { render action: "edit" }
           format.json { render json: @section.errors, status: :unprocessable_entity }
