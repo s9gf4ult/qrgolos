@@ -7,7 +7,7 @@ var QRGClass = Class.extend({
         this.loginDialog = null;
         this.registerDialog = null;
     },
-
+    
     showPromoVideo: function() {
         QRG.homeSlider.pauseSlideshow();
         new Dialog({
@@ -15,22 +15,22 @@ var QRGClass = Class.extend({
             'onAfterClose': function() {
                 QRG.homeSlider.playSlideshow();
             },
-            'content':'<iframe width="853" height="480" src="http://www.youtu" frameborder="0" allowfullscreen></iframe>'
+            'content':'<iframe width="853" height="480" src="http://www.youtube.com/embed/CSIJGNBHjXw?rel=0&amp;hd=1&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>'
         });
     },
-
+    
     login: function(options) {
         QRG.loggedIn = true;
-
+        
         if(!options) {
             options = {};
         }
         else if(options && options.sessionToken) {
             QRG.sessionToken = options.sessionToken;
         }
-
-
-
+        
+        
+        
         if (window.qrCodeGeneratorObject !== undefined){
             this.updateHeader(options);
             qrCodeGeneratorObject.checkDependencies();
@@ -55,13 +55,13 @@ var QRGClass = Class.extend({
                     'message': message
                 },
                 'onSuccess': function() {
-
+                        
                 }
             }
         }
         );
     },
-
+    
     updateHeader: function(options) {
         // Update the header
         $.ajax({
@@ -72,7 +72,7 @@ var QRGClass = Class.extend({
             },
             success: function(html) {
                 $('#header').replaceWith($(html));
-
+                                
                 if(options && options.onAfter && typeof(options.onAfter) === 'function') {
                     options.onAfter();
                 }
@@ -101,7 +101,7 @@ var QRGClass = Class.extend({
             'modalOverlayClass': 'formModalOverlay',
             'header': '',
             ajax: {
-                'url': '/api/web/getLoginDialog/outputType:raw/',
+                'url': '/users/sign_in',
                 'data': options,
                 'onSuccess': function() {
                     $('#loginIdentifier').focus();
@@ -110,7 +110,7 @@ var QRGClass = Class.extend({
         }
         );
     },
-
+    
     showResetPasswordDialog: function(options) {
         this.resetPasswordDialog = new Dialog(
         {
@@ -278,22 +278,22 @@ var QRGClass = Class.extend({
                     }
                 });
             }
-
-
+            
+            
         });
-
+        
     },
-
+    
     showSettings: function(element){
         var label = '';
         var link = $(element);
         if(link.data('label') !== undefined){
             label = link.data('label');
         } else {
-            link.data('label', link.text());
+            link.data('label', link.text());            
         }
-
-
+       
+        
         var wrapper = $(element).closest('.settingsWrapper');
         var children = wrapper.find('p, ul');
         //console.log(children.is(':hidden'));
@@ -304,8 +304,8 @@ var QRGClass = Class.extend({
             link.text(label);
             children.slideUp('fast');
         }
-
+        
     }
-
+    
 });
 var QRG = new QRGClass();

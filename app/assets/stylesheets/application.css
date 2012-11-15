@@ -149,7 +149,7 @@ body.about {
     }
         #logo a {
             display: block;
-            background: url(../images/header/logo.png);
+            background: url(/logo.png);
             width: 187px;
             height: 64px;
             text-indent: -9999px;
@@ -226,154 +226,30 @@ body.about {
     }
 
 /* home slider */
-    #homeSlider {
-        width: 897px;
-        height: 419px;
-        margin: 8px auto 0 auto;
-        overflow: hidden;
-        position: relative;
-        border-radius: 6px;
-    }
-        #homeSliderViewport {
-            height: 419px;
-        }
-        #homeSlider .page {
-            width: 897px;
-            height: 419px;
-            float: left;
-        }
-        
-        #homeSlider .mobileProfilesByScan {
-            background: url(../images/home/scan-pages-by-scan.jpg);
-        }
-            #homeSlider .mobileProfilesByScan .createYoursFree {
-                display: block;
-                margin: 240px 0 0 518px;
-                background: url(../images/home/create-yours-free-sprite.png);
-                width: 235px;
-                height: 86px;
-            }
-            #homeSlider .mobileProfilesByScan .createYoursFree:hover {
-                background: url(../images/home/create-yours-free-sprite.png) 0 86px;
-            }
-            #homeSlider .mobileProfilesByScan .createYoursFree:active {
-                background: url(../images/home/create-yours-free-sprite.png) 0 172px;
-            }
-        #homeSlider .downloadScan {
-            background: url(../images/home/download-scan.jpg);
-        }
-            #homeSlider .downloadScan .appStore {
-                margin: 180px 0 12px 150px;
-                display: block;
-                width: 211px;
-                height: 69px;
-                background: url(http://scan.me/images/home/download-scan-app-sprite.png) 0 -138px;    
-            }
-                #homeSlider .downloadScan .appStore:hover {
-                    background: url(http://scan.me/images/home/download-scan-app-sprite.png) 0 -207px;    
-                }
-            #homeSlider .downloadScan .androidMarket {
-                margin: 0 0 0 150px;
-                display: block;
-                width: 211px;
-                height: 69px;
-                background: url(http://scan.me/images/home/download-scan-app-sprite.png);   
-            }
-                #homeSlider .downloadScan .androidMarket:hover {
-                    background: url(http://scan.me/images/home/download-scan-app-sprite.png) 0 -69px;
-                }
-        #homeSlider .scanVideo {
-            background: url(../images/home/scan-video.jpg);
-        }
-            #homeSlider .scanVideo .signUp {
-                float: left;
-                margin: 220px 0 0 54px;
-                display: block;
-                width: 225px;
-                height: 82px;
-                background: url(../images/home/sign-up.png);
-            }
-            #homeSlider .scanVideo .videoPreview {
-                float: right;
-                margin: 34px 34px 0 0;
-                display: block;
-                width: 521px;
-                height: 349px;
-                background: url(../images/home/video-preview.jpg);
-            }
-        #homeSlider .scanForBusinesses {
-            background: url(../images/home/scan-for-businesses.jpg);
-        }
-            #homeSlider .scanForBusinesses .businessQrCode {
-                margin: 90px 0 0 38px;
-                display: block;
-                width: 194px;
-                height: 292px;
-                background: url(../images/home/business-qr-code.png);
-            }
-        
-        
-        
-            #homeSlider .page1 h1 {
-                font-size: 32px;
-                display: block;
-                margin: 28px 0 0 40px;
-                float: left;
-                width: 280px;
-                color: #4f545c;
-            }
-            
-            #homeSlider .page1 .android {
-                background: url(http://scan.me/images/home/android.png);
-                display: block;
-                width: 216px;
-                height: 60px;
-                position: absolute;
-                left: 57px;
-                top: 321px;
-                border-radius: 5px;
-            }
-            #homeSlider .page1 .iOs {
-                background: url(http://scan.me/images/home/appstore.png);
-                display: block;
-                width: 210px;
-                height: 69px;
-                position: absolute;
-                top: 234px;
-                left: 60px;
-                border-radius: 10px;
-            }
-            
-           
-            #homeSlider .page1 .video {
-                position: absolute;
-                top: 32px;
-                right: 32px;
-            }
-            
-                #homeSlider .page1 .video .videoPreview {
-                    display: block;
-                    background: #000 url(../images/home/video-preview.jpg) center no-repeat;
-                    width: 507px;
-                    height: 335px;
-                    border: 8px solid #FFF;
-                }
-
+#homeSlider {
+    width: 950px;
+    height: 435px;
+    margin: 8px auto 0 auto;
+    overflow: hidden;
+    position: relative;
+    border-radius: 6px;
+}
+      
 /* body box */
                 
-    .bodyBox ul#homeSliderControls {
+    .bodyBox #homeSliderControls {
         margin-left: 0;
         margin-right: .5em;
         margin-top: 1em;
         float: right;
-        overflow: auto;
+        /*overflow: auto;*/
     }
-        .bodyBox ul#homeSliderControls li {
+        .bodyBox #homeSliderControls a {
             float: left;
             list-style: none;
             margin-left: .5em;
         }
-        .bodyBox ul#homeSliderControls li a {
+        .bodyBox #homeSliderControls a {
             display: block;
             width: 12px;
             height: 12px;
@@ -382,7 +258,7 @@ body.about {
             -webkit-border-radius: 12px;
             background: #76838D;
         }
-            .bodyBox ul#homeSliderControls li a.active {
+            .bodyBox #homeSliderControls > .activeSlide {
                 background: #F46430;
             }
                 
