@@ -1,14 +1,24 @@
+<div id="formHeader"><%= (t "registerForm") %></div>
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
+  <div class="input-wrapper-login"><%= f.label (t "email") %><br />
   <%= f.email_field :email %></div>
 
-  <div><%= f.label :password %><br />
+  <br />
+
+  <div class="input-wrapper-login"><%= f.label (t "password") %><br />
   <%= f.password_field :password %></div>
 
-  <div><%= f.label :password_confirmation %><br />
+  <br />
+
+  <div class="input-wrapper-login"><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit "Sign up" %></div>
+  <br />
+
+  
+<hr>
+  <div class="actions">
+  <div><%= f.submit (t "register"), :class => "button", :style => "float: right;" %></div>
 <% end %>
