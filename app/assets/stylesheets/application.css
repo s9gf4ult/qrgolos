@@ -13,7 +13,7 @@
  */
 
 body {
-    font-family: Arial, serif;
+    font-family: 'PT Sans';
     margin: 0px;
     color: #333;
 }
@@ -73,14 +73,12 @@ hr {
 /* Layout */
 
 body {
-    background: url("/images/backgrounds/background.png");
-    background-attachment: fixed;
-    background-color: #EEE;
-    background-position: left -57px;
-    background-repeat: repeat-x;
-/*    background-image: -webkit-image-set( url("/images/backgrounds/background.png") 1x);
-
-*/
+    background: #fff url(/images/backgrounds/bg.gif) repeat-x left top fixed;
+    color: #444;
+    /*font-family: 'Droid Sans',arial,serif;*/
+    font-family: 'PT Sans';
+    font-size: 13px;
+    line-height: 20px;
 }
 body.about {
     margin: 0;
@@ -102,6 +100,7 @@ body.about {
     border-left: 1px solid #CCC;
     border-right: 1px solid #CCC;
     padding: 16px 24px 18px 24px;
+    box-shadow: 0px 1px 50px #777;
 }
     #header .navigation {
         margin: 14px 0 0 0;
@@ -193,6 +192,7 @@ body.about {
     margin: 1em auto 0 auto;
     overflow: auto;
     padding: 24px;
+    box-shadow: 0px 1px 50px #777;
 }
 
 .bodyContainer {
@@ -218,7 +218,7 @@ body.about {
         color: #3d454b;
     }
     .bodyBox ul {
-        margin: 0 0 1em 1.5em;
+        margin: 0; /*0 1em 1.5em;*/
     }
     .bodyBox p, .bodyBox li {
         font-size: 14px;
@@ -1418,7 +1418,7 @@ border-radius: 16px;
 
 #breadcrumbs-one li > span,
 #breadcrumbs-one li > span:hover{
-  font-weight: bold;
+  /*font-weight: bold;*/
   background: none;
 }
 
@@ -1447,6 +1447,7 @@ border-radius: 16px;
   overflow: hidden;
   color: #444;
   background: #DDD;  
+  font-size: 12px;
 }
 
 .small_button {
@@ -1464,7 +1465,8 @@ border-radius: 16px;
   box-shadow: 0 0 2px rgba(0,0,0,.2);
   overflow: hidden;
   color: #444;
-  background: #DDD;  
+  background: #DDD; 
+  font-size: 12px;
 }
 
 .button:hover {
@@ -1493,10 +1495,10 @@ border-radius: 16px;
 }
 
 #formHeader {
-  font-size: 30px;
-  font-weight: bold;
-  padding: 41px 0px 41px 0px;
-  text-align: center;
+  font-size: 25px;
+  padding: 25px 0px 25px 0px;
+  text-align: left;
+  text-shadow: #CCC 0px 2px 3px;
 }
 
 .input-wrapper input {
@@ -1522,6 +1524,10 @@ border-radius: 16px;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
+.input-wrapper label {
+  font-weight: bold;
+}
+
 .input-wrapper-login input {
   color: #333;
   -webkit-transition: all .2s linear;
@@ -1544,6 +1550,9 @@ border-radius: 16px;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
+.input-wrapper-login label {
+  font-weight: bold;
+}
 .input-wrapper textarea {
   color: #333;
   -webkit-transition: all .2s linear;

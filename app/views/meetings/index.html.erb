@@ -1,17 +1,25 @@
 <% if user_signed_in? %>
-  <div id="formHeader">Мои мероприятия</div>
+<div id="formHeader">Мои мероприятия</div>
 
-    <div id="mtng">
-      <% @my_meetings.each do |meeting| %>
-      <div class="name"><%= link_to meeting.name, meeting %></div>
-      <div class="descr"><div><%= meeting.descr %></div>
-	<div class="edit">
-	  <%= link_to (t "buttons.edit"), edit_meeting_path(meeting), :class => "small_button" %>
-	  <%= link_to (t "buttons.delete"), meeting, method: :delete, data: { confirm: 'Удалить ?' }, :class => "small_button"%>
-	</div>
-      </div>
-      <% end %>
+<div id="mtng">
+ <% @my_meetings.each do |meeting| %>
+ <div class="mtng">
+    <div class="name" style="width: 720px;"><%= link_to meeting.name, meeting %></div>
+    <div class="date">22 - 25 ноября 2012</div>
+    
+    <div style="clear:both;"> </div>
+
+<div>
+    <div class="descr" style="width: 720px;"><%= meeting.descr %></div>
+    <div class="edit">
+	<%= link_to (t "buttons.edit"), edit_meeting_path(meeting), :class => "small_button" %>
+	<%= link_to (t "buttons.delete"), meeting, method: :delete, data: { confirm: 'Удалить ?' }, :class => "small_button"%>
     </div>
+</div>
+ </div>
+ <% end %>
+ <div style="clear:both;"> </div>
+</div>
 
 <% end %>
 
@@ -24,6 +32,7 @@
 <div id="mtng">
 <% @meetings.each do |meeting| %>
     <div class="name"><%= link_to meeting.name, meeting %></div>
+    <div style="clear:both;"> </div>
     <div class="descr"><%= meeting.descr %></div>
 <% end %>
 </div>
