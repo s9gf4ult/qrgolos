@@ -1,4 +1,5 @@
 class TwittsController < ApplicationController
+  include TwittsHelper
   before_filter :get_and_check_anonymous, :only => [:create]
   
   def create
@@ -7,6 +8,7 @@ class TwittsController < ApplicationController
       if @twitt.save
         format.html { redirect_to twitt_path(@anonymous.aid) }
         format.json { head :no_content, :status => :created }
+        comet_session_new_twitt(@anonymous.section)
       else
         format.html { redirect_to twitt_path(@anonymous.aid) }
         format.json { render json: @question.errors, status: :unprocessable_entity }
