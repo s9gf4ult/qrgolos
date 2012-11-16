@@ -1379,7 +1379,8 @@ border-radius: 16px;
 }
 
 #breadcrumbs-one a:hover{
-  background: #fff;
+  background: #F46430;
+  color: #fff;
 }
 
 #breadcrumbs-one li > a::after,
@@ -1413,7 +1414,7 @@ border-radius: 16px;
 }
 
 #breadcrumbs-one li > a:hover::after{
-  border-left-color: #fff;
+  border-left-color: #F46430;
 }
 
 #breadcrumbs-one li > span,

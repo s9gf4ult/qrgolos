@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <div id="mtng">
-    <div id="mtng" class="name"><%= @section.name %></div>
-    <div id="mtng" class="descr"><%= @section.descr %></div>
+    <div class="name"><%= @section.name %></div>
+    <div style="clear:both;"> </div>
+    <div class="descr"><%= @section.descr %></div>
 </div>
 
 <div>
@@ -14,11 +15,8 @@
   </div>
 </div>
   
-
 <div>
-  <h1>
-    <%= t 'twitts' %>
-  </h1>
+  <div id="formHeader"><%= t 'twitts' %></div>
 
   <div>
     <% if section_owner? @section %>

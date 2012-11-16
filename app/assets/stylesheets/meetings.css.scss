@@ -48,13 +48,13 @@
   text-shadow: #CCC 0px 2px 3px;
 }
 
-#sctn .name a {
+#sctn .name > a {
   color: #F46430;
   text-decoration: none;
   font-size: 20px;
 }
 
-#sctn .name a:hover {
+#sctn .name > a:hover {
     text-decoration: underline;
 }
 
