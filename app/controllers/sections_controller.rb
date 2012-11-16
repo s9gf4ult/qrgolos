@@ -73,13 +73,12 @@ class SectionsController < ApplicationController
     meeting = Meeting.find(params[:meeting][:id])
     when_meeting_owner meeting do
       @section = meeting.sections.build(params[:section].except(:anonymous_count))
-      
       respond_to do |format|
         if @section.save
           @section.anonymous_count = params[:section][:anonymous_count]
           format.html { redirect_to @section, notice: 'Section was successfully created.' }
           format.json { render json: @section, status: :created, location: @section }
-          Resque.enqueue(QrcodeImages, @section.id)
+          enqueue_archive_generation(@section)
         else
           format.html { render action: "new" }
           format.json { render json: @section.errors, status: :unprocessable_entity }
@@ -97,9 +96,8 @@ class SectionsController < ApplicationController
         if @section.update_attributes(params[:section])
           format.html { redirect_to @section, notice: 'Section was successfully updated.' }
           format.json { head :no_content }
-          archname = "#{Rails.root}/public/#{section_archive_path(@section)}"
-          FileUtils.rm archname if File.exists? archname
-          Resque.enqueue(QrcodeImages, @section.id)
+          remove_section_archive(@section)
+          enqueue_archive_generation(@section)
         else
           format.html { render action: "edit" }
           format.json { render json: @section.errors, status: :unprocessable_entity }
@@ -119,6 +117,7 @@ class SectionsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to meeting }
         format.json { head :no_content }
+        remove_section_archive(@section)
       end
     end
   end
