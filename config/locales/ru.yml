@@ -15,7 +15,8 @@ ru:
     bring_up: "&uarr;"
     bringed_down: "Опущено"
     bringed_up: "Поднято"
-    fogotPassword: "Напомнить пароль"
+    forgotPassword: "Напомнить пароль"
+    forgot: "Напомнить"
   sections:
     name: "Название секции"
     questions: "Вопросы секции"

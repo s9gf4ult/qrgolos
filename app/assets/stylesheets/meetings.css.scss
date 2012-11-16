@@ -1,61 +1,63 @@
+#mtng .mtng{
+  padding-top: 10px;
+}
+
 #mtng .descr {
-  width: 100%;
   border-color: #CCC;
-  display: inline-block;   
+  display: inline-block;
+  padding: 5px 10px 10px 0;
 }
 
-#mtng .name a {
-  color: #F46430;
-  text-decoration: none;
-  font-size: 25px;
-  font-weight: bold;
-  font-family: arial, serif;
-}
-
-#mtng .name a:hover {
-    text-decoration: underline;
+#mtng .date {
+  display: inline-block;
+  float: right;
+  line-height: 25px;
+  font-size: 14px;
 }
 
 #mtng .name {
   color: #333;
   text-decoration: none;
   font-size: 25px;
-  font-weight: bold;
-  font-family: arial, serif;
+  line-height: 25px;
+  text-shadow: #CCC 0px 2px 3px;
+  display: inline-block;
 }
 
-#mtng .edit {
-  float: right;
-  display: inline;
-}
-
-#sctn .name a {
+#mtng .name a {
   color: #F46430;
   text-decoration: none;
-  font-size: 20px;
-  font-weight: bold;
-  font-family: arial, serif;
 }
 
-#sctn .name a:hover {
+#mtng .name a:hover {
     text-decoration: underline;
 }
 
-#sctn .name:first-child {
-  /*padding-top: 20px;*/
+#mtng .edit {
+  /*float: right;*/
+  display: inline;
 }
-#sctn {
-  
-}
+
+/* sections */
 
 #sctn .name {
   padding-top: 20px;
   color: #333;
   text-decoration: none;
   font-size: 20px;
-  font-weight: bold;
-  font-family: arial, serif;
+  text-shadow: #CCC 0px 2px 3px;
 }
+
+#sctn .name a {
+  color: #F46430;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+#sctn .name a:hover {
+    text-decoration: underline;
+}
+
 #sctn .descr {
   /*width: 100%;*/
   border-color: #CCC;
@@ -71,15 +73,9 @@
 #sctn .edit a {
   color: #444;
   text-decoration: none;
-  font-size: 16px;
-  font-weight: normal;
-  display: inline;
 }
 
 #sctn .edit > a:hover {
   color: white;
   text-decoration: none;
-  font-size: 16px;
-  font-weight: normal;
-  display: inline;
 }
