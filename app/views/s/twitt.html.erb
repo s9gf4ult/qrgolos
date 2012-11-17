@@ -14,8 +14,7 @@ window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
 </div>
 <%= link_to (t 'votes.do-vote'), s_anonymous_path(@anonymous) %>
 <div>
-  <div>
-    <%= render 'twitt_list' %>
+  <div id="twitts_list">
   </div>
   <div>
     <%= render 'twitt' %>

@@ -1,5 +1,6 @@
 ru:
   buttons:
+    ok: 'Готово'
     activate: "Активировать"
     cancel: "Отменить"
     deactivate: "Деактивировать"
@@ -39,6 +40,9 @@ ru:
     do-vote: "Голосовать"
     thanks: "Ваш ответ принят"
     choose_variant: "Выберите вариант ответа"
+  anonymous:
+    enter-your-name: "Введите свой псевдоним, или оставьте поле пустым."
+    anonymous: "Аноним"
   answer-variants:
     new: "Создать вариант ответа"
   active: "Активный"

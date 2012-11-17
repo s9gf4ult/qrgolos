@@ -1,5 +1,5 @@
 class TwittsController < ApplicationController
-  include TwittsHelper
+  include ApplicationHelper
   before_filter :get_and_check_anonymous, :only => [:create]
   
   def create
