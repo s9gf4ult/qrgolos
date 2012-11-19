@@ -14,10 +14,15 @@ class Question < ActiveRecord::Base
   end
 
   def formated_answer_variants
-    sum = 0
+    sum = 0.0
     self.answer_variants.each do |aw|
-      aw.votes.
-
+      sum += aw.votes.sum(:vote).to_f
+    end
+    self.answer_variants.map do |aw|
+      votes = aw.votes.sum(:vote).to_f
+      { :text => aw.text,
+        :percent => if sum > 0; then (votes / sum) * 100; else 0; end}
+    end
   end
 
   def voted_variants(anonymous)
