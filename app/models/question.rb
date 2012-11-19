@@ -13,6 +13,13 @@ class Question < ActiveRecord::Base
     self.answer_variants.joins(:anonymouss).count > 0
   end
 
+  def formated_answer_variants
+    sum = 0
+    self.answer_variants.each do |aw|
+      aw.votes.
+
+  end
+
   def voted_variants(anonymous)
     self.answer_variants.joins(:votes => :anonymous).where("anonymous.id" => anonymous)
   end
