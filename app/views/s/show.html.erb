@@ -1,6 +1,7 @@
 <%= content_for :head do %>
 <%= javascript_include_tag "#{Settings.faye.address}/client.js" %>
 <%= javascript_include_tag "anonymous-vote.js" %>
+<%= javascript_include_tag "anonymous-chat.js" %>
 <% end %>
 
 <%= javascript_tag do %>
@@ -47,7 +48,7 @@ window.CHAT_URL = '<%= twitt_path(@anonymous.aid) %>'
 <% if @anonymous.name_number == nil %>
   <%= render 'name' %>
 <% end %>
-  <!-- %= render 'twitt' % -->
+  <%= render 'twitt' %>
 </div>
 
 

@@ -1,10 +1,10 @@
 <h2><%= @active.question %></h2>
 
-<fieldset>
-<%= form_tag radio_votes_path, :method => :post, :id => "POST" do %>
+
+<%= form_tag radio_votes_path, :method => :post, :id => "POST", :class => "panel" do %>
   <%= hidden_field_tag 'anonymous[id]', @anonymous.id %>
 
-
+<fieldset>
   <% @active.answer_variants.each do |aw| %>
     <div class="row">
       <%= radio_button_tag 'answer_variant[id]', aw.id %>

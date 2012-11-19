@@ -1,17 +1,16 @@
 <h2><%= @active.question %></h2>
 
-<fieldset>
-  <%= form_tag check_votes_path, :method => :post, :id => "POST" do %>
+
+  <%= form_tag check_votes_path, :method => :post, :id => "POST", :class => "panel" do %>
   <%= hidden_field_tag 'anonymous[id]', @anonymous.id %>
-  
+  <fieldset>
     <% @active.answer_variants.each do |aw| %>
     <div class="row">
       <%= check_box_tag 'answer_variant[id][]', aw.id %>
       <%= label :answer_variant, :id, aw.text, :value => aw.id %>
     </div>
     <% end %>
-
-</fieldset>
+    </fieldset>
 
 <%= submit_tag (t 'votes.do-vote'), :class => "whiteButton" %>
 <div class="spinner"></div>

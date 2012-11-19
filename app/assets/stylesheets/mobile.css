@@ -22,3 +22,22 @@
 .row .nname {
   padding: 12px 10px 0 60px !important;
 }
+
+div.spinner {
+  visibility: hidden;
+  background: black url(/iui/loading.gif) no-repeat center center;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  opacity: 0.5;
+}
+form.progress div.spinner {
+  visibility: visible;  
+}
+fieldset > div.row > span {
+  position:       absolute;
+  right:          0px;
+  padding-left:   0px;
+}
