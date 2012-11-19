@@ -17,8 +17,16 @@ module ApplicationHelper
     "/sections/#{section.id}/twitts/new"
   end
 
+  def section_question_changed_channel(section)
+    "/sections/#{section.id}/question/changed"
+  end
+
   def comet_session_new_twitt(section)
     broadcast section_new_twitt_channel(section)
+  end
+  
+  def comet_session_question_changed(section)
+    broadcast section_question_changed_channel(section)
   end
 
   def activate_section_twitt(twitt)

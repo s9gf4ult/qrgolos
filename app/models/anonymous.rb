@@ -1,6 +1,5 @@
 class Anonymous < ActiveRecord::Base
   after_initialize :set_defaults
-  before_validation :strip_name
   
   attr_accessible :active, :aid, :fake, :name, :name_number
   belongs_to :section
@@ -16,6 +15,10 @@ class Anonymous < ActiveRecord::Base
     end
   end
   validates :name_number, :uniqueness => {:scope => [:section_id, :name]}
+
+  def name=(name)
+    write_attribute(:name, name.to_s.strip)
+  end
 
   def formated_name
     if self.name.to_s.strip.length == 0
@@ -64,9 +67,5 @@ class Anonymous < ActiveRecord::Base
     end
     self.aid ||= self.find_aid
     self.fake ||= false
-  end
-
-  def strip_name
-    self.name = self.name.to_s.strip
   end
 end
