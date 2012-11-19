@@ -1,5 +1,5 @@
 class SectionsController < ApplicationController
-  include SectionsHelper
+  include ApplicationHelper
   before_filter :authenticate_user!, :except => [:show, :twitts]
 
   def twitts_edit

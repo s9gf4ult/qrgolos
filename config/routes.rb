@@ -9,6 +9,8 @@ Ruvote::Application.routes.draw do
   resources :s, :only => [:show, :index] do
     member do 
       get 'twitt'
+      get 'name'
+      post 'set_name'
     end
   end
 

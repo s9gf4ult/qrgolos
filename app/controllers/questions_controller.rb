@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  include ApplicationHelper
   before_filter :authenticate_user!, :except => [:show]
   
   # GET /questions/1
@@ -62,6 +63,9 @@ class QuestionsController < ApplicationController
         if @question.update_attributes(params[:question].except(:state))
           format.html { redirect_to @question, notice: 'Question was successfully updated.' }
           format.json { head :no_content }
+          if @question.state == "active"
+            comet_session_question_changed(@question.section)
+          end
         else
           format.html { render action: "edit" }
           format.json { render json: @question.errors, status: :unprocessable_entity }
@@ -75,12 +79,19 @@ class QuestionsController < ApplicationController
   def destroy
     @question = Question.find(params[:id])
     section = Section.find(@question.section)
+    update = false
+    if @question.state == "active"
+      update = true
+    end
     when_section_owner section do
       @question.destroy
-
+      
       respond_to do |format|
         format.html { redirect_to section }
         format.json { head :no_content }
+        if update
+          comet_session_question_changed(session)
+        end
       end
     end
   end
@@ -92,18 +103,24 @@ class QuestionsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to @question.section, notice: (t "questions.activated") }
         format.json { head :no_content }
+        comet_session_question_changed(@question.section)
       end
     end
   end
 
   def cancel
     @question = Question.find(params[:id])
+    update = false
+    if @question.state == "active"
+      update = true
+    end
     when_section_owner @question.section do
       @question.state = "canceled"
       respond_to do |format|
         if @question.save
           format.html { redirect_to @question.section, notice: (t "questions.canceled") }
           format.json { head :no_content }
+          comet_session_question_changed(@question.session)
         else
           format.html { render action: "edit" }
           format.json { render json: @question.errors, status: :unprocessable_entity }
