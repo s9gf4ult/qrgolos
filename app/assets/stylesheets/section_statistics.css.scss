@@ -1,3 +1,27 @@
 // Place all the styles related to the SectionStatistics controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.question {
+    margin-bottom: 1em;
+}
+
+.answer_variants {
+    margin-left: 1em;
+}
+
+.answer_variant {
+    margin-bottom: 0.8em;
+}
+
+.variant_strip {
+    padding-left: 0.5em;
+    height: 1.5em;
+    border-radius: 0.5em;
+    background-color: #89E789;
+    min-width: 4em;
+}
+
+.variant_text {
+    font-size: 1.5em;
+}

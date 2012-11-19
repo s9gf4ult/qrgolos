@@ -8,7 +8,7 @@ class Section < ActiveRecord::Base
 
   def answered_questions
     Enumerator.new do |en|
-      self.questions.each do |question|
+      self.questions.where(:state => 'answered').each do |question|
         if question.answered?
           en.yield question
         end
@@ -65,7 +65,7 @@ class Section < ActiveRecord::Base
         end
       end
     elsif question != nil and question.state == 'active' and question.section == self
-      question.update_attribute(:state, "new")
+      question.update_attribute(:state, "answered")
     end
   end
 
