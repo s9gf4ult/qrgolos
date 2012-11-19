@@ -1,7 +1,7 @@
 class Anonymous < ActiveRecord::Base
   after_initialize :set_defaults
   
-  attr_accessible :active, :aid, :fake
+  attr_accessible :active, :aid, :fake, :name, :name_number
   belongs_to :section
   has_many :twitts, :dependent => :delete_all
   has_many :votes, :dependent => :delete_all
@@ -12,6 +12,24 @@ class Anonymous < ActiveRecord::Base
   validates_each :fake do |record, attr, value|
     if value and record.section.anonymouss.where(:fake => true).first
       record.errors.add(attr, "Fake already exists in this section")
+    end
+  end
+  validates :name_number, :uniqueness => {:scope => [:section_id, :name]}
+
+  def name=(name)
+    write_attribute(:name, name.to_s.strip)
+  end
+
+  def formated_name
+    if self.name.to_s.strip.length == 0
+      name = I18n.translate 'anonymous.anonymous'
+    else
+      name = self.name
+    end
+    if self.name_number == 1
+      name
+    else
+      "#{name} (#{self.name_number})"
     end
   end
 
@@ -30,6 +48,15 @@ class Anonymous < ActiveRecord::Base
         end
       end
       numbers += 1
+    end
+  end
+
+  def find_name_number
+    an = Anonymous.where(:section_id => self.section.id, :name => self.name).reorder("name_number desc").first
+    if an == nil
+      1
+    else
+      an.name_number + 1
     end
   end
 

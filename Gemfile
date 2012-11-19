@@ -22,6 +22,8 @@ gem 'rmagick'
 gem 'resque'
 gem 'rails_config'
 gem 'rubyzip'
+gem 'faye'
+gem 'thin'                      # for faye
 
 # Gems used only for assets and not required
 # in production environments by default.

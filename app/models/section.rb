@@ -6,12 +6,38 @@ class Section < ActiveRecord::Base
   validates :name, :presence => true
   validates :name, :uniqueness => {:scope => :meeting_id}
 
+  def formated_twitts
+    Enumerator.new do |en|
+      self.twitts.each do |twitt|
+        ret =  {
+          name:  twitt.anonymous.formated_name,
+          text:  twitt.text,
+          state: twitt.state,
+        }
+        en.yield ret
+      end
+    end
+  end
+
+  def formated_active_twitts
+    Enumerator.new do |en|
+      self.active_twitts.each do |twitt|
+        ret = {
+          name:  twitt.anonymous.formated_name,
+          text:  twitt.text,
+          state: twitt.state,
+        }
+        en.yield ret
+      end
+    end
+  end
+  
   def twitts
-    Twitt.joins(:anonymous => :section).where('anonymous.fake' => false, 'sections.id' => self.id).reorder('twitts.created_at asc')
+    Twitt.joins(:anonymous => :section).where('anonymous.fake' => false, 'sections.id' => self.id).reorder('twitts.created_at desc')
   end
   
   def active_twitts
-    Twitt.joins(:anonymous => :section).where('anonymous.fake' => false, 'sections.id' => self.id, 'twitts.state' => "active").reorder('twitts.created_at asc')
+    Twitt.joins(:anonymous => :section).where('anonymous.fake' => false, 'sections.id' => self.id, 'twitts.state' => "active").reorder('twitts.created_at desc')
   end
 
   def active_question

@@ -2,8 +2,8 @@
 <html>
 <head>
   <title>Ruvote</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag    "mobile", :media => "all" %>
+  <%= yield :head %>
   <%= csrf_meta_tags %>
 </head>
 <body>
