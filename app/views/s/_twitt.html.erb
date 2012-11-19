@@ -1,16 +1,24 @@
+<fieldset>
+<div class="row" id="twitts_list">
+
+</div>
+</fieldset>
+
 <%= form_for @twitt do |f| %>
 
   <%= fields_for @twitt.anonymous do |af| %>
   <%= af.hidden_field :id %>
   <% end %>
-  
-  <div>
-    <%= f.label :text %>
-  </div>
-  <div>
-    <%= f.text_area :text %>
-  </div>
 
-  <%= f.submit %>
+<fieldset>
+  <div class="row">
+    <%= f.text_area :text, :id => "txtInput" %>
+  </div>
+</fieldset>
+  <%= f.submit :class => "whiteButton" %>
   
 <% end %>
+
+<script>
+    $("#txtInput").autoGrow();
+</script>

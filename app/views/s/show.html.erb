@@ -1,6 +1,7 @@
 <%= content_for :head do %>
 <%= javascript_include_tag "#{Settings.faye.address}/client.js" %>
 <%= javascript_include_tag "anonymous-vote.js" %>
+<%= javascript_include_tag "anonymous-chat.js" %>
 <% end %>
 
 <%= javascript_tag do %>
@@ -46,7 +47,7 @@ window.VOTE_CHANNEL = '<%= section_question_changed_channel(@anonymous.section) 
 <% if @anonymous.name_number == nil %>
   <%= render 'name' %>
 <% end %>
-  <!-- %= render 'twitt' % -->
+  <%= render 'twitt' %>
 </div>
 
 
