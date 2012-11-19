@@ -47,7 +47,7 @@ class SController < ApplicationController
 
   private
   def get_layout
-    "anonymous"
+    "mobile"
   end
 
   def get_anonymous
