@@ -1,3 +1,5 @@
+//= require Class
+
 var Dialog = Class.extend({
     initialize: function (options) {
         // Update the options object

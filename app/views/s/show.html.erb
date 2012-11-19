@@ -8,30 +8,46 @@ window.FAYE_ADDRESS = '<%= Settings.faye.address %>';
 window.VOTE_CHANNEL = '<%= section_question_changed_channel(@anonymous.section) %>';
 <% end %>
 
-
-<div>
-  <b><%= t "sections.name" %></b>
-  <%= @anonymous.section.name %>
+<!-- header -->
+<div class="toolbar">
+      <h1 id="pageTitle"></h1><a id="backButton" class="button" href="#"></a>
 </div>
-<%= link_to (t :twitts), twitt_path(@anonymous.aid) %>
+
+<!-- first page -->
+<div class="panel" title="QR-голос" selected="true" id="first">
+  <fieldset>
+	  <p class="normalText"><b>Добро пожаловать в систему электронных голосований "QR-голос"</b></p>
+  </fieldset>
+  <h2><%= @anonymous.section.name %></h2>
+  <ul title="First Page" selected="true" id="first">
+    <li class="arrow"><a href="#second">Чат секции</a></li>
+  </ul>
+
 <% if @active %>
-<div>
   <% if @active.question_answered? @anonymous %>
-  <div>
-    Вы уже ответили на этот вопрос, ожидайте пожалуйста.
-  </div>
+    <fieldset>Вы уже ответили на этот вопрос, ожидайте пожалуйста.</fieldset>
   <% else %>
     <% if @active.kind == "radio"%>
-      <%= render 'radio_question' %>
+      <fieldset><%= render 'radio_question' %></fieldset>
     <% elsif @active.kind == "check"%>
-      <%= render 'check_question' %>
+      <fieldset><%= render 'check_question' %></fieldset>
     <% elsif @active.kind == "stars"%>
-      <%= render 'stars_question' %>
+      <fieldset><%= render 'stars_question' %></fieldset>
     <% end %>
   <% end %>
-</div>
+
 <% else %>
-<div>
-  Сейчас нет активных вопросов
+
+  <h2>Сейчас нет активных вопросов</h2>
+
 </div>
+
+
+<!-- username page -->
+<div class="panel" title="Second Page" id="second">
+     My second iPhone screen.
+</div>
+
+
+
 <% end %>

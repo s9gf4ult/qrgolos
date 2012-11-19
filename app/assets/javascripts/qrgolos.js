@@ -1,3 +1,6 @@
+//= require Dialog
+//= require Class
+
 var QRGClass = Class.extend({
     initialize: function(options) {
         // Update the options object
