@@ -9,6 +9,10 @@ class Question < ActiveRecord::Base
   validates :kind, :inclusion => {:in => %w(radio check stars)}
   validates :state, :inclusion => {:in => %w(new active answered canceled)}
 
+  def answered?
+    self.answer_variants.joins(:anonymouss).count > 0
+  end
+
   def voted_variants(anonymous)
     self.answer_variants.joins(:votes => :anonymous).where("anonymous.id" => anonymous)
   end

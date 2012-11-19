@@ -6,6 +6,16 @@ class Section < ActiveRecord::Base
   validates :name, :presence => true
   validates :name, :uniqueness => {:scope => :meeting_id}
 
+  def answered_questions
+    Enumerator.new do |en|
+      self.questions.each do |question|
+        if question.answered?
+          en.yield question
+        end
+      end
+    end
+  end
+
   def formated_twitts
     Enumerator.new do |en|
       self.twitts.each do |twitt|

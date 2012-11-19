@@ -1,0 +1,18 @@
+<div>
+  <%= @section.name %>
+</div>
+
+<% @section.answered_questions.each do |question| %>
+  <div>
+    question.question
+  </div>
+  <div>
+    <%= question.formated_anwer_variants.each do |aw| %>
+      <div>
+        <%= aw.text %>
+      </div>
+      <div style="width: <%= aw.percent %>%" >
+      </div>
+    <% end %>
+  </div>
+<% end %>
