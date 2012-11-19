@@ -6,7 +6,7 @@ class TwittsController < ApplicationController
     @twitt = @anonymous.twitts.build(params[:twitt].except(:state))
     respond_to do |format|
       if @twitt.save
-        format.html { redirect_to twitt_path(@anonymous.aid) }
+        format.html { head :no_content }
         format.json { head :no_content, :status => :created }
         comet_session_new_twitt(@anonymous.section)
       else
