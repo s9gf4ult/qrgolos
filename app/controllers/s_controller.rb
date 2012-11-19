@@ -12,7 +12,7 @@ class SController < ApplicationController
     @anonymous.name_number = @anonymous.find_name_number
     respond_to do |format|
       if @anonymous.save
-        format.html { redirect_to s_anonymous_path(@anonymous) }
+        format.html { redirect_to twitt_path(@anonymous.aid) }
         format.json { render :json => @anonymous }
       else
         format.html do 
@@ -29,14 +29,15 @@ class SController < ApplicationController
   end
 
   def show
-    if @anonymous.name_number == nil
-      redirect_to name_path
-      return
-    end
     @active = @anonymous.section.active_question
   end
 
   def twitt
+    if @anonymous.name_number == nil
+      redirect_to name_path
+      return
+    end
+    
     @twitt = @anonymous.twitts.build
     respond_to do |format|
       format.html { render }
