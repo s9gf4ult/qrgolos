@@ -40,6 +40,7 @@ Ruvote::Application.routes.draw do
 
   resources :sections, :only => [:show, :edit, :create, :update, :destroy] do
     resources :questions, :only => [:new]
+    resource :section_statistics, :only => [:show]
     member do
       get 'twitts_edit'
       get 'twitts'
