@@ -42,7 +42,7 @@ ru:
     thanks: "Ваш ответ принят"
     choose_variant: "Выберите вариант ответа"
   anonymous:
-    enter-your-name: "Введите свой псевдоним, или оставьте поле пустым."
+    enter-your-name: "Введите имя, или оставьте поле пустым."
     anonymous: "Аноним"
   answer-variants:
     new: "Создать вариант ответа"

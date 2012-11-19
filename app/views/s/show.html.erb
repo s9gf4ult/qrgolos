@@ -16,10 +16,10 @@ window.VOTE_CHANNEL = '<%= section_question_changed_channel(@anonymous.section) 
 <!-- first page -->
 <div class="panel" title="QR-голос" selected="true" id="first">
   <fieldset>
-	  <p class="normalText"><b>Добро пожаловать в систему электронных голосований "QR-голос"</b></p>
+     <p class="normalText">Cистема электронных голосований</p>
   </fieldset>
   <h2><%= @anonymous.section.name %></h2>
-  <ul title="First Page" selected="true" id="first">
+  <ul selected="true" id="first">
     <li class="arrow"><a href="#second">Чат секции</a></li>
   </ul>
 
@@ -28,26 +28,27 @@ window.VOTE_CHANNEL = '<%= section_question_changed_channel(@anonymous.section) 
     <fieldset>Вы уже ответили на этот вопрос, ожидайте пожалуйста.</fieldset>
   <% else %>
     <% if @active.kind == "radio"%>
-      <fieldset><%= render 'radio_question' %></fieldset>
+      <%= render 'radio_question' %>
     <% elsif @active.kind == "check"%>
-      <fieldset><%= render 'check_question' %></fieldset>
+      <%= render 'check_question' %>
     <% elsif @active.kind == "stars"%>
-      <fieldset><%= render 'stars_question' %></fieldset>
+      <%= render 'stars_question' %>
     <% end %>
   <% end %>
 
 <% else %>
-
   <h2>Сейчас нет активных вопросов</h2>
-
+<% end %>
 </div>
-
 
 <!-- username page -->
-<div class="panel" title="Second Page" id="second">
-     My second iPhone screen.
+<div class="panel" title="Чат" id="second">
+<% if @anonymous.name_number == nil %>
+  <%= render 'name' %>
+<% end %>
+  <!-- %= render 'twitt' % -->
 </div>
 
 
 
-<% end %>
+

@@ -1,0 +1,14 @@
+<h2><%= label_tag 'anonymous[name]', (t 'anonymous.enter-your-name') %></h2>
+
+
+<%= form_tag set_name_path(@anonymous.aid), :method => :post, :class => "panel" do %>
+<fieldset>
+<div class="row">
+  <label>Имя</label>
+  <%= text_field_tag 'anonymous[name]', nil,  :class => "nname" %>
+</div>
+</fieldset>
+  
+  <%= submit_tag (t 'buttons.ok'), :class => "whiteButton" %>
+  <div class="spinner"></div>
+<% end %>

@@ -1,17 +1,20 @@
-<div>
-<%= @active.question %>
-</div>
-<div>
-  <%= form_tag check_votes_path, :method => :post do %>
-  <div>
-    <%= hidden_field_tag 'anonymous[id]', @anonymous.id %>
+<h2><%= @active.question %></h2>
+
+<fieldset>
+  <%= form_tag check_votes_path, :method => :post, :id => "POST" do %>
+  <%= hidden_field_tag 'anonymous[id]', @anonymous.id %>
+  
     <% @active.answer_variants.each do |aw| %>
-    <div>
+    <div class="row">
       <%= check_box_tag 'answer_variant[id][]', aw.id %>
       <%= label :answer_variant, :id, aw.text, :value => aw.id %>
     </div>
     <% end %>
-  </div>
-  <%= submit_tag (t 'votes.do-vote') %>
-  <% end %>
-</div>
+
+</fieldset>
+
+<%= submit_tag (t 'votes.do-vote'), :class => "whiteButton" %>
+<div class="spinner"></div>
+<% end %>
+
+

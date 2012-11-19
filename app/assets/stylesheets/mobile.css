@@ -18,3 +18,7 @@
 .panel > ul > li:first-child a { -webkit-border-top-right-radius:10px; -webkit-border-top-left-radius:10px; }
 .panel > ul > li:last-child a { -webkit-border-bottom-right-radius:10px; -webkit-border-bottom-left-radius:10px; border-bottom-width:1px !important; }
 .panel > ul > li a img { vertical-align:middle; margin-left:-4px; }
+
+.row .nname {
+  padding: 12px 10px 0 60px !important;
+}
