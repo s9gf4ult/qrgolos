@@ -2,7 +2,7 @@
 
 function regen_chat_list() {
     $.ajax({
-        url: $(location).attr('href'),
+        url: window.CHAT_URL,
         dataType: "json",
         success: function(data) {
             data = data.reverse();

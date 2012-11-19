@@ -7,6 +7,7 @@
 <%= javascript_tag do %>
 window.FAYE_ADDRESS = '<%= Settings.faye.address %>';
 window.VOTE_CHANNEL = '<%= section_question_changed_channel(@anonymous.section) %>';
+window.CHAT_URL = '<%= twitt_path(@anonymous.aid) %>'
 <% end %>
 
 <!-- header -->
