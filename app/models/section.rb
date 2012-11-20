@@ -6,6 +6,16 @@ class Section < ActiveRecord::Base
   validates :name, :presence => true
   validates :name, :uniqueness => {:scope => :meeting_id}
 
+  def answered_questions
+    Enumerator.new do |en|
+      self.questions.where(:state => 'answered').each do |question|
+        if question.answered?
+          en.yield question
+        end
+      end
+    end
+  end
+
   def formated_twitts
     Enumerator.new do |en|
       self.twitts.each do |twitt|
@@ -55,7 +65,7 @@ class Section < ActiveRecord::Base
         end
       end
     elsif question != nil and question.state == 'active' and question.section == self
-      question.update_attribute(:state, "new")
+      question.update_attribute(:state, "answered")
     end
   end
 

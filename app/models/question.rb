@@ -9,6 +9,22 @@ class Question < ActiveRecord::Base
   validates :kind, :inclusion => {:in => %w(radio check stars)}
   validates :state, :inclusion => {:in => %w(new active answered canceled)}
 
+  def answered?
+    self.answer_variants.joins(:anonymouss).count > 0
+  end
+
+  def formated_answer_variants
+    sum = 0.0
+    self.answer_variants.each do |aw|
+      sum += aw.votes.sum(:vote).to_f
+    end
+    self.answer_variants.map do |aw|
+      votes = aw.votes.sum(:vote).to_f
+      { :text => aw.text,
+        :percent => if sum > 0; then (votes / sum) * 100; else 0; end}
+    end
+  end
+
   def voted_variants(anonymous)
     self.answer_variants.joins(:votes => :anonymous).where("anonymous.id" => anonymous)
   end

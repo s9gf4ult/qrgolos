@@ -120,7 +120,7 @@ class QuestionsController < ApplicationController
         if @question.save
           format.html { redirect_to @question.section, notice: (t "questions.canceled") }
           format.json { head :no_content }
-          comet_session_question_changed(@question.session)
+          comet_session_question_changed(@question.section)
         else
           format.html { render action: "edit" }
           format.json { render json: @question.errors, status: :unprocessable_entity }

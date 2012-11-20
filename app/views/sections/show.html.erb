@@ -16,7 +16,7 @@
 </div>
   
 <div>
-  <div id="formHeader"><%= t 'twitts' %></div>
+  <div class="formHeader"><%= t 'twitts' %></div>
 
   <div>
     <% if section_owner? @section %>
@@ -26,7 +26,14 @@
   </div>
 </div>
 
-<div id="formHeader"><%= t "sections.questions" %></div>
+<div>
+  <div class="formHeader"><%= t 'sections.statistics' %></div>
+  <div>
+    <%= link_to (t 'buttons.show'), section_section_statistics_path(@section), :class => "small_button" %>
+  </div>
+</div>
+
+<div class="formHeader"><%= t "sections.questions" %></div>
 
 <div id="sctn">
 <% @section.questions.each do |question| %>

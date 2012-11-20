@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<div id="formHeader"><%= @question.question %></div>
+<div class="formHeader"><%= @question.question %></div>
 
 <p>
   <b>State:</b>
@@ -12,7 +12,7 @@
   <%= t @question.kind %>
 </p>
 
-<div id="formHeader">Варианты ответа</div>
+<div class="formHeader">Варианты ответа</div>
 
 <div id="sctn">
   <% @question.answer_variants.each do |answer_variant| %>

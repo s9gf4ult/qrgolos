@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-<div id="formHeader">Мои мероприятия</div>
+<div class="formHeader">Мои мероприятия</div>
 
 <div id="mtng">
  <% @my_meetings.each do |meeting| %>
@@ -24,9 +24,9 @@
 <% end %>
 
 <% if user_signed_in? %>
-  <div id="formHeader">Все мерприятия</div>
+  <div class="formHeader">Все мерприятия</div>
 <% else %>
-  <div id="formHeader">Мероприятия</div>
+  <div class="formHeader">Мероприятия</div>
 <% end %>
 
 <div id="mtng">

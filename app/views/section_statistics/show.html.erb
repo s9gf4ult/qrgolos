@@ -1,0 +1,27 @@
+<% content_for :head do %>
+<%= stylesheet_link_tag "section_statistics" %>
+<% end %>
+
+<div>
+  <%= @section.name %>
+</div>
+
+<% @section.answered_questions.each do |question| %>
+<div class="question">
+  <div class="question_text formHeader">
+    <%= question.question %>
+  </div>
+  <div class="answer_variants">
+    <% question.formated_answer_variants.each do |aw| %>
+    <div class="answer_variant">
+      <div class="variant_text">
+        <%= aw[:text] %>
+      </div>
+      <div style="width: <%= aw[:percent] %>%" class="variant_strip" >
+      <%= "#{aw[:percent].round} %" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<% end %>
