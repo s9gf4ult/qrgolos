@@ -25,6 +25,7 @@ gem 'rubyzip'
 gem 'faye'
 gem 'thin'                      # for faye
 gem 'bigdecimal'
+gem 'minitest'
 
 # Gems used only for assets and not required
 # in production environments by default.
