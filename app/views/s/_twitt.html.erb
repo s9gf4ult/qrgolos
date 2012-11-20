@@ -6,15 +6,5 @@
 </div>
 
 
-<div id="footer">
-<%= form_for @twitt, :html => { :class => "panel nname", :id => 'twitt-form' } do |f| %>
 
-  <%= fields_for @twitt.anonymous do |af| %>
-  <%= af.hidden_field :id %>
-  <% end %>
 
-<%= f.text_field :text, :id => 'twitt-text' %>
-<%= f.submit :class => "whiteButton", :id => "submit-twitt" %>
-  
-<% end %>
-</div>

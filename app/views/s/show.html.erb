@@ -17,7 +17,9 @@ window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
 
 <!-- header -->
 <div class="toolbar">
-      <h1 id="pageTitle"></h1><a id="backButton" class="button" href="#"></a>
+      <h1 id="pageTitle"></h1>
+      <a id="backButton" class="button" href="#"></a>
+      <a class="button" href="#twitt-form">Написать</a>
 </div>
 
 <!-- first page -->
@@ -26,7 +28,7 @@ window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
      <p class="normalText">Cистема электронных голосований</p>
   </fieldset>
   <h2><%= @anonymous.section.name %></h2>
-  <ul selected="true" id="first">
+  <ul selected="true">
     <li class="arrow"><a href="#second">Чат секции</a></li>
   </ul>
 
@@ -50,12 +52,36 @@ window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
 
 <!-- username page -->
 <% if @anonymous.name_number == nil %>
-<div class="panel" title="Чат" id="second">
-<%= render 'name' %>
-<% end %>
-  <div id="second" >
-  <%= render 'twitt' %>
+  <div class="panel" title="Чат" id="second">
+  <%= render 'name' %>
   </div>
+<% else %>
+  <a id="Button" class="button" href="#">+</a>
+  <div class="panel" title="Чат" id="second">
+  
+  <%= render 'twitt' %>
+<% end %>
+</div>
+
+<!-- DialogForm page -->
+
+<%= form_for @twitt, :html => { :class => "dialog", :title => "Dialog", :selected => "false", :id => 'twitt-form' } do |f| %>
+  <%= fields_for @twitt.anonymous do |af| %>
+  <%= af.hidden_field :id %>
+  <% end %>
+  <fieldset>
+
+      <h1>Отправить сообщение</h1>
+      <a class="button leftButton" type="cancel">Отмена</a>
+      <a id="submit-twitt" class="button blueButton" >Отправить</a>
+
+
+      <%= f.text_field :text, :id => 'twitt-text' %>
+      
+  </fieldset>
+<div class="spinner"></div>      
+<% end %>
+
 </div>
 
 

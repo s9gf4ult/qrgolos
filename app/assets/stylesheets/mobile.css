@@ -6,6 +6,10 @@
  
 */
 
+.text {
+  font-weight: normal;
+}
+
 .panel p.normalText {
   text-align: center;
   padding: 0 10px 0 10px;
@@ -42,7 +46,7 @@ fieldset > div.row > span {
   padding-left:   0px;
 }
 
-body > div > ul > li {
+.whideLi {
   position: relative;
   margin: 0;
   border-bottom: 1px solid #E0E0E0 !important;

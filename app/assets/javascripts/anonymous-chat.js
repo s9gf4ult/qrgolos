@@ -5,12 +5,12 @@ function regen_chat_list() {
         url: window.CHAT_URL,
         dataType: "json",
         success: function(data) {
-            data = data.reverse();
+            //data = data.reverse();
 	    ul = $('#twitts_list');
 	    ul.html('');
             $.each(data, function(i, el) {
-                li = $('<li />')
-                li.html('<span class="name_element">' + el.name + '</span>' + ': ' + '<span class="text_element">' + el.text + '</span>');
+                li = $('<li class="whideLi">')
+                li.html('<span class="name_element">' + el.name + '</span>' + ': ' + '<span class="text">' + el.text + '</span>');
                 ul.append(li);
             });
             //$('#twitts_list').html(ul);
@@ -24,12 +24,14 @@ $(function() {
 
     $('#submit-twitt').click(function() {
         form = $('#twitt-form');
+			     
         if ($('#twitt-text').val().trim() != '') {
             $.post(form.attr('action'), form.serialize(),
                    function() {
                        $('#twitt-text').val('');
                    });
         }
+        $('#twitt-form').attr('selected',false);
         return false;
     });
     
