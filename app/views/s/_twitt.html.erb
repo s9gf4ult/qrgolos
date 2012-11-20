@@ -5,6 +5,17 @@
 	</div>
 </div>
 
+<script>
 
+$(window).bind('hashchange', function () { //detect hash change
+        var hash = window.location.hash.slice(1); //hash to string (= "myanchor")
+	if (hash == "_second") {
+		$('a[href=#twitt-form]').show();
+	} else {
+	$('a[href=#twitt-form]').hide();
+	}
+});
+
+</script>
 
 

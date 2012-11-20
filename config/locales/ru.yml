@@ -18,13 +18,14 @@ ru:
     bringed_up: "Поднято"
     forgotPassword: "Напомнить пароль"
     forgot: "Напомнить"
+    moderate: "Модерировать"
   sections:
     name: "Название секции"
     questions: "Вопросы секции"
     no-access: "Вы не можете менять эту секцию"
     twitts: "Чат"
     twitts-edit: "Редатирование чата"
-    archive: "Скачать архив с картинками"
+    archive: "Скачать QR-коды"
     statistics: "Статистика"
   meetings_link: "Мероприятия"
   meetings:
@@ -48,7 +49,7 @@ ru:
   answer-variants:
     new: "Создать вариант ответа"
   active: "Активный"
-  anonymous_count: "Количество участников:"
+  anonymous_count: "Участников:"
   answered: "Отвеченный"
   canceled: "Отмененный"
   check: "Множественный выбор"

@@ -24,7 +24,6 @@ $(function() {
 
     $('#submit-twitt').click(function() {
         form = $('#twitt-form');
-			     
         if ($('#twitt-text').val().trim() != '') {
             $.post(form.attr('action'), form.serialize(),
                    function() {

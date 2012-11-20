@@ -1,44 +1,58 @@
 <p id="notice"><%= notice %></p>
+<table>
+<tr>
+  <td style="width:87%" >
+    <div id="mtng">
+	<div class="name"><%= @section.name %></div>
+	<div style="clear:both;"> </div>
+	<div class="descr"><%= @section.descr %></div>
+    </div>
+  </td>
 
-<div id="mtng">
-    <div class="name"><%= @section.name %></div>
-    <div style="clear:both;"> </div>
-    <div class="descr"><%= @section.descr %></div>
-</div>
-
-<div>
-  <div>
-    <b><%= t "anonymous_count" %></b><%= @section.anonymous_count %>
-  </div>
-  <div>
-    <%= link_to (t 'sections.archive'), section_archive_path(@section) %>
-  </div>
-</div>
+  <td>
+    <div>
+      <div>
+	<%= t "anonymous_count" %> <b><%= @section.anonymous_count %></b>
+      </div>
+      <div>
+	<%= link_to (t 'sections.archive'), section_archive_path(@section) %>
+      </div>
+    </div>
+  </td>
+</tr>
+</table>
+<hr> <!-- --------------------------------------------------------------------------------------------------- -->
+<table>
+<tr style="height: 60px;">
+  <td style="width:504px;">
+      <div>
+	  <div>
+	    <span class="formHeader"><%= t 'twitts' %></span>
+	    <div style="width:20px; display: inline-block;"></div>
+	    <% if section_owner? @section %>
+		<%= link_to (t 'buttons.moderate'), twitts_section_path(@section), :class => "small_button"%>
+		<%= link_to (t 'buttons.show'), twitts_section_path(@section), :class => "small_button"%>
+	    </div>
+	    <% end %>
+    </div>
+  </td>
+  <td>
+      <div>
+	  <span class="formHeader"><%= t 'sections.statistics' %></span>
+	  <div style="width:20px; display: inline-block;"></div>
+	  <%= link_to (t 'buttons.show'), section_section_statistics_path(@section), :class => "small_button" %>
+      </div>
   
-<div>
-  <div class="formHeader"><%= t 'twitts' %></div>
-
-  <div>
-    <% if section_owner? @section %>
-      <%= link_to (t 'buttons.edit'), twitts_edit_section_path(@section), :class => "small_button" %>
-    <% end %>
-    <%= link_to (t 'buttons.show'), twitts_section_path(@section), :class => "small_button" %>
-  </div>
-</div>
-
-<div>
-  <div class="formHeader"><%= t 'sections.statistics' %></div>
-  <div>
-    <%= link_to (t 'buttons.show'), section_section_statistics_path(@section), :class => "small_button" %>
-  </div>
-</div>
-
+  </td>
+</tr>
+</table>
+<hr> <!-- --------------------------------------------------------------------------------------------------- -->
 <div class="formHeader"><%= t "sections.questions" %></div>
 
 <div id="sctn">
 <% @section.questions.each do |question| %>
   <div class="name"><%= link_to question.question, question %></div>
-    <div class="descr"><%= t question.state %> <%= t question.kind %>
+    <div class="descr"><%= t question.state %>, <%= t question.kind %>
     <% if section_owner? @section %>
       <div class="edit">
 	  <%= link_to (t "buttons.activate"), activate_question_path(question), :method => :post, :class => "small_button" %>

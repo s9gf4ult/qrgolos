@@ -46,6 +46,11 @@ fieldset > div.row > span {
   padding-left:   0px;
 }
 
+body > :not(.toolbar) {
+  min-height: 100%;
+  
+}
+
 .whideLi {
   position: relative;
   margin: 0;

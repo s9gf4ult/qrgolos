@@ -19,7 +19,7 @@ window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
 <div class="toolbar">
       <h1 id="pageTitle"></h1>
       <a id="backButton" class="button" href="#"></a>
-      <a class="button" href="#twitt-form">Написать</a>
+      <a class="button" href="#twitt-form" style="display: none;">Написать</a>
 </div>
 
 <!-- first page -->
@@ -57,7 +57,7 @@ window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
   </div>
 <% else %>
   <a id="Button" class="button" href="#">+</a>
-  <div class="panel" title="Чат" id="second">
+  <div class="panel" class="postmsg" title="Чат" id="second">
   
   <%= render 'twitt' %>
 <% end %>

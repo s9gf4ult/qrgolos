@@ -1,13 +1,17 @@
-<div>
+<table id="twittTable">
+  <tr>
+    <th class="roundedleft">Статус</th>
+    <th class="roundedright">Сообщение</th>
+  </tr>
   <% @section.twitts.limit(20).each do |twitt| %>
-  <div>
-    <%= twitt.text %>
-    <%= t twitt.state %>
+  <tr>
     <% if twitt.state == "new" %>
-      <%= link_to (t 'buttons.activate'), activate_section_twitt(twitt), :method => :post, :class => "small_button" %>
+     <td class="tableStat"><%= link_to " ", activate_section_twitt(twitt), :method => :post, :class => "cansel_button" %></td>
+     <td class="tableMsg" ><span><%= twitt.text %></span></td>
     <% else  %>
-      <%= link_to (t 'buttons.deactivate'), activate_section_twitt(twitt), :method => :post, :class => "small_button" %>
+      <td class="tableStat"><%= link_to " ", activate_section_twitt(twitt), :method => :post, :class => "active_button" %></td>
+      <td><%= twitt.text %></td>
     <% end %>
-  </div>
+  </tr>
   <% end %>
-</div>
+</table>
