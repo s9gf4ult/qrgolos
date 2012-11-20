@@ -21,5 +21,16 @@ function regen_chat_list() {
 $(function() {
     regen_chat_list();
     launch_faye_updater(window.TWITT_CHANNEL, regen_chat_list);
-    $('input:text').val('');
+
+    $('#submit-twitt').click(function() {
+        form = $('#twitt-form');
+        if ($('#twitt-text').val().trim() != '') {
+            $.post(form.attr('action'), form.serialize(),
+                   function() {
+                       $('#twitt-text').val('');
+                   });
+        }
+        return false;
+    });
+    
 });
