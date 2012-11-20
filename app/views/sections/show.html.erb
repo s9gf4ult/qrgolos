@@ -30,7 +30,7 @@
 	    <span class="formHeader"><%= t 'twitts' %></span>
 	    <div style="width:20px; display: inline-block;"></div>
 	    <% if section_owner? @section %>
-		<%= link_to (t 'buttons.moderate'), twitts_section_path(@section), :class => "small_button"%>
+		<%= link_to (t 'buttons.moderate'), twitts_edit_section_path(@section), :class => "small_button"%>
 		<%= link_to (t 'buttons.show'), twitts_section_path(@section), :class => "small_button"%>
 	    </div>
 	    <% end %>
@@ -68,10 +68,12 @@
 <div style="clear: both;"></div>
 <br />
 <hr>
+  <%= link_to (t "buttons.back"), @section.meeting, :class => "button" %>
   <% if section_owner? @section %>
+    <%= link_to (t "buttons.edit"), edit_section_path(@section), :class => "button" %> 
     <%= link_to (t "buttons.create"), new_section_question_path(@section), :class => "button", :style => "float: right;" %>
   <% end %>
-  <%= link_to (t "buttons.back"), @section.meeting, :class => "button" %>
+  
 
 <!--
 < %= link_to (t :edit), edit_section_path(@section) %> |
