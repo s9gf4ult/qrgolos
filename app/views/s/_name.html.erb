@@ -1,14 +1,14 @@
-<h2><%= label_tag 'anonymous[name]', (t 'anonymous.enter-your-name') %></h2>
-
-
-<%= form_tag set_name_path(@anonymous.aid), :method => :post, :class => "panel" do %>
+<%= form_tag set_name_path(@anonymous.aid), :method => :post, :class => "dialog", :title => "Dialog", :selected => "selected", :id => 'name-form' do %>
 <fieldset>
-<div class="row">
-  <label>Имя</label>
-  <%= text_field_tag 'anonymous[name]', nil,  :class => "nname" %>
-</div>
+  <h1>Имя</h1>
+  <br />
+  <span class="panel"><h2><%= label_tag 'anonymous[name]', (t 'anonymous.enter-your-name') %></h2></span>
+  <a id="backButton" class="button" href="#" style="display: inline;">QR-голос</a>
+  <a id="submit-twitt" class="button blueButton" >Отправить</a>
+  <%= text_field_tag 'anonymous[name]', nil,  :id => 'name-text', :class => "nname" %>
+
 </fieldset>
-  
-  <%= submit_tag (t 'buttons.ok'), :class => "whiteButton" %>
-  <div class="spinner"></div>
+<div class="spinner"></div>
 <% end %>
+
+

@@ -34,4 +34,17 @@ $(function() {
         return false;
     });
     
+    $('#submit-name').click(function() {
+      form = $('#name-form');
+	       if ($('#name-text').val().trim() != '') {
+		 $.post(form.attr('action'), form.serialize(),
+			function() {
+			  $('#name-text').val('');
+			});
+	       }
+	       location.reload();
+	       $('#name-form').attr('selected',false);
+      return false;
+    });
+    
 });
