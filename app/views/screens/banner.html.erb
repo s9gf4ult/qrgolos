@@ -9,5 +9,12 @@ window.SCREEN_CHANNEL = '<%= screen_update_channel(@screen) %>';
 <% end %>
 
 <div class="center">
-  <img class="banner" height="100%" src="/screens/1/banner.jpg" />
+  <img id="bannerImg" class="banner" height="100%" src="/screens/1/banner.jpg" />
 </div>
+
+<script>
+$(function() {
+  $('#bannerImg').height($(window).height());
+});
+
+</script>

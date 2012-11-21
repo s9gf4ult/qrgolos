@@ -14,6 +14,7 @@ window.SCREEN_CHANNEL = '<%= screen_update_channel(@screen) %>';
 <% @section.active_question.answer_variants.each do |aw| %>
     <div class="row">
       <%= label :answer_variant, :id, aw.text, :value => aw.id %>
+
     </div>
 <% end %>
 <% else %>
