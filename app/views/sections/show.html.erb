@@ -20,6 +20,18 @@
     </div>
   </td>
 </tr>
+<tr>
+  <td>
+    <div class="formHeader">
+      Экраны
+    </div>
+    <div>
+      <% @section.screens.each_with_index do |screen, idx| %>
+      <%= link_to idx, screen, :class => "small_button" %>
+      <% end %>
+    </div>
+  </td>
+</tr>
 </table>
 <hr> <!-- --------------------------------------------------------------------------------------------------- -->
 <table>
