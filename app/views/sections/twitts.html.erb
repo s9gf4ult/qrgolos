@@ -2,9 +2,11 @@
   <% @section.active_twitts.limit(20).each do |twitt| %>
 <tr>
   <td>
-    <%= twitt.text %>
+    <b><%= twitt.anonymous.formated_name %></b>:
+    <div class="tableMsg"><%= twitt.text%></div>
   <td/>
 <tr/>
   <% end %>
 </tr>
 </table>
+    

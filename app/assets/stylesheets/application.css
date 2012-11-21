@@ -1644,20 +1644,18 @@ form#submitScreenshot .pseudoFile button { height: 34px; }
 }
 
 #twittTable {
-    margin-top: 25px;
-    width: 100%;
-    font-size: 16px;
-    text-align: left;
-    border-collapse: collapse;
+  margin-top: 25px;
+  width: 100%;
+  font-size: 16px;
+  border-collapse: collapse;
 }
 
 #twittTable tr {
-    margin: 0;
-    padding: 0px, 20px, 0px, 0px;
-    border: 0;
-    outline: 0;
-    vertical-align: baseline;
-    background: transparent;
+  margin: 0;
+  padding: 0px, 20px, 0px, 0px;
+  border: 0;
+  outline: 0;
+  background: transparent;
 }
 
 #twittTable th {
@@ -1687,5 +1685,10 @@ form#submitScreenshot .pseudoFile button { height: 34px; }
 }
 
 #twittTable .tableStat {
-    text-align: center;
+  text-align: center;
+}
+
+#twittTable .tableMsg {
+  word-wrap: break-word; /* Перенос слов */ 
+  width: 870px;
 }

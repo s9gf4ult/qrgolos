@@ -7,10 +7,16 @@
   <tr>
     <% if twitt.state == "new" %>
      <td class="tableStat"><%= link_to " ", activate_section_twitt(twitt), :method => :post, :class => "cansel_button" %></td>
-     <td class="tableMsg" ><span><%= twitt.text %></span></td>
+     <td>
+	<b><%= twitt.anonymous.formated_name %></b>: 
+	<div class="tableMsg"><%= twitt.text%></div>
+    </td>
     <% else  %>
       <td class="tableStat"><%= link_to " ", activate_section_twitt(twitt), :method => :post, :class => "active_button" %></td>
-      <td><%= twitt.text %></td>
+      <td>
+	<b><%= twitt.anonymous.formated_name %></b>:
+	<div class="tableMsg"><%= twitt.text%></div></td>
+      </td>
     <% end %>
   </tr>
   <% end %>
