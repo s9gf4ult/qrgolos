@@ -1,0 +1,13 @@
+<div class="formHeader"><%= @section.name %></div>
+
+<table id="twittTable">
+  <% @section.active_twitts.limit(20).each do |twitt| %>
+<tr>
+  <td>
+    <b><%= twitt.anonymous.formated_name %></b>:
+    <div class="tableMsg"><%= twitt.text%></div>
+  <td/>
+<tr/>
+  <% end %>
+</tr>
+</table>

@@ -1,6 +1,9 @@
 body {
 /*  overflow: hidden;*/
   height: 100%;
+  font-family: 'PT Sans';
+  margin: 0px;
+  color: #333;
 }
 
 .banner {
@@ -10,4 +13,61 @@ body {
 
 .center {
   text-align: center;
+}
+
+.formHeader {
+  font-size: 30px;
+  padding: 15px 0px 0px 0px;
+  text-align: center;
+  text-shadow: #CCC 0px 2px 3px;
+}
+
+#twittTable {
+  margin-top: 25px;
+  width: 100%;
+  font-size: 16px;
+  border-collapse: collapse;
+}
+
+#twittTable tr {
+  margin: 0;
+  padding: 0px, 20px, 0px, 0px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+}
+
+#twittTable th {
+  font-weight: normal;
+  font-size: 13px;
+  color: #333;
+  background: #ddd;
+  padding: 8px;
+}
+
+#twittTable td {
+  background: #f5f5f5;
+  border-top: 1px solid #fff;
+  border-right: 1px dashed #fff;
+  color: #333;
+  padding: 8px;
+}
+
+#twittTable th.roundedleft {
+  background: #ddd url("/images/icons/table/left.png") left -1px no-repeat;
+
+}
+
+#twittTable th.roundedright {
+  background: #ddd url("/images/icons/table/right.png") right -1px no-repeat;
+
+}
+
+#twittTable .tableStat {
+  text-align: center;
+}
+
+#twittTable .tableMsg {
+  word-wrap: break-word; /* Перенос слов */
+  width: 870px;
 }

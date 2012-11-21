@@ -1,0 +1,12 @@
+<% if @section.active_question %>
+<div class="formHeader"><%= @section.active_question.question %></div>
+
+<% @section.active_question.answer_variants.each do |aw| %>
+    <div class="row">
+      <%= label :answer_variant, :id, aw.text, :value => aw.id %>
+    </div>
+<% end %>
+<% else %>
+нет активного вопроса
+<% end %>
+
