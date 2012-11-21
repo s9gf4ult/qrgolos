@@ -41,6 +41,7 @@ class ScreensController < ApplicationController
         if @screen.update_attributes(params[:screen])
           format.html { redirect_to @screen.section }
           format.json { head :no_content }
+          comet_screen_update @screen
         else
           format.html { redirect_to @screen.section }
           format.json { render :json => @screen.errors, :status => :unprocessable_entity }

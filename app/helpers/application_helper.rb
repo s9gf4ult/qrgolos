@@ -29,6 +29,10 @@ module ApplicationHelper
     broadcast section_question_changed_channel(section)
   end
 
+  def comet_screen_update(screen)
+    broadcast screen_update_channel(screen)
+  end
+
   def activate_section_twitt(twitt)
     tid = if twitt.is_a?(Twitt); then twitt.id else twitt end
     "/sections/twitt/#{tid}/activate"
@@ -40,6 +44,11 @@ module ApplicationHelper
 
   def section_archive_path(section)
     "/files/#{section_archive_name(section)}"
+  end
+
+  def screen_update_channel(screen)
+    sid = if screen.is_a? Screen; then screen.id else screen end
+    "/screens/#{sid}/update"
   end
 
   def remove_section_archive(section)

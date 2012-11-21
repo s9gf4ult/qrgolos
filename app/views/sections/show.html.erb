@@ -1,10 +1,10 @@
-<script>
+<%= javascript_tag do %>
   $(function() {
   $('.screen_state_select').change(
   function(){
   $(this).closest('form').trigger('submit');
   })});
-</script>
+<% end %>
 
 <p id="notice"><%= notice %></p>
 <table>
