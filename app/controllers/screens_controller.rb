@@ -8,30 +8,30 @@ class ScreensController < ApplicationController
 
   def banner
     @screen = Screen.find(params[:id])
-    # with_right_content @screen, "banner" do
+    with_right_content @screen, "banner" do
       @section = @screen.section
-    # end
+    end
   end
   
   def twitts
     @screen = Screen.find(params[:id])
-    # with_right_content @screen, "twitts" do
+    with_right_content @screen, "twitts" do
       @section = @screen.section
-    # end
+    end
   end
 
   def question
     @screen = Screen.find(params[:id])
-    # with_right_content @screen, "question" do
+    with_right_content @screen, "question" do
       @section = @screen.section
-    # end
+    end
   end
 
   def statistics
     @screen = Screen.find(params[:id])
-    # with_right_content @screen, "statistics" do
+    with_right_content @screen, "statistics" do
       @section = @screen.section
-    # end
+    end
   end
 
   def update

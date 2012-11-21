@@ -2,6 +2,8 @@
 <html>
 <head>
   <%= yield :head %>
+  <%= javascript_include_tag "#{Settings.faye.address}/client.js" %>
+  <%= javascript_include_tag "screen_updater.js" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
