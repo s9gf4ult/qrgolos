@@ -1647,7 +1647,6 @@ border-radius: 16px;
   margin-top: 25px;
   width: 100%;
   font-size: 16px;
-  text-align: left;
   border-collapse: collapse;
 }
 
@@ -1656,7 +1655,6 @@ border-radius: 16px;
   padding: 0px, 20px, 0px, 0px;
   border: 0;
   outline: 0;
-  vertical-align: baseline;
   background: transparent;
 }
 
@@ -1688,4 +1686,9 @@ border-radius: 16px;
 
 #twittTable .tableStat {
   text-align: center;
+}
+
+#twittTable .tableMsg {
+  word-wrap: break-word; /* Перенос слов */ 
+  width: 870px;
 }

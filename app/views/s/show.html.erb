@@ -70,13 +70,14 @@ window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
   <%= af.hidden_field :id %>
   <% end %>
   <fieldset>
-
-      <h1>Отправить сообщение</h1>
+      <h1>Чат</h1>
+      <br />
+      <span class="panel"><h2>Отправить сообщение</h2></span>
       <a class="button leftButton" type="cancel">Отмена</a>
       <a id="submit-twitt" class="button blueButton" >Отправить</a>
 
 
-      <%= f.text_field :text, :id => 'twitt-text' %>
+      <%= f.text_area :text, :id => 'twitt-text', :rows => "3", :style => "width: 98%;" %>
       
   </fieldset>
 <div class="spinner"></div>      
