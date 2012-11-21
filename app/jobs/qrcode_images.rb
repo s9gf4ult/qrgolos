@@ -2,7 +2,7 @@ require 'tmpdir'
 require 'zip/zip'
 class QrcodeImages
   include SHelper
-  include SectionsHelper
+  include ApplicationHelper
   attr_accessor :image_width, :image_height, :font_size, :addition
 
   @queue = :qrcode_images
