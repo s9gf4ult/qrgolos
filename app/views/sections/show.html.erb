@@ -22,14 +22,13 @@
 </tr>
 <tr>
   <td>
-    <div class="formHeader">
+    <span class="formHeader">
       Экраны
-    </div>
-    <div>
+    </span>
+     <div style="width:20px; display: inline-block;"></div>
       <% @section.screens.each_with_index do |screen, idx| %>
       <%= link_to idx, screen, :class => "small_button" %>
       <% end %>
-    </div>
   </td>
 </tr>
 </table>
@@ -54,7 +53,7 @@
 	  <div style="width:20px; display: inline-block;"></div>
 	  <%= link_to (t 'buttons.show'), section_section_statistics_path(@section), :class => "small_button" %>
       </div>
-  
+
   </td>
 </tr>
 </table>
@@ -73,7 +72,7 @@
 	  <%= link_to (t "buttons.delete"), question, method: :delete, data: { confirm: 'Удалить вопрос?' }, :class => "small_button" %>
       </div>
     <% end %>
-   </div> 
+   </div>
 <% end %>
 </div>
 
@@ -82,10 +81,10 @@
 <hr>
   <%= link_to (t "buttons.back"), @section.meeting, :class => "button" %>
   <% if section_owner? @section %>
-    <%= link_to (t "buttons.edit"), edit_section_path(@section), :class => "button" %> 
+    <%= link_to (t "buttons.edit"), edit_section_path(@section), :class => "button" %>
     <%= link_to (t "buttons.create"), new_section_question_path(@section), :class => "button", :style => "float: right;" %>
   <% end %>
-  
+
 
 <!--
 < %= link_to (t :edit), edit_section_path(@section) %> |

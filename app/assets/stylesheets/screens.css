@@ -1,7 +1,13 @@
 body {
-  width: 100%;
+/*  overflow: hidden;*/
+  height: 100%;
 }
 
-.banner img {
-  width: 100%;
+.banner {
+  height: 100%;
+
+}
+
+.center {
+  text-align: center;
 }
