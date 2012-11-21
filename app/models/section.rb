@@ -1,11 +1,30 @@
 class Section < ActiveRecord::Base
-  attr_accessible :name, :anonymous_count, :descr
+  attr_accessible :name, :anonymous_count, :descr, :screens_count
   has_many :questions, :dependent => :destroy
   has_many :anonymouss, :dependent => :destroy
-  has_many :screens
+  has_many :screens, :order => "id asc"
   belongs_to :meeting
   validates :name, :presence => true
   validates :name, :uniqueness => {:scope => :meeting_id}
+
+  def screens_count
+    self.screens.count
+  end
+
+  def screens_count=(count)
+    count = count.to_i
+    if count >= 0
+      if self.screens_count < count
+        (count - self.screens_count).times do
+          self.screens.create
+        end
+      elsif self.screens_count > count
+        self.screens.reorder("id desc").limit(self.screens_count - count).each do |s|
+          s.destroy
+        end
+      end
+    end
+  end
 
   def answered_questions
     Enumerator.new do |en|
