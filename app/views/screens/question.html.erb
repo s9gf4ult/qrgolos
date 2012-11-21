@@ -1,6 +1,7 @@
 <% content_for :head do %>
 <%= javascript_include_tag "#{Settings.faye.address}/client.js" %>
 <%= javascript_include_tag "screen-updater.js" %>
+<%= stylesheet_link_tag "section_statistics" %>
 <% end %>
 
 <%= javascript_tag do %>
@@ -11,11 +12,14 @@ window.SCREEN_CHANNEL = '<%= screen_update_channel(@screen) %>';
 <% if @section.active_question %>
 <div class="formHeader"><%= @section.active_question.question %></div>
 
-<% @section.active_question.answer_variants.each do |aw| %>
-    <div class="row">
-      <%= label :answer_variant, :id, aw.text, :value => aw.id %>
-    </div>
+<% @section.active_question.formated_answer_variants.each do |aw| %>
+<div class="answer_variant" style="margin-right: 4em;">
+  <div class="variant_text"> <%= aw[:text] %> </div>
+  <div style="width: <%= aw[:percent] %>%" class="variant_strip" > <%= "#{aw[:percent].round 2} %" %> </div>
+</div>
 <% end %>
+
+
 <% else %>
 нет активного вопроса
 <% end %>

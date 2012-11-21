@@ -21,6 +21,26 @@ module ApplicationHelper
     "/sections/#{section.id}/question/changed"
   end
 
+  def propogate_question_changed(section)
+    comet_session_question_changed section
+    section.screens.where(:state => "question").each do |s|
+      comet_screen_update s
+    end
+  end
+
+  def propogate_new_votes(section)
+    section.screens.where(:state => "question").each do |s|
+      comet_screen_update s
+    end
+  end
+
+  def propogate_twitts_activated(section)
+    comet_session_new_twitt section
+    section.screens.where(:state => "twitts").each do |s|
+      comet_screen_update s
+    end
+  end
+
   def comet_session_new_twitt(section)
     broadcast section_new_twitt_channel(section)
   end

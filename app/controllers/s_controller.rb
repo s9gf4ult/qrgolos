@@ -54,10 +54,11 @@ class SController < ApplicationController
   def get_anonymous
     @anonymous = Anonymous.where(:fake => false, :aid => params[:id]).first
     #  FIXME: make anonymous remember last time user entered
-    session[:anonymous_id] = @anonymous.id
     if @anonymous == nil
       flash[:error] = t :wrong_aid
       redirect_to s_path
+    else
+      session[:anonymous_id] = @anonymous.id
     end
   end
 end

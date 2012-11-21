@@ -24,6 +24,7 @@ class SectionsController < ApplicationController
         if twitt.save
           format.html {redirect_to twitts_edit_section_path(twitt.anonymous.section)}
           format.json {header :no_content}
+          propogate_twitts_activated twitt.anonymous.section
         else
           format.html {redirect_to twitts_edit_section_path(twitt.anonymous.section)}
           format.json {render :json => twitt.errors, :status => :unprocessable_entity}

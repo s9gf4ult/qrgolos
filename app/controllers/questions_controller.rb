@@ -64,7 +64,7 @@ class QuestionsController < ApplicationController
           format.html { redirect_to @question, notice: 'Question was successfully updated.' }
           format.json { head :no_content }
           if @question.state == "active"
-            comet_session_question_changed(@question.section)
+            propogate_question_changed @question.section
           end
         else
           format.html { render action: "edit" }
@@ -90,7 +90,7 @@ class QuestionsController < ApplicationController
         format.html { redirect_to section }
         format.json { head :no_content }
         if update
-          comet_session_question_changed(session)
+          propogate_question_changed session
         end
       end
     end
@@ -103,7 +103,7 @@ class QuestionsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to @question.section, notice: (t "questions.activated") }
         format.json { head :no_content }
-        comet_session_question_changed(@question.section)
+        propogate_question_changed @question.section
       end
     end
   end
@@ -120,7 +120,7 @@ class QuestionsController < ApplicationController
         if @question.save
           format.html { redirect_to @question.section, notice: (t "questions.canceled") }
           format.json { head :no_content }
-          comet_session_question_changed(@question.section)
+          propogate_new_votes @question.section
         else
           format.html { render action: "edit" }
           format.json { render json: @question.errors, status: :unprocessable_entity }
@@ -128,4 +128,5 @@ class QuestionsController < ApplicationController
       end
     end
   end
+
 end

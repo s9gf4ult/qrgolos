@@ -45,6 +45,7 @@ class AnswerVariantsController < ApplicationController
         if @answer_variant.save
           format.html { redirect_to @answer_variant.question, notice: 'Answer variant was successfully created.' }
           format.json { render json: @answer_variant, status: :created, location: @answer_variant }
+          propogate_aw @answer_variant
         else
           format.html { render action: "new" }
           format.json { render json: @answer_variant.errors, status: :unprocessable_entity }
@@ -62,6 +63,7 @@ class AnswerVariantsController < ApplicationController
         if @answer_variant.update_attributes(params[:answer_variant].except(:position))
           format.html { redirect_to @answer_variant, notice: 'Answer variant was successfully updated.' }
           format.json { head :no_content }
+          propogate_aw @answer_variant
         else
           format.html { render action: "edit" }
           format.json { render json: @answer_variant.errors, status: :unprocessable_entity }
@@ -76,11 +78,15 @@ class AnswerVariantsController < ApplicationController
     @answer_variant = AnswerVariant.find(params[:id])
     when_section_owner @answer_variant.question.section do
       question = Question.find(@answer_variant.question)
+      update = question.state == "active"
       @answer_variant.destroy
 
       respond_to do |format|
         format.html { redirect_to question }
         format.json { head :no_content }
+        if update
+          propogate_question_changed question.section
+        end
       end
     end
   end
@@ -92,6 +98,7 @@ class AnswerVariantsController < ApplicationController
         if @answer_variant.bringup
           format.html { redirect_to @answer_variant.question, :notice => (t :bringed_up) }
           format.json { head :no_content }
+          propogate_aw @answer_variant
         else
           format.html { redirect_to @answer_variant.question, :error => "Error" }
           format.json { render :json => "can not bring up", :status => :unprocessable_entity }
@@ -107,6 +114,7 @@ class AnswerVariantsController < ApplicationController
         if @answer_variant.bringdown
           format.html { redirect_to @answer_variant.question, :notice => (t :bringed_down) }
           format.json { head :no_content }
+          propogate_aw @answer_variant
         else
           format.html { redirect_to @answer_variant.question, :error => "Error" }
           format.json { render :json => "can not bring up", :status => :unprocessable_entity }
@@ -114,4 +122,13 @@ class AnswerVariantsController < ApplicationController
       end
     end
   end
+
+  private
+
+  def propogate_aw(answer_variant)
+    if @answer_variant.question.state == "active"
+      propogate_question_changed @answer_variant.question.section
+    end
+  end
+    
 end
