@@ -13,12 +13,6 @@
  *= require questions
  */
 
-body {
-    font-family: 'PT Sans';
-    margin: 0px;
-    color: #333;
-}
-
 a {
     color: #F46430;
     cursor: pointer;
@@ -78,8 +72,11 @@ body {
     color: #444;
     /*font-family: 'Droid Sans',arial,serif;*/
     font-family: 'PT Sans';
-    font-size: 13px;
-    line-height: 20px;
+/*    font-size: 13px;
+    line-height: 20px;*/
+    margin: 0px;
+    color: #333;
+
 }
 body.about {
     margin: 0;
@@ -1457,7 +1454,7 @@ form#submitScreenshot .pseudoFile button { height: 34px; }
 }
 
 .small_button {
-    display: inline-block;
+    display: inline;
     zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
     padding: 0.2em 1em;
     cursor: pointer;
