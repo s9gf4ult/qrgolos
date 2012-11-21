@@ -1,3 +1,13 @@
+<% content_for :head do %>
+<%= javascript_include_tag "#{Settings.faye.address}/client.js" %>
+<%= javascript_include_tag "screen-updater.js" %>
+<% end %>
+
+<%= javascript_tag do %>
+window.FAYE_ADDRESS = '<%= Settings.faye.address %>';
+window.SCREEN_CHANNEL = '<%= screen_update_channel(@screen) %>';
+<% end %>
+
 <% if @section.active_question %>
 <div class="formHeader"><%= @section.active_question.question %></div>
 
@@ -9,4 +19,3 @@
 <% else %>
 нет активного вопроса
 <% end %>
-

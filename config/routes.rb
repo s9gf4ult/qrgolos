@@ -1,7 +1,7 @@
 Ruvote::Application.routes.draw do
 
 
-  resources :screens, :only => [:show] do
+  resources :screens, :only => [:show, :update] do
     member do
       get "banner"
       get "twitts"

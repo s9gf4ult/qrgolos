@@ -8,30 +8,46 @@ class ScreensController < ApplicationController
 
   def banner
     @screen = Screen.find(params[:id])
-    # with_right_content @screen, "banner" do
+    with_right_content @screen, "banner" do
       @section = @screen.section
-    # end
+    end
   end
   
   def twitts
     @screen = Screen.find(params[:id])
-    # with_right_content @screen, "twitts" do
+    with_right_content @screen, "twitts" do
       @section = @screen.section
-    # end
+    end
   end
 
   def question
     @screen = Screen.find(params[:id])
-    # with_right_content @screen, "question" do
+    with_right_content @screen, "question" do
       @section = @screen.section
-    # end
+    end
   end
 
   def statistics
     @screen = Screen.find(params[:id])
-    # with_right_content @screen, "statistics" do
+    with_right_content @screen, "statistics" do
       @section = @screen.section
-    # end
+    end
+  end
+
+  def update
+    @screen = Screen.find(params[:id])
+    when_section_owner @screen.section do
+      respond_to do |format|
+        if @screen.update_attributes(params[:screen])
+          format.html { redirect_to @screen.section }
+          format.json { head :no_content }
+          comet_screen_update @screen
+        else
+          format.html { redirect_to @screen.section }
+          format.json { render :json => @screen.errors, :status => :unprocessable_entity }
+        end
+      end
+    end
   end
 
   private
@@ -52,7 +68,7 @@ class ScreensController < ApplicationController
       when "question"
         redirect_to question_screen_path(screen)
       when "statistics"
-        redirect_to statistics_screen(screen)
+        redirect_to statistics_screen_path(screen)
       end
     end
   end
