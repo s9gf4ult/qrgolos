@@ -34,6 +34,21 @@ class ScreensController < ApplicationController
     # end
   end
 
+  def update
+    @screen = Screen.find(params[:id])
+    when_section_owner @screen.section do
+      respond_to do |format|
+        if @screen.update_attributes(params[:screen])
+          format.html { redirect_to @screen.section }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to @screen.section }
+          format.json { render :json => @screen.errors, :status => :unprocessable_entity }
+        end
+      end
+    end
+  end
+
   private
 
   def set_layout
@@ -52,7 +67,7 @@ class ScreensController < ApplicationController
       when "question"
         redirect_to question_screen_path(screen)
       when "statistics"
-        redirect_to statistics_screen(screen)
+        redirect_to statistics_screen_path(screen)
       end
     end
   end

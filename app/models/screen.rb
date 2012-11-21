@@ -13,6 +13,12 @@ class Screen < ActiveRecord::Base
     end
   end
 
+  def rev_states
+    self.states.map do |a, b|
+      [b, a]
+    end
+  end
+
   private
   def set_defaults
     self.state ||= "banner"

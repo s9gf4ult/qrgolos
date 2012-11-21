@@ -1,3 +1,11 @@
+<script>
+  $(function() {
+  $('.screen_state_select').change(
+  function(){
+  $(this).closest('form').trigger('submit');
+  })});
+</script>
+
 <p id="notice"><%= notice %></p>
 <table>
 <tr>
@@ -27,7 +35,15 @@
     </div>
     <div>
       <% @section.screens.each_with_index do |screen, idx| %>
-      <%= link_to idx, screen, :class => "small_button" %>
+      <div>
+        <span>
+          <%= "№ #{idx + 1}" %>
+        </span>
+        <%= form_for screen do |f| %>
+          <%= f.select :state, screen.rev_states, {}, {:class => "screen_state_select"} %>
+        <% end %>
+        <%= link_to (t 'buttons.show'), screen, :class => "small_button" %>
+      </div>
       <% end %>
     </div>
   </td>
