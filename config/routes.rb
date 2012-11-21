@@ -1,6 +1,15 @@
 Ruvote::Application.routes.draw do
 
 
+  resources :screens, :only => [:show] do
+    member do
+      get "banner"
+      get "twitts"
+      get "question"
+      get "statistics"
+    end
+  end
+
   get "home" => 'static#home'
   get 'login/registration' => 'login#registration'
   get 'login/forgot_password' => 'login#forgot_password'

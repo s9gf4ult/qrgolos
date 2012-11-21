@@ -2,6 +2,7 @@ class Section < ActiveRecord::Base
   attr_accessible :name, :anonymous_count, :descr
   has_many :questions, :dependent => :destroy
   has_many :anonymouss, :dependent => :destroy
+  has_many :screens
   belongs_to :meeting
   validates :name, :presence => true
   validates :name, :uniqueness => {:scope => :meeting_id}
