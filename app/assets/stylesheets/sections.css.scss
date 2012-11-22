@@ -1,3 +1,14 @@
 // Place all the styles related to the Sections controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.screen-mosaic {
+    display: inline-block;
+    margin: 1em 0.5em 1em 2em;
+}
+
+.screen-block-element {
+    display: inline-block;
+    margin-left: 0.4em;
+    margin-right: 0.4em;
+}

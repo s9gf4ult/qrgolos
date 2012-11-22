@@ -1,3 +1,7 @@
+<% content_for :head do %>
+<%= stylesheet_link_tag "sections" %>
+<% end %>
+
 <%= javascript_tag do %>
   $(function() {
   $('.screen_state_select').change(
@@ -30,21 +34,24 @@
 </tr>
 <tr>
   <td>
-    <span class="formHeader">
+    <div class="formHeader">
       Экраны
-    </span>
-     <div style="width:20px; display: inline-block;"></div>
-      <% @section.screens.each_with_index do |screen, idx| %>
-      <div>
-        <span>
+    </div>
+    <% @section.screens.each_with_index do |screen, idx| %>
+      <div class="screen-mosaic">
+        <div class="screen-block-element">
           <%= "№ #{idx + 1}" %>
-        </span>
+        </div>
+        <div class="screen-block-element">
         <%= form_for screen do |f| %>
           <%= f.select :state, screen.rev_states, {}, {:class => "screen_state_select"} %>
         <% end %>
-        <%= link_to (t 'buttons.show'), screen, :class => "small_button" %>
+        </div>
+        <div class="screen-block-element">
+          <%= link_to (t 'buttons.show'), screen, :class => "small_button", :style => "display: inline" %>
+        </div>
       </div>
-      <% end %>
+    <% end %>
   </td>
 </tr>
 </table>
