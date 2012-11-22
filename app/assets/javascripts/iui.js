@@ -1,3 +1,5 @@
+//= require jquery
+
 /*
    copyright:
    Copyright (c) 2007-12, iUI Project Members.

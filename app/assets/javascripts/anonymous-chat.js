@@ -1,4 +1,3 @@
-//= require "faye-updater"
 
 function regen_chat_list() {
     $.ajax({

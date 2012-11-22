@@ -5,6 +5,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <%= stylesheet_link_tag    "mobile", :media => "all" %>
   <%= javascript_include_tag "iui" %>
+  <%= javascript_include_tag "faye-updater.js" %>
+  <%= javascript_include_tag "anonymous-vote.js" %>
+  <%= javascript_include_tag "anonymous-chat.js" %>
   <%= yield :head %>
   <%= csrf_meta_tags %>
 </head>
