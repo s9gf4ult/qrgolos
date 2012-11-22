@@ -6,7 +6,7 @@ module SHelper
 
   def anonymous_full_path(anonymous)
     spath = s_anonymous_path(anonymous)
-    if Settings.host.port
+    if Settings.host.port.to_s.strip != ""
       port = ":#{Settings.host.port}"
     else
       port = ""

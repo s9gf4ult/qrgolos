@@ -1,5 +1,3 @@
-//= require "faye-updater"
-
 
 function refresh_window() {
     window.location.reload();
