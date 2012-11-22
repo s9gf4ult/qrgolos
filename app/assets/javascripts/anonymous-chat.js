@@ -31,9 +31,10 @@ $(function() {
                    });
         }
         $('#twitt-form').attr('selected',false);
-        return false;
+	alert('Ваше сообщение отправлено на модерацию');
+	return false;
     });
-    
+
     $('#submit-name').click(function() {
       form = $('#name-form');
 	       if ($('#name-text').val().trim() != '') {
@@ -44,7 +45,7 @@ $(function() {
 	       }
 	       location.reload();
 	       $('#name-form').attr('selected',false);
-      return false;
+    return false;
     });
-    
+
 });
