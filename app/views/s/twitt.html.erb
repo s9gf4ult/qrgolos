@@ -1,11 +1,10 @@
 <%= content_for :head do %>
-<%= javascript_include_tag "#{Settings.faye.address}/client.js" %>
 <%= javascript_include_tag "anonymous-chat.js" %>
 <% end %>
 
 <%= javascript_tag do %>
 window.FAYE_ADDRESS = '<%= Settings.faye.address %>';
-window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
+window.TWITT_CHANNEL = '<%= section_twitts_activated_channel(@anonymous.section) %>';
 <% end %>
 
 <!-- header -->
