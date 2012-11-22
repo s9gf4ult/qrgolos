@@ -42,7 +42,7 @@ class SController < ApplicationController
     @twitt = @anonymous.twitts.build
     respond_to do |format|
       format.html { render }
-      format.json { render :json => @anonymous.section.formated_twitts.take(20) }
+      format.json { render :json => @anonymous.section.formated_active_twitts.take(20) }
     end
   end
 
