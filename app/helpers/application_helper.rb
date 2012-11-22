@@ -9,7 +9,7 @@ module ApplicationHelper
 
   def broadcast(channel, data = nil)
     message = {:channel => channel, :data => data}
-    uri = URI.parse(Settings.faye.address)
+    uri = URI.parse(Settings.faye.local_address)
     Net::HTTP.post_form(uri, :message => message.to_json)
   end
 
