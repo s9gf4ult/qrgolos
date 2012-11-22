@@ -34,10 +34,10 @@ class SController < ApplicationController
   end
 
   def twitt
-    # if @anonymous.name_number == nil
-    #   redirect_to name_path
-    #   return
-    # end
+    if @anonymous.name_number == nil
+      redirect_to name_path
+      return
+    end
 
     @twitt = @anonymous.twitts.build
     respond_to do |format|

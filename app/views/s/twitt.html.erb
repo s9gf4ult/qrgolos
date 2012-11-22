@@ -8,15 +8,47 @@ window.FAYE_ADDRESS = '<%= Settings.faye.address %>';
 window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
 <% end %>
 
-<div>
-  <b><%= t "sections.name" %></b>
-  <%= @anonymous.section.name %>
+<!-- header -->
+<div class="toolbar">
+      <h1 id="pageTitle"></h1>
+      <a id="backButton" class="button" href="#"></a>
+      <a class="button" href="#twitt-form">Написать</a>
 </div>
-<%= link_to (t 'votes.do-vote'), s_anonymous_path(@anonymous) %>
-<div>
-  <div id="twitts_list">
-  </div>
-  <div>
-    <%= render 'twitt' %>
-  </div>
+
+<!-- username page -->
+<div class="panel" title="Чат" selected="true" id="first">
+  <% if @anonymous.name_number == nil %>
+    <script>
+    $(window).bind('hashchange', function () { //detect hash change
+        var hash = window.location.hash.slice(1); //hash to string (= "myanchor")
+	if (hash == "_second") {
+		$('#name-form').show();
+	} else {
+	$('#name-form').hide();
+	}
+    });
+    </script>
+  <% end %>
+
+  <%= render 'twitt' %>
+</div>
+
+
+<!-- Dialog POSTMSG Form page -->
+
+<%= form_for @twitt, :html => { :class => "dialog", :title => "Dialog", :selected => "false", :id => 'twitt-form' } do |f| %>
+  <%= fields_for @twitt.anonymous do |af| %>
+  <%= af.hidden_field :id %>
+  <% end %>
+  <fieldset>
+      <h1>Чат</h1>
+      <br />
+      <span class="panel"><h2>Отправить сообщение</h2></span>
+      <a class="button leftButton" type="cancel">Отмена</a>
+      <a id="submit-twitt" class="button blueButton" >Отправить</a>
+      <div style="width: 98%;"><%= f.text_area :text, :id => 'twitt-text', :rows => "3", :style => "width: 100%;" %></div>
+  </fieldset>
+<div class="spinner"></div>
+<% end %>
+
 </div>

@@ -14,7 +14,6 @@ window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
 <div class="toolbar">
       <h1 id="pageTitle"></h1>
       <a id="backButton" class="button" href="#"></a>
-      <a class="button" href="#twitt-form" style="display: none;">Написать</a>
 </div>
 
 <!-- first page -->
@@ -24,12 +23,14 @@ window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
   </fieldset>
   <h2><%= @anonymous.section.name %></h2>
   <ul selected="true">
-    <li class="arrow"><a href="#second">Чат секции</a></li>
+    <li class="arrow"><%= link_to "Чат секции", twitt_path(@anonymous.aid) %></li>
   </ul>
 
 <% if @active %>
   <% if @active.question_answered? @anonymous %>
-    <fieldset>Вы уже ответили на этот вопрос, ожидайте пожалуйста.</fieldset>
+    <fieldset>
+      <p class="normalText">Вы уже ответили на этот вопрос, ожидайте пожалуйста.</p>
+    </fieldset>
   <% else %>
     <% if @active.kind == "radio"%>
       <%= render 'radio_question' %>
@@ -41,57 +42,15 @@ window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
   <% end %>
 
 <% else %>
-  <h2>Сейчас нет активных вопросов</h2>
-<% end %>
-</div>
-
-<!-- username page -->
-<div class="panel" title="Чат" id="second">
-  <% if @anonymous.name_number == nil %>
-    <script>
-    $(window).bind('hashchange', function () { //detect hash change
-        var hash = window.location.hash.slice(1); //hash to string (= "myanchor")
-	if (hash == "_second") {
-		$('#name-form').show();
-	} else {
-	$('#name-form').hide();
-	}
-    });
-    </script>    
-  <% end %>
-
-  <%= render 'twitt' %> 
-</div>
-
-<!-- Dialog POSTMSG Form page -->
-
-<%= form_for @twitt, :html => { :class => "dialog", :title => "Dialog", :selected => "false", :id => 'twitt-form' } do |f| %>
-  <%= fields_for @twitt.anonymous do |af| %>
-  <%= af.hidden_field :id %>
-  <% end %>
   <fieldset>
-      <h1>Чат</h1>
-      <br />
-      <span class="panel"><h2>Отправить сообщение</h2></span>
-      <a class="button leftButton" type="cancel">Отмена</a>
-      <a id="submit-twitt" class="button blueButton" >Отправить</a>
-      <div style="width: 98%;"><%= f.text_area :text, :id => 'twitt-text', :rows => "3", :style => "width: 100%;" %></div>
-  </fieldset>
-<div class="spinner"></div>      
+    <p class="normalText">Сейчас нет активных вопросов</p>
+  <fieldset>
 <% end %>
-
 </div>
+
+
+
 
 <!-- Dialog Name Form page -->
 
-<%= form_tag set_name_path(@anonymous.aid), :class => "dialog", :title => "Dialog", :selected => "false", :id => 'name-form' do %>
-  <a id="backButton" class="button" href="#" style="display: inline;">QR-голос</a>
-  <a id="submit-name" class="button blueButton" type="submit">Отправить</a>
-  <fieldset>
-      <h1>Имя</h1>
-      <br />
-      <span class="panel"><h2><%= label_tag 'anonymous[name]', (t 'anonymous.enter-your-name') %></h2></span>
-      <%= text_field_tag 'anonymous[name]', nil,  :id => 'name-text', :class => "nname" %>
-  </fieldset>
-<div class="spinner"></div>
-<% end %>
+
