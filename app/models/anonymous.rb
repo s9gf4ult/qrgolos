@@ -1,12 +1,12 @@
 class Anonymous < ActiveRecord::Base
   after_initialize :set_defaults
-  
+
   attr_accessible :active, :aid, :fake, :name, :name_number
   belongs_to :section
   has_many :twitts, :dependent => :delete_all
   has_many :votes, :dependent => :delete_all
   has_many :answer_variants, :through => :votes
-  
+
   validates :aid, :presence => true
   validates :aid, :uniqueness => true
   validates_each :fake do |record, attr, value|
@@ -14,7 +14,9 @@ class Anonymous < ActiveRecord::Base
       record.errors.add(attr, "Fake already exists in this section")
     end
   end
-  validates :name_number, :uniqueness => {:scope => [:section_id, :name]}
+  #  FIXME: needs some kind of validation, this is not critical parameter, but
+  # it must be fixed
+  # validates :name_number, :uniqueness => {:scope => [:section_id, :name]}
 
   def name=(name)
     write_attribute(:name, name.to_s.strip)
