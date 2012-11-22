@@ -1,11 +1,6 @@
 <%= content_for :head do %>
-<%= javascript_include_tag "#{Settings.faye.address}/client.js" %>
-<%= javascript_include_tag "anonymous-vote.js" %>
-<%= javascript_include_tag "anonymous-chat.js" %>
-
-<!-- %= javascript_include_tag "iscroll.js" % >
-< %= javascript_include_tag "MyScroll.js" % --> 
-
+<%= javascript_include_tag "anonymous-chat" %>
+<%= javascript_include_tag "anonymous-vote" %>
 <% end %>
 
 <%= javascript_tag do %>

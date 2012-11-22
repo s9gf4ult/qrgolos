@@ -3,6 +3,9 @@
 <head>
   <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    "screens", :media => "all" %>
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "#{Settings.faye.address}/client.js" %>
+  <%= javascript_include_tag "faye-updater" %>
   <%= yield :head %>
   <%= csrf_meta_tags %>
 </head>

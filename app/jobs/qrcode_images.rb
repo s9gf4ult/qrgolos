@@ -59,7 +59,7 @@ class QrcodeImages
       with_tmp_directory do |dir|
         zipfile = "#{dir}/#{section_archive_name(section)}"
         Zip::ZipFile.open zipfile, Zip::ZipFile::CREATE do |zip|
-          section.anonymouss.each do |anonymous|
+          section.anonymouss.where(:fake => false, :active => true).each do |anonymous|
             img = Magick::Image.new self.image_width, self.image_height
             d = Magick::Draw.new
             d.stroke_antialias true
@@ -75,7 +75,9 @@ class QrcodeImages
         end
         archpath = "#{Rails.root}/public/files"
         FileUtils.mkdir_p archpath
-        FileUtils.mv zipfile, "#{archpath}/#{section_archive_name(section)}"
+        targetzip = "#{archpath}/#{section_archive_name(section)}"
+        FileUtils.mv zipfile, targetzip
+        FileUtils.chmod 0644, targetzip
       end
     end
   end
