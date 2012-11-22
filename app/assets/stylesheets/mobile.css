@@ -16,12 +16,35 @@
   padding: 0 10px 0 10px;
 }
 
-.panel > ul { margin:5px 0 15px 0; padding:0; list-style:none; -webkit-border-radius:0; border-width:0; background-color:transparent; }
+.panel > ul {
+  margin:5px 0 15px 0;
+  padding:0;
+  list-style:none;
+  -webkit-border-radius:0;
+  -moz-border-radius:0;
+  border-width:0;
+  background-color:transparent;
+
+}
 .panel > ul > li { margin:0; padding:0; border-width:0; }
 .panel > ul > li a, .row > a { text-align:left; padding:11px 0 9px 10px; background:url(/iui/listArrow.png) center right no-repeat; display:block; text-decoration:none; overflow:hidden; text-overflow:ellipsis; color:#000; font-weight:bold; font-size:17px; }
 .panel > ul > li a { margin:0; border:1px solid #aaa; border-bottom-width:0 !important; margin-top:-1px; background-color:#fff; }
-.panel > ul > li:first-child a { -webkit-border-top-right-radius:10px; -webkit-border-top-left-radius:10px; }
-.panel > ul > li:last-child a { -webkit-border-bottom-right-radius:10px; -webkit-border-bottom-left-radius:10px; border-bottom-width:1px !important; }
+.panel > ul > li:first-child a {
+  -webkit-border-top-right-radius:10px;
+  -webkit-border-top-left-radius:10px;
+  -moz-border-top-right-radius:10px;
+  -moz-border-top-left-radius:10px;
+}
+
+.panel > ul > li:last-child a {
+  -webkit-border-bottom-right-radius:10px;
+  -webkit-border-bottom-left-radius:10px;
+  -moz-border-bottom-right-radius:10px;
+  -moz-border-bottom-left-radius:10px;
+
+  border-bottom-width:1px !important;
+
+}
 .panel > ul > li a img { vertical-align:middle; margin-left:-4px; }
 
 .row .nname {
@@ -62,6 +85,7 @@ body > :not(.toolbar) {
   font-weight: bold;
   list-style: none;
   -webkit-padding-start: 0px;
+  -moz-padding-start: 0px;
 }
 
 #wrapper {

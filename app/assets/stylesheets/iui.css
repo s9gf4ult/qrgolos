@@ -193,7 +193,7 @@ body > ul > li > a {
 a[target="_replace"] {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     padding-top: 25px;
     padding-bottom: 25px;
     font-size: 18px;
@@ -203,7 +203,7 @@ a[target="_replace"] {
 }
 
 /************************************************************************************************/
-    
+
 body > .dialog {
     top: 0;
     width: 100%;
@@ -264,14 +264,14 @@ body > .panel {
     padding: 10px;
 }
 
-.panel > ul, 
+.panel > ul,
 .panel > fieldset {
     position: relative;
     margin: 0 0 20px 0;
     padding: 0;
     background: #FFFFFF;
     -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
+    border-radius: 10px;
     border: 1px solid #999999;
     font-size: 16px;
 }
@@ -282,7 +282,7 @@ body > .panel {
     min-height: 42px;
     border-bottom: 1px solid #999999;
     -webkit-border-radius: 0;
-    -moz-border-radius: 0;
+    border-radius: 0;
 }
 
 .panel > ul li:last-child,
@@ -293,7 +293,7 @@ fieldset > .row:last-child {
 .row > input:not([type|=radio]):not([type|=checkbox]) {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     margin: 0;
     border: none;
     padding: 12px 10px 0 110px;
@@ -301,7 +301,7 @@ fieldset > .row:last-child {
     background: none;
 }
 
-.row > input[type|=radio], .row > input[type|=checkbox], 
+.row > input[type|=radio], .row > input[type|=checkbox],
 .row > select {
   float: right;
   margin: 7px 7px 0 0;
@@ -344,7 +344,7 @@ fieldset > .row:last-child {
 .toggle {
     border: 1px solid #888888;
     -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
+    border-radius: 6px;
     font-size: 19px;
     font-weight: bold;
     line-height: 30px;
@@ -387,10 +387,10 @@ fieldset > .row:last-child {
     top: -1px;
     left: -1px;
     width: 40px;
-    height: 28px;    
+    height: 28px;
     border: 1px solid #888888;
     -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
+    border-radius: 6px;
 }
 
 .toggle[toggled="true"] > .thumb {

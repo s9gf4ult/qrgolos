@@ -18,6 +18,7 @@ body > .toolbar {
 }
 
 .button {
+    border-image: url(/iui/toolButton.png) 0 5 0 5;
     -webkit-border-image: url(/iui/toolButton.png) 0 5 0 5;
     -moz-border-image: url(/iui/toolButton.png) 0 5 0 5;
 }
@@ -28,6 +29,7 @@ body > .toolbar {
 }
 
 #backButton {
+    border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;
     -webkit-border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;
     -moz-border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;
     background: url(/iui/backButtonBack.png) repeat-x;
@@ -40,6 +42,7 @@ body > .toolbar {
 }
 
 .whiteButton {
+    border-image: url(/iui/whiteButton.png) 0 12 0 12;
     -webkit-border-image: url(/iui/whiteButton.png) 0 12 0 12;
     -moz-border-image: url(/iui/whiteButton.png) 0 12 0 12;
     text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
@@ -68,7 +71,7 @@ body > ul > li > a {
 }
 
 /************************************************************************************************/
-    
+
 .dialog > fieldset {
     background: url(/iui/toolbar.png) #7388a5 repeat-x;
 }

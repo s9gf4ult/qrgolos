@@ -4,6 +4,11 @@ body {
   font-family: 'PT Sans';
   margin: 0px;
   color: #333;
+  background: url(/screens/infotex2012/bg.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .banner {
@@ -11,63 +16,87 @@ body {
 
 }
 
+#bannerImg {
+  padding: 64px;
+}
 .center {
   text-align: center;
 }
 
 .formHeader {
-  font-size: 30px;
-  padding: 15px 0px 0px 0px;
-  text-align: center;
+  font-size: 35px;
+  color: #333;
+  padding: 0px 0px 35px 0px;
+  text-align: left;
   text-shadow: #CCC 0px 2px 3px;
 }
 
 #twittTable {
-  margin-top: 25px;
+  /*margin-top: 25px;*/
   width: 100%;
-  font-size: 16px;
+  font-size: 20px;
   border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
 }
 
-#twittTable tr {
-  margin: 0;
-  padding: 0px, 20px, 0px, 0px;
-  border: 0;
-  outline: 0;
-  background: transparent;
+#twittTable .tableName {
+  color: #18A1B1;
+  font-weight: bold;
 }
 
-#twittTable th {
-  font-weight: normal;
-  font-size: 13px;
-  color: #333;
-  background: #ddd;
-  padding: 8px;
+#twittTable .twittMsg {
+  padding: 10px;
+  border-bottom: 1px solid #999;
 }
 
-#twittTable td {
-  background: #f5f5f5;
-  border-top: 1px solid #fff;
-  border-right: 1px dashed #fff;
-  color: #333;
-  padding: 8px;
-}
-
-#twittTable th.roundedleft {
-  background: #ddd url("/images/icons/table/left.png") left -1px no-repeat;
-
-}
-
-#twittTable th.roundedright {
-  background: #ddd url("/images/icons/table/right.png") right -1px no-repeat;
-
-}
-
-#twittTable .tableStat {
-  text-align: center;
+#twittTable .twittMsg:last-child {
+  border-bottom: 0;
 }
 
 #twittTable .tableMsg {
   word-wrap: break-word; /* Перенос слов */
   width: 870px;
+}
+
+#blocks {
+  /*background: url(/screens/infotex2012/blocks.png) no-repeat;*/
+  width:100%;
+  vertical-align: top;
+}
+
+#content {
+  vertical-align: top;
+}
+
+#HbannerI {
+  margin-right: 64px;
+}
+
+#HbannerT {
+  margin-right: 64px;
+  padding-bottom: 37px;
+}
+
+#HbannerQ {
+  margin-right: 64px;
+  padding-bottom: 37px;
+}
+
+.variant_strip {
+  padding-left: 0.5em;
+  height: 1.5em;
+  border-radius: 0.5em;
+  background-color: #18A1B1;
+  min-width: 4em;
+}
+
+.variant_spacer {
+  border: solid;
+  border-color: #333;
+  border-radius: 10px;
+  border-width: 1px;
+}
+.variant_text {
+  font-size: 25px;
 }

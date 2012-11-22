@@ -4,7 +4,7 @@ class SController < ApplicationController
 
 
   def index
-    
+
   end
 
   def set_name
@@ -15,7 +15,7 @@ class SController < ApplicationController
         format.html { redirect_to "#{s_anonymous_path(@anonymous)}/#_second" }
         format.json { render :json => @anonymous }
       else
-        format.html do 
+        format.html do
           flash[:error] = @anonymous.errors
           redirect_to s_anonymous_path(@anonymous)
         end
@@ -25,7 +25,7 @@ class SController < ApplicationController
   end
 
   def name
-    
+
   end
 
   def show
@@ -38,7 +38,7 @@ class SController < ApplicationController
     #   redirect_to name_path
     #   return
     # end
-    
+
     @twitt = @anonymous.twitts.build
     respond_to do |format|
       format.html { render }
