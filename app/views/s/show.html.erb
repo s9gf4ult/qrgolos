@@ -1,13 +1,10 @@
 <%= content_for :head do %>
-<%= javascript_include_tag "anonymous-chat" %>
 <%= javascript_include_tag "anonymous-vote" %>
 <% end %>
 
 <%= javascript_tag do %>
 window.FAYE_ADDRESS = '<%= Settings.faye.address %>';
 window.VOTE_CHANNEL = '<%= section_question_changed_channel(@anonymous.section) %>';
-window.CHAT_URL = '<%= twitt_path(@anonymous.aid) %>'
-window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
 <% end %>
 
 <!-- header -->

@@ -8,7 +8,7 @@ class TwittsController < ApplicationController
       if @twitt.save
         format.html { head :no_content }
         format.json { head :no_content, :status => :created }
-        comet_session_new_twitt(@anonymous.section)
+        propogate_new_twitt(@anonymous.section)
       else
         format.html { redirect_to twitt_path(@anonymous.aid) }
         format.json { render json: @question.errors, status: :unprocessable_entity }

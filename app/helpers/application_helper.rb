@@ -17,6 +17,10 @@ module ApplicationHelper
     "/sections/#{section.id}/twitts/new"
   end
 
+  def section_twitts_activated_channel(section)
+    "/sections/#{section.id}/twitts/activated"
+  end
+
   def section_question_changed_channel(section)
     "/sections/#{section.id}/question/changed"
   end
@@ -34,14 +38,22 @@ module ApplicationHelper
     end
   end
 
+  def propogate_new_twitt(section)
+    comet_section_new_twitt(section)
+  end
+  
   def propogate_twitts_activated(section)
-    comet_session_new_twitt section
+    comet_section_twitts_activated section
     section.screens.where(:state => "twitts").each do |s|
       comet_screen_update s
     end
   end
 
-  def comet_session_new_twitt(section)
+  def comet_section_twitts_activated(section)
+    broadcast section_twitts_activated_channel(section)
+  end
+
+  def comet_section_new_twitt(section)
     broadcast section_new_twitt_channel(section)
   end
   
