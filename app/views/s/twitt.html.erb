@@ -11,32 +11,19 @@ window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
 <!-- header -->
 <div class="toolbar">
       <h1 id="pageTitle"></h1>
-      <a id="backButton" class="button" href="#"></a>
-      <a class="button" href="#twitt-form">Написать</a>
+      <%= link_to "Назад", s_anonymous_path(@anonymous), :id => "bButton", :class => "button", :target => "_self", :style => "display: block" %>
+      <a class="button" href="#post-twitt">Написать</a>
 </div>
 
 <!-- username page -->
 <div class="panel" title="Чат" selected="true" id="first">
-  <% if @anonymous.name_number == nil %>
-    <script>
-    $(window).bind('hashchange', function () { //detect hash change
-        var hash = window.location.hash.slice(1); //hash to string (= "myanchor")
-	if (hash == "_second") {
-		$('#name-form').show();
-	} else {
-	$('#name-form').hide();
-	}
-    });
-    </script>
-  <% end %>
-
   <%= render 'twitt' %>
 </div>
 
 
 <!-- Dialog POSTMSG Form page -->
 
-<%= form_for @twitt, :html => { :class => "dialog", :title => "Dialog", :selected => "false", :id => 'twitt-form' } do |f| %>
+<%= form_for @twitt, :html => { :class => "dialog", :title => "Dialog", :selected => "false", :id => 'post-twitt' } do |f| %>
   <%= fields_for @twitt.anonymous do |af| %>
   <%= af.hidden_field :id %>
   <% end %>

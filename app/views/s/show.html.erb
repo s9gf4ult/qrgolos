@@ -23,7 +23,7 @@ window.TWITT_CHANNEL = '<%= section_new_twitt_channel(@anonymous.section) %>';
   </fieldset>
   <h2><%= @anonymous.section.name %></h2>
   <ul selected="true">
-    <li class="arrow"><%= link_to "Чат секции", twitt_path(@anonymous.aid) %></li>
+    <li class="arrow"><%= link_to "Чат секции", twitt_path(@anonymous.aid), :target => "_self" %></li>
   </ul>
 
 <% if @active %>

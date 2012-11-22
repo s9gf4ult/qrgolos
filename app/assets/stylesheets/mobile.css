@@ -28,7 +28,14 @@
 }
 .panel > ul > li { margin:0; padding:0; border-width:0; }
 .panel > ul > li a, .row > a { text-align:left; padding:11px 0 9px 10px; background:url(/iui/listArrow.png) center right no-repeat; display:block; text-decoration:none; overflow:hidden; text-overflow:ellipsis; color:#000; font-weight:bold; font-size:17px; }
-.panel > ul > li a { margin:0; border:1px solid #aaa; border-bottom-width:0 !important; margin-top:-1px; background-color:#fff; }
+.panel > ul > li a {
+  margin:0;
+  border:1px solid #aaa;
+  border-bottom-width:0 !important;
+  margin-top:-1px;
+  background-color:#fff;
+  border-radius: 10px;
+}
 .panel > ul > li:first-child a {
   -webkit-border-top-right-radius:10px;
   -webkit-border-top-left-radius:10px;
@@ -129,4 +136,25 @@ body > :not(.toolbar) {
 
 #scroller li > a {
   display:block;
+}
+
+#bButton {
+  display: none;
+  left: 6px;
+  right: auto;
+  padding: 0;
+  max-width: 55px;
+  border-width: 0 8px 0 14px;
+}
+#bButton {
+  border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;
+  -webkit-border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;
+  -moz-border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;
+  background: url(/iui/backButtonBack.png) repeat-x;
+}
+
+#bButton:active {
+  -webkit-border-image: url(/iui/backButtonSel.png) 0 8 0 14;
+  -moz-border-image: url(/iui/backButtonSel.png) 0 8 0 14;
+  background: url(/iui/backButtonSel.png) repeat-x;
 }

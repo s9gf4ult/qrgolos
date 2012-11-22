@@ -22,14 +22,14 @@ $(function() {
     launch_faye_updater(window.TWITT_CHANNEL, regen_chat_list);
 
     $('#submit-twitt').click(function() {
-        form = $('#twitt-form');
+      form = $('#post-twitt');
         if ($('#twitt-text').val().trim() != '') {
             $.post(form.attr('action'), form.serialize(),
                    function() {
                        $('#twitt-text').val('');
                    });
         }
-        $('#twitt-form').attr('selected',false);
+        $('#post-twitt').attr('selected',false);
 	alert('Ваше сообщение отправлено на модерацию');
 	return false;
     });

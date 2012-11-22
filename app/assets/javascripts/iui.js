@@ -47,7 +47,7 @@ window.iui =
 	This is set to `true` if a slide animation is in progress.
 	*/
 	busy: false,
-	
+
 	/*
 	property: iui.animOn
 	Determines whether to do horizontal slide animations with CSS transitions
@@ -56,7 +56,7 @@ window.iui =
 	(vertical slide animations are always done manually).
 	*/
 	animOn: true,
-	
+
 	/*
 	property: iui.ajaxErrHandler
 	If defined, this user-set function will be called when an AJAX call returns
@@ -65,11 +65,11 @@ window.iui =
 	errors.  A status of `0` is treated as success for file:// URLs).
 	*/
 	ajaxErrHandler : null,
-	
+
 	/*
 	property: iui.httpHeaders
 	An object defining headers to be sent with Ajax requests. This defaults to:
-	
+
 	example:
 	  { 'X-Requested-With': 'XMLHttpRequest' }
 	*/
@@ -82,16 +82,16 @@ window.iui =
 	`showPage()` should probably be an internal function, outside callers should
 	call `showPageById()` instead. `showPage()` does NOT set the busy flag because
 	it is already set by the public-facing functions.
-	
+
 	`page` is the html element to show. If `backwards` is set to `true`, it will
 	display a right-to-left animation instead of the default left-to-right.
-	
+
 	If the currently-displayed page is passed, iui will do nothing. `showPage()`
 	is used for both panel-type pages and dialog-type pages (dialogs float on top
 	of the panels, have a cancel button and do not participate in sliding
 	animations). Panel-type pages receive blur/focus events and load/unload events,
 	but dialog-type pages only receive blur/focus events.
-	*/	
+	*/
 	showPage: function(page, backwards)
 	{
 		if (page)
@@ -102,7 +102,7 @@ window.iui =
 				iui.busy = false;	//  Don't do anything, just clear the busy flag and exit
 				return;
 			}
-			
+
 			if (currentDialog)
 			{
 				currentDialog.removeAttribute("selected");
@@ -146,7 +146,7 @@ window.iui =
 				{
 					updatePage(page, fromPage);
 				}
-					
+
 			}
 		}
 	},
@@ -155,7 +155,7 @@ window.iui =
 	gotoView: function(view, replace)
 	{
 		var node, nodeId;
-		
+
 		if (view instanceof HTMLElement)
 		{
 			node = view;
@@ -180,7 +180,7 @@ window.iui =
 			}
 			else if (replace)
 			{
-				pageHistory.pop();				
+				pageHistory.pop();
 			}
 			iui.showPage(node, backwards);
 			return false;
@@ -196,7 +196,7 @@ window.iui =
 	method: iui.showPageById(pageId)
 	Looks up the page element by the id and checks the internal history to
 	determine if the page is on the stack -- if so, it will call `showPage()` with
-	`backwards` set to `true`, reversing the direction of the animation. 
+	`backwards` set to `true`, reversing the direction of the animation.
 	*/
 	showPageById: function(pageId)
 	{
@@ -215,7 +215,7 @@ window.iui =
 
 	/*
 	method: iui.replacePage(pageId)
-	Loads a new page at the same level in the history stack. 
+	Loads a new page at the same level in the history stack.
 	Currently it will do a slide-in animation, but replaces
 	the current page in the navStack.
 	It should probably use a different animation (slide-up/slide-down).
@@ -229,7 +229,7 @@ window.iui =
 	method: iui.showPageByHref(href, args, method, replace, cb)
 	Outside callers should use this version to do an ajax load programmatically
 	from your webapp.
-	
+
 	`href` is a URL string, `method` is the HTTP method (defaults to `GET`),
 	`args` is an Object of key-value pairs that are used to generate the querystring,
 	`replace` is an existing element that either is the panel or is a child of the
@@ -239,7 +239,7 @@ window.iui =
 	showPageByHref: function(href, args, method, replace, cb)
 	{
 	  // I don't think we need onerror, because readyState will still go to 4 in that case
-		function spbhCB(xhr) 
+		function spbhCB(xhr)
 		{
 			log("xhr.readyState = " + xhr.readyState);
 			if (xhr.readyState == 4)
@@ -281,19 +281,19 @@ window.iui =
 					setTimeout(cb, 1000, true);
 				}
 			}
-		  
+
 		};
 		if (!iui.busy)
 		{
 			iui.busy = true;
 			iui.ajax(href, args, method, spbhCB);
 		}
-		else 
+		else
 		{
 			cb();	// We didn't get the "lock", we may need to unselect something
 		}
 	},
-	
+
 	/*
 	method: iui.ajax(url, args, method, cb)
 	Handles ajax requests and also fires a `setTimeout()` call
@@ -337,7 +337,7 @@ window.iui =
 		 	}
 		}
 	},
-	
+
 	/*
 	method: iui.param(o)
 	Stripped-down, simplified object-only version of a jQuery function that
@@ -346,7 +346,7 @@ window.iui =
 	param: function( o )
 	{
 	  var s = [ ];
-	
+
 	  // Serialize the key/values
 	  for ( var key in o )
 	  {
@@ -363,7 +363,7 @@ window.iui =
 		    s[ s.length ] = encodeURIComponent(key) + '=' + encodeURIComponent(value);
 		}
       }
-  
+
 	  // Return the resulting serialization
 	  return s.join("&").replace(/%20/g, "+");
 	},
@@ -396,15 +396,15 @@ window.iui =
 			    }
 				else
 					docNode = document.body.appendChild(child);
-					
-				sendEvent("afterinsert", document.body, {insertedNode:docNode});   
+
+				sendEvent("afterinsert", document.body, {insertedNode:docNode});
 
 				// First child becomes selected page/view by default unless
 				// selected="true" is set
 				// BUG: selected="true" results in a visually incorrect transition
 				if (child.getAttribute("selected") == "true" || !targetPage)
 					targetPage = child;
-				
+
 				--i;
 			}
 		}
@@ -427,9 +427,9 @@ window.iui =
 		{
 			if (child.nodeType == 1 && child.getAttribute("selected") == "true")
 				return child;
-		}	 
+		}
 	},
-	
+
 	/*
 	method: iui.getAllViews()
 	Returns all panels -- currently requires querySelectorAll() will be fixed
@@ -438,7 +438,7 @@ window.iui =
 	{
 		return document.querySelectorAll("body > *:not(.toolbar)");
 	},
-	
+
 	/*
 	method: iui.isNativeUrl(href)
 	Determines whether the supplied URL string launches a native iPhone app (maps,
@@ -473,16 +473,16 @@ window.iui =
 		var re = new RegExp("(^|\\s)"+name+"($|\\s)");
 		return re.exec(self.getAttribute("class")) != null;
 	},
-	
+
 	/*
 	method: iui.addClass(self, name)
 	Convenience function to add the given class `name` to element `self`.
-	*/	
+	*/
 	addClass: function(self, name)
 	{
 	  if (!iui.hasClass(self,name)) self.className += " "+name;
 	},
-		
+
 	/*
 	method: iui.removeClass(self, name)
 	Convenience function to remove the given class `name` to element `self`.
@@ -510,16 +510,16 @@ addEventListener("load", function(event)
 {
 	var page = iui.getSelectedPage();
 	var locPage = getPageFromLoc();
-		
+
 	if (page)
 	{
 		originalPage = page;
 		iui.showPage(page);
 	}
-	
+
 	if (locPage && (locPage != page))
 		iui.showPage(locPage);
-	
+
 	setTimeout(preloadImages, 0);
 	if (typeof window.onorientationchange == "object")
 	{
@@ -535,7 +535,7 @@ addEventListener("unload", function(event)
 {
 	return;
 }, false);
-	
+
 /*
 click: Link Click Handling
 iUI captures all clicks on `a` elements and goes through a series of checks to
@@ -620,8 +620,8 @@ addEventListener("click", function(event)
 		}
 		else
 			return;
-		
-		event.preventDefault();		   
+
+		event.preventDefault();
 	}
 }, true);
 
@@ -636,7 +636,7 @@ addEventListener("click", function(event)
 	if (div && hasClass(div, "toggle"))
 	{
 		div.setAttribute("toggled", div.getAttribute("toggled") != "true");
-		event.preventDefault();		   
+		event.preventDefault();
 	}
 }, true);
 
@@ -672,13 +672,13 @@ function followAnchor(link)
 	link.setAttribute("selected", "true");
 	var busy = iui.gotoView(link.hash.substr(1), false);
 	// clear selected immmediately if busy, else wait for transition to finish
-	setTimeout(function() {link.removeAttribute("selected")}, busy ? 0 : 500);   
+	setTimeout(function() {link.removeAttribute("selected")}, busy ? 0 : 500);
 }
 
 function followAjax(link, replaceLink)
 {
 	link.setAttribute("selected", "progress");
-	iui.showPageByHref(link.href, null, "GET", replaceLink, function() { link.removeAttribute("selected"); });	
+	iui.showPageByHref(link.href, null, "GET", replaceLink, function() { link.removeAttribute("selected"); });
 }
 
 function sendEvent(type, node, props)
@@ -716,10 +716,10 @@ function orientChangeHandler()
 	{
 	case 0:
 		setOrientation(portraitVal);
-		break;	
-		
+		break;
+
 	case 90:
-	case -90: 
+	case -90:
 		setOrientation(landscapeVal);
 		break;
 	}
@@ -731,7 +731,7 @@ function checkOrientAndLocation()
 	if (!hasOrientationEvent)
 	{
 	  if ((window.innerWidth != currentWidth) || (window.innerHeight != currentHeight))
-	  {	  
+	  {
 		  currentWidth = window.innerWidth;
 		  currentHeight = window.innerHeight;
 		  var orient = (currentWidth < currentHeight) ? portraitVal : landscapeVal;
@@ -774,7 +774,7 @@ function showDialog(page)
 {
 	currentDialog = page;
 	page.setAttribute("selected", "true");
-	
+
 	if (hasClass(page, "dialog"))
 		showForm(page);
 }
@@ -807,7 +807,7 @@ function updatePage(page, fromPage)
 //		location.hash = currentHash;
 		location.assign(currentHash);
 	}
-		
+
 	pageHistory.push(page.id);
 
 	var pageTitle = $("pageTitle");
@@ -818,7 +818,7 @@ function updatePage(page, fromPage)
 
 	if (page.localName.toLowerCase() == "form")
 		showForm(page);
-		
+
 	var backButton = $("backButton");
 	if (backButton)
 	{
@@ -842,11 +842,11 @@ Both panels involved in a slide animation receive `beforetransition` and
 parameters `{ out :true }`, the panel being navigated to receives `{ out: false }`.
 */
 function slidePages(fromPage, toPage, backwards)
-{		 
+{
 	var axis = (backwards ? fromPage : toPage).getAttribute("axis");
 
 	clearInterval(checkTimer);
-	
+
 	sendEvent("beforetransition", fromPage, {out:true});
 	sendEvent("beforetransition", toPage, {out:false});
 	if (canDoSlideAnim() && axis != 'y')
@@ -898,7 +898,7 @@ function slide1(fromPage, toPage, backwards, axis, cb)
 			clearInterval(timer);
 			cb();
 		}
-	
+
 		if (axis == "y")
 		{
 			backwards
@@ -907,8 +907,8 @@ function slide1(fromPage, toPage, backwards, axis, cb)
 		}
 		else
 		{
-			fromPage.style.left = (backwards ? (100-percent) : (percent-100)) + "%"; 
-			toPage.style.left = (backwards ? -percent : percent) + "%"; 
+			fromPage.style.left = (backwards ? (100-percent) : (percent-100)) + "%";
+			toPage.style.left = (backwards ? -percent : percent) + "%";
 		}
 	}
 }
@@ -995,7 +995,7 @@ function encodeForm(form)
     encode(form.getElementsByTagName("textarea"));
     encode(form.getElementsByTagName("select"));
     encode(form.getElementsByTagName("button"));
-    return args;	  
+    return args;
 }
 
 function findParent(node, localName)

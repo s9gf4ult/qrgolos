@@ -12,7 +12,7 @@ class SController < ApplicationController
     @anonymous.name_number = @anonymous.find_name_number
     respond_to do |format|
       if @anonymous.save
-        format.html { redirect_to "#{s_anonymous_path(@anonymous)}/#_second" }
+        format.html { redirect_to twitt_path(@anonymous.aid) }
         format.json { render :json => @anonymous }
       else
         format.html do
