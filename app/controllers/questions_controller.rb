@@ -96,37 +96,27 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def activate
+  def switch_state
     @question = Question.find(params[:id])
     when_section_owner @question.section do
-      @question.section.active_question = @question
+      @question.switch_state
       respond_to do |format|
-        format.html { redirect_to @question.section, notice: (t "questions.activated") }
+        format.html { redirect_to @question.section }
         format.json { head :no_content }
         propogate_question_changed @question.section
       end
     end
   end
 
-  def cancel
+  def reset_state
     @question = Question.find(params[:id])
-    update = false
-    if @question.state == "active"
-      update = true
-    end
     when_section_owner @question.section do
-      @question.state = "canceled"
+      @question.reset_state
       respond_to do |format|
-        if @question.save
-          format.html { redirect_to @question.section, notice: (t "questions.canceled") }
-          format.json { head :no_content }
-          propogate_new_votes @question.section
-        else
-          format.html { render action: "edit" }
-          format.json { render json: @question.errors, status: :unprocessable_entity }
-        end
+        format.html { redirect_to @question.section }
+        format.json { head :no_content }
+        propogate_question_changed @question.section
       end
     end
   end
-
 end

@@ -2,6 +2,10 @@ ru:
   buttons:
     ok: 'Готово'
     activate: "Активировать"
+    start-vote: "Голосовать"
+    finish: "Завершить"
+    show-results: "Показать результаты"
+    reset: "Сбросить"
     cancel: "Отменить"
     deactivate: "Деактивировать"
     edit: "Редактировать"
@@ -48,13 +52,14 @@ ru:
     anonymous: "Аноним"
   answer-variants:
     new: "Создать вариант ответа"
-  active: "Активный"
+  active: "В процессе голосования"
   anonymous_count: "Участников:"
   answered: "Отвеченный"
   canceled: "Отмененный"
   check: "Множественный выбор"
   delete: "Удалить"
   edit: "Редактировать"
+  finished: "Закрыт"
   home: "Главная"
   login: "Войти"
   email: "Адрес электронной почты"

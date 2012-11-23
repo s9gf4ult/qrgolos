@@ -7,23 +7,33 @@ class Question < ActiveRecord::Base
   validates :question, :kind, :state, :presence => true
   validates :question, :uniqueness => {:scope => [:section_id]}
   validates :kind, :inclusion => {:in => %w(radio check stars)}
-  validates :state, :inclusion => {:in => %w(new active answered canceled)}
+  validates :state, :inclusion => {:in => %w(new active answered finished)}
+
+  def switch_state
+    case self.state
+    when "new"
+      self.section.active_question = self
+    when "active"
+      self.update_attributes :state => "answered"
+    when "answered"
+      self.update_attributes :state => "finished"
+    end
+  end
+
+  def reset_state
+    self.transaction do
+      Vote.delete_all :answer_variant_id => self.answer_variants.map(&:id)
+      self.update_attributes :state => "new"
+    end
+  end
 
   def answered?
     self.answer_variants.joins(:anonymouss).count > 0
   end
 
-
-def voted_count
-res = []
-  self.answer_variants.each do |aw|
-    aw.votes.each do |vote|
-        res.push vote.anonymous
-    end
+  def voted_anonymous_count
+    Anonymous.joins(:answer_variants).where('answer_variants.question_id' => self.id).uniq.map(&:id).uniq.count
   end
-res.uniq.count
-end
-    
 
   def formated_answer_variants
     sum = 0.0
@@ -38,7 +48,7 @@ end
   end
 
   def voted_variants(anonymous)
-    self.answer_variants.joins(:votes => :anonymous).where("anonymous.id" => anonymous)
+    self.answer_variants.joins(:votes => :anonymous).where("anonymous.id" => anonymous).uniq
   end
 
   def question_answered?(anonymous)
