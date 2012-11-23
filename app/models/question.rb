@@ -13,6 +13,18 @@ class Question < ActiveRecord::Base
     self.answer_variants.joins(:anonymouss).count > 0
   end
 
+
+def voted_count
+res = []
+  self.answer_variants.each do |aw|
+    aw.votes.each do |vote|
+        res.push vote.anonymous
+    end
+  end
+res.uniq.count
+end
+    
+
   def formated_answer_variants
     sum = 0.0
     self.answer_variants.each do |aw|
