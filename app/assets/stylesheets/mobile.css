@@ -138,6 +138,12 @@ body > :not(.toolbar) {
   display:block;
 }
 
+.button {
+  background: url("/iui/backButtonBack.png") repeat-x scroll 0 0 transparent;
+  border-image: url("/iui/toolButton.png") 0 5 0 5 / 0 5px 0 5px;
+  padding: 0 4px 0 4px;
+}
+
 #bButton {
   display: none;
   left: 6px;
@@ -147,9 +153,12 @@ body > :not(.toolbar) {
   border-width: 0 8px 0 14px;
 }
 #bButton {
-  border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;
+  border-image: url("/iui/backButtonBrdr.png") 0 20 0 20 / 0 20px 0 20px;
+  padding: 0 0 0 10px;
+  width: 50px;
+  /*border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;*/
   -webkit-border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;
-  -moz-border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;
+  /*-moz-border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;*/
   background: url(/iui/backButtonBack.png) repeat-x;
 }
 
