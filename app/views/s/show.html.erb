@@ -8,20 +8,25 @@ window.VOTE_CHANNEL = '<%= section_question_changed_channel(@anonymous.section) 
 <% end %>
 
 <!-- header -->
-<div class="toolbar">
-      <h1 id="pageTitle"></h1>
-      <a id="backButton" class="button" href="#"></a>
-</div>
+<div data-role="page">
+
+	<div data-role="header" data-position="fixed">
+		<h1>QR-голос</h1>
+	</div>
 
 <!-- first page -->
+<div data-role="content">
 <div class="panel" title="QR-голос" selected="true" id="first">
   <fieldset>
      <p class="normalText">Cистема электронных голосований</p>
   </fieldset>
   <h2><%= @anonymous.section.name %></h2>
-  <ul selected="true">
-    <li class="arrow"><%= link_to "Чат секции", twitt_path(@anonymous.aid), :target => "_self" %></li>
-  </ul>
+
+    <ul data-role="listview" data-inset="true">
+	<li data-theme="">
+	    <%= link_to "Чат секции", twitt_path(@anonymous.aid), :target => "_self" %>
+	</li>
+    </ul>
 
 <% if @active %>
   <% if @active.question_answered? @anonymous %>
@@ -46,8 +51,8 @@ window.VOTE_CHANNEL = '<%= section_question_changed_channel(@anonymous.section) 
 </div>
 
 
-
-
-<!-- Dialog Name Form page -->
-
-
+<script>
+$( function(){
+  $.mobile.ajaxEnabled = false;
+});
+</script>

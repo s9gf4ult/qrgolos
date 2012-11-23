@@ -8,33 +8,44 @@ window.TWITT_CHANNEL = '<%= section_twitts_activated_channel(@anonymous.section)
 <% end %>
 
 <!-- header -->
-<div class="toolbar">
-      <h1 id="pageTitle"></h1>
-      <%= link_to "Назад", s_anonymous_path(@anonymous), :id => "bButton", :class => "button", :target => "_self", :style => "display: block" %>
-      <a class="button" href="#post-twitt">Написать</a>
-</div>
+<div data-role="page">
 
-<!-- username page -->
-<div class="panel" title="Чат" selected="true" id="first">
-  <%= render 'twitt' %>
-</div>
+      <div data-role="header" data-position="fixed">
+	  <a href="index.html" data-rel="back">Назад</a>
+	  <h1>QR-голос</h1>
+	  <a href="#post-twitt" data-icon="plus" data-position-to="window" data-rel="popup">Написать</a>
+      </div>
 
+<!-- first page -->
+      <div data-role="content">
+
+	<div class="panel" title="QR-голос" selected="true" id="first">
+	  <%= render 'twitt' %>
+	</div>
 
 <!-- Dialog POSTMSG Form page -->
 
-<%= form_for @twitt, :html => { :class => "dialog", :title => "Dialog", :selected => "false", :id => 'post-twitt' } do |f| %>
+<div data-role="popup" data-overlay-theme="a" id="post-twitt">
+
+<%= form_for @twitt, :"data-ajax" => "false", :method => "post"  do |f| %>
   <%= fields_for @twitt.anonymous do |af| %>
   <%= af.hidden_field :id %>
   <% end %>
-  <fieldset>
-      <h1>Чат</h1>
-      <br />
-      <span class="panel"><h2>Отправить сообщение</h2></span>
-      <a class="button leftButton" type="cancel">Отмена</a>
-      <a id="submit-twitt" class="button blueButton" >Отправить</a>
-      <div style="width: 98%;"><%= f.text_area :text, :id => 'twitt-text', :rows => "3", :style => "width: 100%;" %></div>
-  </fieldset>
-<div class="spinner"></div>
+<div style="padding:10px 20px;">
+    <h2>Отправить сообщение</h2>
+    <%= f.text_area :text, :id => 'twitt-text', :rows => "4", :style => "width: 100%;" %>
+    <p>Ваше сообщение будет опубликовано после проверки модератором</p>
+    <button id="submit-twitt" type="submit" data-mini="true" data-icon="check" data-theme="b" class="ui-btn-hidden" aria-disabled="false">Отправить</button>
+</div>
+
 <% end %>
 
 </div>
+
+</div>
+
+<script>
+$( function(){
+  $.mobile.ajaxEnabled = false;
+});
+</script>
