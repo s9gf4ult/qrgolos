@@ -77,15 +77,13 @@ class Section < ActiveRecord::Base
   def active_question=(question)
     if question == nil or (question.section == self and question.state != "active")
       self.transaction do
-        self.questions.where(:state => "active").each do |q|
-          q.update_attribute(:state, "answered")
+        self.questions.where(:state => ["active", "answered"]).each do |q|
+          q.update_attributes :state => "finished"
         end
         if question
-          question.update_attribute(:state, "active")
+          question.update_attributes :state => "active"
         end
       end
-    elsif question != nil and question.state == 'active' and question.section == self
-      question.update_attribute(:state, "answered")
     end
   end
 

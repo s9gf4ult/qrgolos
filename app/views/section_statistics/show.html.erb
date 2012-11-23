@@ -6,11 +6,15 @@
   <%= @section.name %>
 </div>
 
-<% @section.answered_questions.each do |question| %>
+<% @section.questions.each do |question| %>
 <div class="question">
   <div class="question_text formHeader">
     <%= question.question %>
   </div>
+<div>
+<span>Проголосовало</span>
+<%= question.voted_anonymous_count %>
+</div>
   <div class="answer_variants">
     <% question.formated_answer_variants.each do |aw| %>
     <div class="answer_variant">

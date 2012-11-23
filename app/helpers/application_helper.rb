@@ -27,13 +27,13 @@ module ApplicationHelper
 
   def propogate_question_changed(section)
     comet_session_question_changed section
-    section.screens.where(:state => "question").each do |s|
+    section.screens.where(:state => "statistics").each do |s|
       comet_screen_update s
     end
   end
 
   def propogate_new_votes(section)
-    section.screens.where(:state => "question").each do |s|
+    section.screens.where(:state => "statistics").each do |s|
       comet_screen_update s
     end
   end
