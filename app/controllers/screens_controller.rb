@@ -29,21 +29,7 @@ class ScreensController < ApplicationController
       @section = @screen.section
       respond_to do |format|
         format.html { render }  # question.html.erb
-        format.json do
-          ret = Jbuilder.encode do |j|
-            if @section.active_question
-              q = @section.active_question
-              j.question do
-                j.question q.question
-                j.countdown_remaining q.countdown_remaining
-              end
-              j.answer_variants q.formated_answer_variants
-            else
-              j.question nil
-            end
-          end
-          render :json => ret
-        end
+        format.json { render :json => render_json_question(@section) }
       end
     end
   end
@@ -55,6 +41,10 @@ class ScreensController < ApplicationController
     end
     with_right_content @screen, "statistics" do
       @section = @screen.section
+      respond_to do |format|
+        format.html { render }  # statistics.html.erb
+        format.json { render :json => render_json_question(@section) }
+      end
     end
   end
 
@@ -75,6 +65,21 @@ class ScreensController < ApplicationController
   end
 
   private
+
+  def render_json_question(section)
+    Jbuilder.encode do |j|
+      if section.active_question
+        q = section.active_question
+        j.question do
+          j.question q.question
+          j.countdown_remaining q.countdown_remaining
+        end
+        j.answer_variants q.formated_answer_variants
+      else
+        j.question nil
+      end
+    end
+  end
 
   def set_layout
     "screen"
