@@ -68,7 +68,7 @@ class QuestionsController < ApplicationController
           format.html { redirect_to @question, notice: 'Question was successfully updated.' }
           format.json { head :no_content }
           if @question.state == "active"
-            propogate_question_changed @question.section
+            comet_section_question_changed @question.section
           end
         else
           format.html { render action: "edit" }
@@ -93,7 +93,7 @@ class QuestionsController < ApplicationController
         format.html { redirect_to section }
         format.json { head :no_content }
         if update
-          propogate_question_changed session
+          comet_section_question_changed section
         end
       end
     end
@@ -107,7 +107,7 @@ class QuestionsController < ApplicationController
         format.html { redirect_to @question.section }
         format.json { head :no_content }
         if update
-          propogate_question_changed @question.section
+          comet_section_question_changed @question.section
         end
       end
     end
@@ -121,7 +121,7 @@ class QuestionsController < ApplicationController
         format.html { redirect_to @question.section }
         format.json { head :no_content }
         if update
-          propogate_question_changed @question.section
+          comet_section_question_changed @question.section
         end
       end
     end
@@ -135,7 +135,7 @@ class QuestionsController < ApplicationController
         format.html { redirect_to @question.section }
         format.json { head :no_content }
         if update
-          propogate_question_changed @question.section
+          comet_section_question_changed @question.section
         end
       end
     end

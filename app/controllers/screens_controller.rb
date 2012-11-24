@@ -30,7 +30,16 @@ class ScreensController < ApplicationController
       respond_to do |format|
         format.html { render }  # question.html.erb
         format.json do
-          
+          ret = Jbuilder.encode do |j|
+            if @section.active_question
+              q = @section.active_question
+              j.question = q
+              j.answer_variants = q.formated_answer_variants
+            else
+              j.question = nil
+            end
+          end
+          render :json => ret
         end
       end
     end

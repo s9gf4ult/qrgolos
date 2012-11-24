@@ -23,7 +23,7 @@ class Question < ActiveRecord::Base
   def stop_countdown
     if self.stop_countdown?
       self.update_attributes :state => "answered", :countdown_to => nil
-      propogate_question_changed self.section
+      comet_section_question_changed self.section
     end
   end
 

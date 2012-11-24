@@ -15,7 +15,7 @@ class VotesController < ApplicationController
             redirect_to s_anonymous_path(@anonymous)
           end
           format.json { head :no_content, :status => :created }
-          propogate_new_votes @anonymous.section
+          comet_section_new_votes @anonymous.section
         else
           format.html { redirect_to s_anonymous_path(@anonymous) }
           format.json { render :json => vote.errors, :status => :unprocessable_entity }
@@ -41,7 +41,7 @@ class VotesController < ApplicationController
             redirect_to s_anonymous_path(@anonymous)
           end
           format.json { head :no_content, :status => :created }
-          propogate_new_votes @anonymous.section
+          comet_section_new_votes @anonymous.section
         else
           format.html { redirect_to s_anonymous_path(@anonymous) }
           format.json { render :json => vote.errors, :status => :unprocessable_entity }

@@ -46,7 +46,7 @@ module ApplicationHelper
     broadcast section_new_twitt_channel(section)
   end
   
-  def comet_session_question_changed(section) # 
+  def comet_section_question_changed(section) # 
     broadcast section_question_changed_channel(section)
   end
 
