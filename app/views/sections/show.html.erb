@@ -77,7 +77,7 @@
         <% if question.state == "new" %>
         <%= link_to (t 'buttons.start-countdown'), start_countdown_question_path(question), :method => :post, :class => "small_button" %>
         <% end %>
-        
+
         <% case question.state %>
         <% when "new" %>
           <%= link_to (t "buttons.start-vote"), switch_state_question_path(question), :method => :post, :class => "small_button" %>

@@ -2,29 +2,56 @@ $(function () {
 
     function statistics_generator(data) {
         cont = $('#content');
-        // Generate statistics here
+        question = data.question
+        if (question) {
+          variants = data.answer_variants
+          cont.html('<div class="formHeader">' + question.question + '</div>')
+          $.each(variants, function(i, aw) {
+            cont.append('<div class="answer_variant" style="margin-right: 4em;">' +
+            '<div class="variant_spacer">' +
+            '<div style="width: ' + aw.percent + '%" class="variant_strip" ></div>' +
+            '</div>' +
+            '<div class="variant_text">&nbsp;' + aw.text + '&nbsp;&mdash;&nbsp;' + Math.round(aw.percent*100)/100 + '%</div>' +
+            '<br />' +
+            '</div>');
+          })
     }
-    
+    }
+    function timer_generator(data) {
+          timer = $('#timer')
+          if (question) {
+            time = data.question.countdown_remaining
+            if (time) {
+              timer.html('осталось' + time);
+            }
+          }
+    }
+
     function redraw_statistics() {
         $.get($(location).attr('href'), null, statistics_generator, "json");
+    }
+
+    function redraw_timer() {
+        $.get($(location).attr('href'), null, timer_generator, "json");
     }
     redraw_statistics();
     launch_faye_updater(window.QUESTION_CHANNEL, redraw_statistics);
     launch_faye_updater(window.VOTE_CHANNEL, redraw_statistics);
+
+
 })
 
 
-// <% if @section.statistics_question %>
-// <div class="formHeader"><%= @section.statistics_question.question %></div>
-// <% @section.statistics_question.formated_answer_variants.each do |aw| %>
-// <div class="answer_variant" style="margin-right: 4em;">
-// <div class="variant_spacer">
-// <div style="width: <%= aw[:percent] %>%" class="variant_strip" ></div>
-// </div>
-// <div class="variant_text"> <%= aw[:text] %> &mdash; <%= "#{aw[:percent].round 2} %" %></div>
+
 // <br />
 // </div>
 // <% end %>
 // <% else %>
 // <div class="formHeader">Ожидание голосования</div>
-// <% end %>
+
+
+
+
+
+
+
