@@ -1,12 +1,12 @@
 $(function () {
     var counting = false;
-    
+
     function statistics_generator(data) {
         cont = $('#content');
         question = data.question
         if (question) {
             timer_generator(data);
-            
+
             variants = data.answer_variants
             cont.html('<div class="formHeader">' + question.question + '</div>')
             $.each(variants, function(i, aw) {
@@ -23,7 +23,7 @@ $(function () {
     function timer_generator(data) {
         function hide(timer) {
             timer.html('');
-            timer.css('opacity', 0);
+            timer.hide();
             counting = false;
         }
         timer = $('#timer');
@@ -31,8 +31,8 @@ $(function () {
             question = data.question;
             if (question) {
                 if (question.countdown_remaining) {
-                    timer.css('opacity', 1); // показать элемент
-                    timer.html('Осталось: ' + question.countdown_remaining);
+                    timer.show(); // показать элемент
+                    timer.html(question.countdown_remaining);
                     counting = true;
                     timer.delay(1000).queue(function() {
                         counting = false;
