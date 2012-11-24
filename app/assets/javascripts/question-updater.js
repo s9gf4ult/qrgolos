@@ -1,7 +1,16 @@
 
 $(function() {
     function question_generator(data) {
-        
+        question = data.question
+        if (question) {
+            variants = data.answer_variants
+            cont = $('#content');
+            cont.html('<div class="formHeader">' + question.question + '</div>')
+
+            
+        } else {
+            $('#content').html('<div class="formHeader">Ожидание голосования</div>');
+        }
     }
     
     function regenerate_question() {

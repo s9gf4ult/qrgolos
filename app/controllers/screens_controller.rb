@@ -33,10 +33,13 @@ class ScreensController < ApplicationController
           ret = Jbuilder.encode do |j|
             if @section.active_question
               q = @section.active_question
-              j.question = q
-              j.answer_variants = q.formated_answer_variants
+              j.question do
+                j.question q.question
+                j.countdown_remaining q.countdown_remaining
+              end
+              j.answer_variants q.formated_answer_variants
             else
-              j.question = nil
+              j.question nil
             end
           end
           render :json => ret
