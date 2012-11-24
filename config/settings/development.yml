@@ -1,13 +1,14 @@
 host:
   protocol: "http://"
-  name: "localhost"
+  name: "172.16.5.67"
   port: "3000"
 
 
 faye:
-  address: "http://localhost:9292/faye"
+  address: "http://172.16.5.67:9292/faye"
   local_address: "http://localhost:9292/faye"
 
 
 questions:
-  countdown_time: 5  
+  countdown_time: 30
+
