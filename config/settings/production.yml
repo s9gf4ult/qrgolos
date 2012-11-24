@@ -7,3 +7,6 @@ host:
 faye:
   address: "http://localhost:9292/faye"
   local_address: "http://localhost:9292/faye"
+
+questions:
+  countdown_time: 30

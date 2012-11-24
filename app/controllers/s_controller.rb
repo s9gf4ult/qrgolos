@@ -25,11 +25,14 @@ class SController < ApplicationController
   end
 
   def name
-
+    # name.html.erb
   end
 
   def show
     @active = @anonymous.section.active_question
+    if @active
+      @active.stop_countdown
+    end
     @twitt = @anonymous.twitts.build
   end
 

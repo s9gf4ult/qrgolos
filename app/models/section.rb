@@ -74,6 +74,14 @@ class Section < ActiveRecord::Base
     self.questions.where(:state => "active").first
   end
 
+  def statistics_question
+    if self.active_question
+      self.active_question
+    else
+      self.questions.where(:state => "answered").first
+    end
+  end
+
   def active_question=(question)
     if question == nil or (question.section == self and question.state != "active")
       self.transaction do

@@ -25,6 +25,7 @@ ru:
     forgotPassword: "Напомнить пароль"
     forgot: "Напомнить"
     moderate: "Модерировать чат"
+    start-countdown: "Голосовать 30сек."
   sections:
     name: "Название секции"
     questions: "Вопросы секции"

@@ -22,6 +22,9 @@ class ScreensController < ApplicationController
 
   def question
     @screen = Screen.find(params[:id])
+    if @screen.section.active_question
+      @screen.section.active_question.stop_countdown
+    end
     with_right_content @screen, "question" do
       @section = @screen.section
     end
@@ -29,6 +32,9 @@ class ScreensController < ApplicationController
 
   def statistics
     @screen = Screen.find(params[:id])
+    if @screen.section.active_question
+      @screen.section.active_question.stop_countdown
+    end
     with_right_content @screen, "statistics" do
       @section = @screen.section
     end

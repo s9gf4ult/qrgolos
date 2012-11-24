@@ -27,7 +27,7 @@ module ApplicationHelper
 
   def propogate_question_changed(section)
     comet_session_question_changed section
-    section.screens.where(:state => "statistics").each do |s|
+    section.screens.where(:state => ["statistics", "question"]).each do |s|
       comet_screen_update s
     end
   end
