@@ -21,6 +21,7 @@ class ScreensController < ApplicationController
         format.html { render }  # question.html.erb
         format.json do
           ret = Jbuilder.encode do |j|
+            j.section @section
             j.twitts @section.active_twitts do |twitt|
               j.name twitt.anonymous.formated_name
               j.text twitt.text
