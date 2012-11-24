@@ -100,3 +100,8 @@ body {
 .variant_text {
   font-size: 30px;
 }
+
+.showtime {
+  float: right;
+  font-size: 16px;
+}
