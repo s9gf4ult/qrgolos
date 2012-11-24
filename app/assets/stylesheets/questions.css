@@ -20,7 +20,7 @@
     box-shadow: 0 0 2px rgba(0,0,0,.2);
     overflow: hidden;
     color: #444;
-    background: #DDD; 
+    background: #DDD;
 }
 
 #kind label span {
@@ -66,11 +66,12 @@
 #kind input[value="check"] + span {
     background-image: url("/images/check_btn.png");
     background-repeat: no-repeat;
-    background-position: center;  
+    background-position: center;
 }
 
-#kind input[value="stars"] + span {
+#kind input[value="stars"] + label {
     background-image: url("/images/stars_btn.png");
     background-repeat: no-repeat;
     background-position: center;
+    display: none;
 }

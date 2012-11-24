@@ -37,7 +37,7 @@
 <div>
   <%= link_to (t "buttons.back"), @question.section, :class => "button" %>
   <% if section_owner? @question.section %>
-    <%= link_to (t "buttons.edit"), edit_question_path(@question), :class => "button" %> 
+    <%= link_to (t "buttons.edit"), edit_question_path(@question), :class => "button" %>
     <%= link_to (t "buttons.newAnswer"), new_question_answer_variant_path(@question), :class => "button", :style => "float: right;" %>
   <% end %>
 </div>

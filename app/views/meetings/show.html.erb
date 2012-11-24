@@ -27,8 +27,8 @@
 <div>
 <hr>
   <%= link_to (t "buttons.back"), meetings_path, :class => "button" %>
-  <% if meeting_owner? @meeting %> 
-    <%= link_to (t "buttons.edit"), edit_meeting_path(@meeting), :class => "button" %> 
-    <%= link_to (t "buttons.newSection"), new_meeting_section_path(@meeting), :class => "button", :style => "float: right;" %>
+  <% if meeting_owner? @meeting %>
+    <%= link_to (t "buttons.edit"), edit_meeting_path(@meeting), :class => "button" %>
+    <%= link_to (t "buttons.newSection"), new_meeting_section_path(@meeting), :class => "button right" %>
   <% end %>
 </div>

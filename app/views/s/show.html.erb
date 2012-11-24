@@ -30,7 +30,7 @@ window.VOTE_CHANNEL = '<%= section_question_changed_channel(@anonymous.section) 
 
 <% if @active %>
   <% if @active.question_answered? @anonymous %>
-    <fieldset>
+    <fieldset data-role="controlgroup">
       <p class="normalText">Вы уже ответили на этот вопрос, ожидайте пожалуйста.</p>
     </fieldset>
   <% else %>

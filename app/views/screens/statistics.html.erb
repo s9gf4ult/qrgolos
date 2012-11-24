@@ -30,12 +30,12 @@ window.SCREEN_CHANNEL = '<%= screen_update_channel(@screen) %>';
 		  <div class="variant_spacer">
 		  <div style="width: <%= aw[:percent] %>%" class="variant_strip" ></div>
 		  </div>
-		  <div class="variant_text"> <%= aw[:text] %> <%= "#{aw[:percent].round 2} %" %></div>
+		  <div class="variant_text"> <%= aw[:text] %> &mdash; <%= "#{aw[:percent].round 2} %" %></div>
 		  <br />
 		</div>
 		<% end %>
 		<% else %>
-		нет активного вопроса
+		<div class="formHeader">Ожидание голосования</div>
 		<% end %>
 	    </td>
         </tr>

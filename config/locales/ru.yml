@@ -1,6 +1,7 @@
 ru:
   buttons:
     ok: 'Готово'
+    save: 'Сохранить'
     activate: "Активировать"
     start-vote: "Голосовать"
     finish: "Завершить"
@@ -10,6 +11,7 @@ ru:
     deactivate: "Деактивировать"
     edit: "Редактировать"
     show: "Смотреть"
+    showStatistic: "Смотреть статистику"
     editq: "Редактировать вопрос"
     delete: "Удалить"
     back: "Назад"
@@ -22,7 +24,7 @@ ru:
     bringed_up: "Поднято"
     forgotPassword: "Напомнить пароль"
     forgot: "Напомнить"
-    moderate: "Модерировать"
+    moderate: "Модерировать чат"
   sections:
     name: "Название секции"
     questions: "Вопросы секции"
@@ -76,10 +78,10 @@ ru:
   statistics: "Результаты голосования"
   AboutAs: "О проекте"
   Contact: "Контакты"
-  question: "вопрос"
+  question: "Вопрос"
   radio: "Одиночный выбор"
   stars: "Выставить оценку"
   twitts: "Чат"
-  banner: "Заглушка"
+  banner: "Заставка"
   wrong_aid: "Не верный id, введите снова"
   NewAnswerVariant: "Добавить вариант ответа"

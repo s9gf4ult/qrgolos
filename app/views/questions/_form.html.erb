@@ -15,7 +15,7 @@
     <%= sf.hidden_field :id %>
   <% end %>
 
-  
+
   <div class="input-wrapper">
     <%= f.text_area :question, :placeholder => "Текст вопроса" %>
   </div>
@@ -30,10 +30,10 @@
     </label>
     <% end %>
   </div>
-  
+
 
 <div style="clear: both;"></div>
 <hr>
    <%= link_to (t "buttons.back"), @question.section, :class => "button"%>
-   <%= f.submit :class => "button", :style => "float: right;" %>
+   <%= f.submit (t "buttons.save"), :class => "button", :style => "float: right;" %>
 <% end %>

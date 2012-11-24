@@ -6,7 +6,7 @@ class Question < ActiveRecord::Base
   has_many :answer_variants, :order => "position asc", :dependent => :destroy
   validates :question, :kind, :state, :presence => true
   validates :question, :uniqueness => {:scope => [:section_id]}
-  validates :kind, :inclusion => {:in => %w(radio check stars)}
+  validates :kind, :inclusion => {:in => %w(radio check)} #stars)}
   validates :state, :inclusion => {:in => %w(new active answered finished)}
 
   def switch_state

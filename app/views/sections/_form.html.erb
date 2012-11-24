@@ -26,11 +26,11 @@
     <%= f.label :anonymous_count, "Количество участников секции" %>: <%= f.number_field :anonymous_count, :min => 0, :max => 1000, :step => 10 %>
   </div>
   <div class="input-wrapper-num">
-    <%= f.label :screens_count, "Количество экранов" %>: <%= f.number_field :screens_count, :min => 0, :max => 1000, :step => 1 %>
+    <%= f.label :screens_count, "Количество экранов для вывода результатов" %>: <%= f.number_field :screens_count, :min => 0, :max => 1000, :step => 1 %>
   </div>
 <hr>
   <div class="actions">
     <%= link_to (t "buttons.back"), @section.meeting, :class => "button" %>
-    <%= f.submit :class => "button", :style => "float: right;"%>
+    <%= f.submit (t "buttons.save"), :class => "button right" %>
   </div>
 <% end %>
