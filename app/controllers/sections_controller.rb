@@ -38,7 +38,9 @@ class SectionsController < ApplicationController
   def show
     @section = Section.find(params[:id])
     section_breadcrumb @section
-    
+    if @section.active_question
+      @section.active_question.stop_countdown
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @section }

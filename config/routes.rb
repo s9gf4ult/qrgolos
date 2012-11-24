@@ -44,6 +44,7 @@ Ruvote::Application.routes.draw do
     member do
       post "switch_state"
       post "reset_state"
+      post "start_countdown"
     end
   end
 

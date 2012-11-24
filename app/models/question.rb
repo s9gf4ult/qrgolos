@@ -1,4 +1,5 @@
 class Question < ActiveRecord::Base
+  include ApplicationHelper
   after_initialize :set_defaults
   
   attr_accessible :kind, :question, :state, :countdown_to
@@ -12,21 +13,25 @@ class Question < ActiveRecord::Base
   def start_countdown(seconds)
     case self.state
     when "new", "active"
-      self.update_attributes :state => "active", :countdown_to => Time.now + seconds.to_i
+      self.transaction do
+        self.section.active_question = self
+        self.update_attributes :countdown_to => Time.now + seconds.to_i
+      end
     end
   end
 
   def stop_countdown
     if self.stop_countdown?
       self.update_attributes :state => "answered", :countdown_to => nil
+      propogate_question_changed self.section
     end
   end
 
-  def self.stop_countdown?
+  def stop_countdown?
     self.countdown_to and Time.now >= self.countdown_to
   end
 
-  def countdown_expired
+  def countdown_remaining
     if self.countdown_to
       if self.stop_countdown?
         self.stop_countdown

@@ -89,6 +89,10 @@
   <div class="descr"><%= t question.state %>, <%= t question.kind %>
     <% if section_owner? @section %>
       <div class="edit">
+        <% if question.state == "new" %>
+        <%= link_to (t 'buttons.start-countdown'), start_countdown_question_path(question), :method => :post, :class => "small_button" %>
+        <% end %>
+        
         <% case question.state %>
         <% when "new" %>
           <%= link_to (t "buttons.start-vote"), switch_state_question_path(question), :method => :post, :class => "small_button" %>
@@ -97,7 +101,10 @@
         <% when "answered" %>
           <%= link_to (t "buttons.finish"), switch_state_question_path(question), :method => :post, :class => "small_button" %>
         <% end %>
-        <%= link_to (t "buttons.reset"), reset_state_question_path(question), :method => :post, :data => {:confirm => "Все голоса участников будут удалены, продолжить ?"}, :class => "small_button" %>
+
+        <% if question.state != "new" %>
+          <%= link_to (t "buttons.reset"), reset_state_question_path(question), :method => :post, :data => {:confirm => "Все голоса участников будут удалены, продолжить ?"}, :class => "small_button" %>
+        <% end %>
 	    <%= link_to (t "buttons.edit"), edit_question_path(question), :class => "small_button" %>
 	    <%= link_to (t "buttons.delete"), question, method: :delete, data: { confirm: 'Удалить вопрос?' }, :class => "small_button" %>
       </div>
