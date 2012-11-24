@@ -49,16 +49,16 @@ class Question < ActiveRecord::Base
     when "new"
       self.section.active_question = self
     when "active"
-      self.update_attributes :state => "answered"
+      self.update_attributes :state => "answered", :countdown_to => nil
     when "answered"
-      self.update_attributes :state => "finished"
+      self.update_attributes :state => "finished", :countdown_to => nil
     end
   end
 
   def reset_state
     self.transaction do
       Vote.delete_all :answer_variant_id => self.answer_variants.map(&:id)
-      self.update_attributes :state => "new"
+      self.update_attributes :state => "new", :countdown_to => nil
     end
   end
 

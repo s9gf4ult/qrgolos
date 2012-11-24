@@ -1,12 +1,15 @@
 $(function () {
-
+    var counting = false;
+    
     function statistics_generator(data) {
         cont = $('#content');
         question = data.question
         if (question) {
-          variants = data.answer_variants
-          cont.html('<div class="formHeader">' + question.question + '</div>')
-          $.each(variants, function(i, aw) {
+            timer_generator(data);
+            
+            variants = data.answer_variants
+            cont.html('<div class="formHeader">' + question.question + '</div>')
+            $.each(variants, function(i, aw) {
             cont.append('<div class="answer_variant" style="margin-right: 4em;">' +
             '<div class="variant_spacer">' +
             '<div style="width: ' + aw.percent + '%" class="variant_strip" ></div>' +
@@ -14,17 +17,34 @@ $(function () {
             '<div class="variant_text">&nbsp;' + aw.text + '&nbsp;&mdash;&nbsp;' + Math.round(aw.percent*100)/100 + '%</div>' +
             '<br />' +
             '</div>');
-          })
-    }
+            });
+        }
     }
     function timer_generator(data) {
-          timer = $('#timer')
-          if (question) {
-            time = data.question.countdown_remaining
-            if (time) {
-              timer.html('осталось' + time);
+        function hide(timer) {
+            timer.html('');
+            timer.css('opacity', 0);
+            counting = false;
+        }
+        timer = $('#timer');
+        if (! counting) {
+            question = data.question;
+            if (question) {
+                if (question.countdown_remaining) {
+                    timer.css('opacity', 1); // показать элемент
+                    timer.html('Осталось: ' + question.countdown_remaining);
+                    counting = true;
+                    timer.delay(1000).queue(function() {
+                        counting = false;
+                        redraw_timer();
+                    }).dequeue();
+                } else {
+                    hide(timer);
+                }
+            } else {
+                hide(timer);
             }
-          }
+        }
     }
 
     function redraw_statistics() {
@@ -37,8 +57,6 @@ $(function () {
     redraw_statistics();
     launch_faye_updater(window.QUESTION_CHANNEL, redraw_statistics);
     launch_faye_updater(window.VOTE_CHANNEL, redraw_statistics);
-
-
 })
 
 

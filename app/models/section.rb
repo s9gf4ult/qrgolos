@@ -86,7 +86,7 @@ class Section < ActiveRecord::Base
     if question == nil or (question.section == self and question.state != "active")
       self.transaction do
         self.questions.where(:state => ["active", "answered"]).each do |q|
-          q.update_attributes :state => "finished"
+          q.update_attributes :state => "finished", :countdown_to => nil
         end
         if question
           question.update_attributes :state => "active"

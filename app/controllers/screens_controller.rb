@@ -43,7 +43,7 @@ class ScreensController < ApplicationController
       @section = @screen.section
       respond_to do |format|
         format.html { render }  # question.html.erb
-        format.json { render :json => render_json_question(@section) }
+        format.json { render :json => render_json_question(@section.active_question) }
       end
     end
   end
@@ -57,7 +57,7 @@ class ScreensController < ApplicationController
       @section = @screen.section
       respond_to do |format|
         format.html { render }  # statistics.html.erb
-        format.json { render :json => render_json_question(@section) }
+        format.json { render :json => render_json_question(@section.statistics_question) }
       end
     end
   end
@@ -80,10 +80,10 @@ class ScreensController < ApplicationController
 
   private
 
-  def render_json_question(section)
+  def render_json_question(question)
     Jbuilder.encode do |j|
-      if section.active_question
-        q = section.active_question
+      if question
+        q = question
         j.question do
           j.question q.question
           j.countdown_remaining q.countdown_remaining
