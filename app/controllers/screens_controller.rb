@@ -17,6 +17,19 @@ class ScreensController < ApplicationController
     @screen = Screen.find(params[:id])
     with_right_content @screen, "twitts" do
       @section = @screen.section
+      respond_to do |format|
+        format.html { render }  # question.html.erb
+        format.json do
+          ret = Jbuilder.encode do |j|
+            j.twitts @section.active_twitts do |twitt|
+              j.name twitt.anonymous.formated_name
+              j.text twitt.text
+              j.time twitt.created_at
+            end
+          end
+          render :json => ret
+        end
+      end
     end
   end
 
