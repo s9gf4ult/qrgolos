@@ -24,44 +24,33 @@ module ApplicationHelper
   def section_question_changed_channel(section)
     "/sections/#{section.id}/question/changed"
   end
-
-  def propogate_question_changed(section)
-    comet_session_question_changed section
-    section.screens.where(:state => ["statistics", "question"]).each do |s|
-      comet_screen_update s
-    end
-  end
-
-  def propogate_new_votes(section)
-    section.screens.where(:state => "statistics").each do |s|
-      comet_screen_update s
-    end
-  end
-
-  def propogate_new_twitt(section)
-    comet_section_new_twitt(section)
-  end
   
-  def propogate_twitts_activated(section)
-    comet_section_twitts_activated section
-    section.screens.where(:state => "twitts").each do |s|
-      comet_screen_update s
-    end
+  def screen_update_channel(screen)
+    sid = if screen.is_a? Screen; then screen.id else screen end
+    "/screens/#{sid}/update"
   end
 
-  def comet_section_twitts_activated(section)
+  def section_new_votes_channel(section)
+    "/sections/#{section.id}/votes/new"
+  end
+
+  def comet_section_twitts_activated(section) # 
     broadcast section_twitts_activated_channel(section)
   end
 
-  def comet_section_new_twitt(section)
+  def comet_section_new_votes(section) # 
+    broadcast section_new_votes_channel(section)
+  end
+
+  def comet_section_new_twitt(section) # 
     broadcast section_new_twitt_channel(section)
   end
   
-  def comet_session_question_changed(section)
+  def comet_session_question_changed(section) # 
     broadcast section_question_changed_channel(section)
   end
 
-  def comet_screen_update(screen)
+  def comet_screen_update(screen) # 
     broadcast screen_update_channel(screen)
   end
 
@@ -76,11 +65,6 @@ module ApplicationHelper
 
   def section_archive_path(section)
     "/files/#{section_archive_name(section)}"
-  end
-
-  def screen_update_channel(screen)
-    sid = if screen.is_a? Screen; then screen.id else screen end
-    "/screens/#{sid}/update"
   end
 
   def remove_section_archive(section)

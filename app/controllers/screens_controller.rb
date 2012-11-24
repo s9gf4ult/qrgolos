@@ -27,6 +27,12 @@ class ScreensController < ApplicationController
     end
     with_right_content @screen, "question" do
       @section = @screen.section
+      respond_to do |format|
+        format.html { render }  # question.html.erb
+        format.json do
+          
+        end
+      end
     end
   end
 
