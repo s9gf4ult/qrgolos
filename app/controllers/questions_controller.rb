@@ -21,6 +21,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   # GET /questions/new.json
   def new
+    @section = Section.find(params[:section_id])
     when_section_owner @section do
       @question = @section.questions.build
       respond_to do |format|
@@ -106,9 +107,9 @@ class QuestionsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to @question.section }
         format.json { head :no_content }
-        if update
+        # if update
           comet_section_question_changed @question.section
-        end
+        # end
       end
     end
   end
@@ -142,6 +143,13 @@ class QuestionsController < ApplicationController
   end
 
   private
+  def comet_question(question)
+    case question.state
+    when "active", "answered"
+      comet_section_question_changed question
+    end
+  end
+  
   def get_question
     @question = Question.find(params[:id])
   end

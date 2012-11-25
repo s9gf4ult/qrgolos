@@ -75,10 +75,11 @@ class SectionsController < ApplicationController
   def create
     meeting = Meeting.find(params[:meeting][:id])
     when_meeting_owner meeting do
-      @section = meeting.sections.build(params[:section].except(:anonymous_count))
+      @section = meeting.sections.build(params[:section].except(:anonymous_count, :screens_count))
       respond_to do |format|
         if @section.save
-          @section.anonymous_count = params[:section][:anonymous_count]
+          @section.anonymous_count = params[:section][:anonymous_count] || 0 
+          @section.screens_count = params[:section][:screens_count] || 0
           format.html { redirect_to @section, notice: 'Section was successfully created.' }
           format.json { render json: @section, status: :created, location: @section }
           enqueue_archive_generation(@section)

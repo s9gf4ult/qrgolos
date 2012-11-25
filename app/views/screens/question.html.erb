@@ -7,7 +7,7 @@
 <%= javascript_tag do %>
 window.FAYE_ADDRESS = '<%= Settings.faye.address %>';
 window.SCREEN_CHANNEL = '<%= screen_update_channel(@screen) %>';
-window.QUESTION_CHANNEL = '<%= section_question_changed_channel(@screen) %>';
+window.QUESTION_CHANNEL = '<%= section_question_changed_channel(@screen.section) %>';
 <% end %>
 
 <div id="bannerImg" style="height: 768px; margin:0 auto;">

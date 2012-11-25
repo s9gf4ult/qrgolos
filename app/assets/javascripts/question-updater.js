@@ -1,5 +1,5 @@
 $(function() {
-  var counting = false;
+    var counting = false;
 
     function question_generator(data) {
         question = data.question
@@ -17,6 +17,7 @@ $(function() {
             $('#content').html('<div class="formHeader">Ожидание голосования</div>');
         }
     }
+    
     function timer_generator(data) {
       function hide(timer) {
         timer.html('');

@@ -18,6 +18,8 @@ $(function () {
             '<br />' +
             '</div>');
             });
+        } else {
+            $('#content').html('<div></div>');
         }
     }
     function timer_generator(data) {
