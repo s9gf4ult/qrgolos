@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121125045740) do
+ActiveRecord::Schema.define(:version => 20121125050524) do
 
   create_table "anonymous", :force => true do |t|
     t.integer  "section_id"
@@ -105,5 +105,9 @@ ActiveRecord::Schema.define(:version => 20121125045740) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  add_index "votes", ["anonymous_id"], :name => "index_votes_on_anonymous_id"
+  add_index "votes", ["answer_variant_id"], :name => "index_votes_on_answer_variant_id"
+  add_index "votes", ["vote"], :name => "index_votes_on_vote"
 
 end
