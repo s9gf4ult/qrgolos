@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121125051132) do
+ActiveRecord::Schema.define(:version => 20121125051419) do
 
   create_table "anonymous", :force => true do |t|
     t.integer  "section_id"
@@ -89,6 +89,11 @@ ActiveRecord::Schema.define(:version => 20121125051132) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  add_index "twitts", ["anonymous_id"], :name => "index_twitts_on_anonymous_id"
+  add_index "twitts", ["created_at"], :name => "index_twitts_on_created_at"
+  add_index "twitts", ["state"], :name => "index_twitts_on_state"
+  add_index "twitts", ["text"], :name => "index_twitts_on_text"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
