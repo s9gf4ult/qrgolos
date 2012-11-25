@@ -68,7 +68,7 @@ class QuestionsController < ApplicationController
         if @question.update_attributes(params[:question].except(:state, :countdown_to))
           format.html { redirect_to @question, notice: 'Question was successfully updated.' }
           format.json { head :no_content }
-          if @question.state == "active"
+          if ["active", "showed", "statistics"].include? @question.state
             comet_section_question_changed @question.section
           end
         else
@@ -83,31 +83,25 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1.json
   def destroy
     section = Section.find(@question.section)
-    update = false
-    if @question.state == "active"
-      update = true
-    end
+    update = ["active", "showed"].include? @question.state
     when_section_owner section do
       @question.destroy
 
       respond_to do |format|
         format.html { redirect_to section }
         format.json { head :no_content }
-        if update
-          comet_section_question_changed section
-        end
+        comet_section_question_changed section if update
       end
     end
   end
 
   def switch_state
-    update = @question.state != "finished"
     when_section_owner @question.section do
       @question.switch_state
       respond_to do |format|
         format.html { redirect_to @question.section }
         format.json { head :no_content }
-        if update
+        if @question.state != "new"
           comet_section_question_changed @question.section
         end
       end
@@ -115,29 +109,24 @@ class QuestionsController < ApplicationController
   end
 
   def reset_state
-    update = @question.state != "finished"
     when_section_owner @question.section do
+      update = ["showed", "active", "statistics"].include? @question.state
       @question.reset_state
       respond_to do |format|
         format.html { redirect_to @question.section }
         format.json { head :no_content }
-        if update
-          comet_section_question_changed @question.section
-        end
+        comet_section_question_changed @question.section if update
       end
     end
   end
 
   def start_countdown
-    update = @question.state != "finished"
     when_section_owner @question.section do
       @question.start_countdown Settings.questions.countdown_time #  FIXME: make it configurable
       respond_to do |format|
         format.html { redirect_to @question.section }
         format.json { head :no_content }
-        if update
-          comet_section_question_changed @question.section
-        end
+        comet_section_question_changed @question.section
       end
     end
   end

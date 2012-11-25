@@ -6,7 +6,6 @@ Ruvote::Application.routes.draw do
       get "banner"
       get "twitts"
       get "question"
-      get "statistics"
     end
   end
 

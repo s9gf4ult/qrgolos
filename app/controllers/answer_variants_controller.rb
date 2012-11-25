@@ -126,7 +126,7 @@ class AnswerVariantsController < ApplicationController
   private
 
   def propogate_aw(answer_variant)
-    if @answer_variant.question.state == "active"
+    if ["active", "showed", "statistics"].include? @answer_variant.question.state
       comet_section_question_changed @answer_variant.question.section
     end
   end

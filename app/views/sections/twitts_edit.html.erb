@@ -3,7 +3,7 @@
     <th class="roundedleft">Статус</th>
     <th class="roundedright">Сообщение</th>
   </tr>
-  <% @section.twitts.limit(20).each do |twitt| %>
+  <% @section.twitts.each do |twitt| %>
   <tr>
     <% if twitt.state == "new" %>
      <td class="tableStat"><%= link_to " ", activate_section_twitt(twitt), :method => :post, :class => "cansel_button" %></td>

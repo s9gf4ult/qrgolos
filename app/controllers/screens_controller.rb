@@ -43,21 +43,7 @@ class ScreensController < ApplicationController
       @section = @screen.section
       respond_to do |format|
         format.html { render }  # question.html.erb
-        format.json { render :json => render_json_question(@section.active_question) }
-      end
-    end
-  end
-
-  def statistics
-    @screen = Screen.find(params[:id])
-    if @screen.section.active_question
-      @screen.section.active_question.stop_countdown
-    end
-    with_right_content @screen, "statistics" do
-      @section = @screen.section
-      respond_to do |format|
-        format.html { render }  # statistics.html.erb
-        format.json { render :json => render_json_question(@section.statistics_question) }
+        format.json { render :json => render_json_question(@section.current_question) }
       end
     end
   end
@@ -87,6 +73,7 @@ class ScreensController < ApplicationController
         j.question do
           j.question q.question
           j.countdown_remaining q.countdown_remaining
+          j.state q.state
         end
         j.answer_variants q.formated_answer_variants
       else
@@ -100,18 +87,16 @@ class ScreensController < ApplicationController
   end
 
   def with_right_content(screen, content=nil)
-    if screen.state == content
+    if screen.content == content
       yield if block_given?
     else
-      case screen.state
+      case screen.content
       when "banner"
         redirect_to banner_screen_path(screen)
       when "twitts"
         redirect_to twitts_screen_path(screen)
       when "question"
         redirect_to question_screen_path(screen)
-      when "statistics"
-        redirect_to statistics_screen_path(screen)
       end
     end
   end

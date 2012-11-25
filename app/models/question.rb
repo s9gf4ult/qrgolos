@@ -8,7 +8,7 @@ class Question < ActiveRecord::Base
   validates :question, :kind, :state, :presence => true
   validates :question, :uniqueness => {:scope => [:section_id]}
   validates :kind, :inclusion => {:in => %w(radio check)} #stars)}
-  validates :state, :inclusion => {:in => %w(new showed active finished)}
+  validates :state, :inclusion => {:in => %w(new showed active statistics finished)}
 
   def start_countdown(seconds)
     case self.state
@@ -22,7 +22,7 @@ class Question < ActiveRecord::Base
 
   def stop_countdown
     if self.stop_countdown?
-      self.update_attributes :state => "finished", :countdown_to => nil
+      self.update_attributes :state => "statistics", :countdown_to => nil
       comet_section_question_changed self.section
     end
   end
@@ -51,6 +51,8 @@ class Question < ActiveRecord::Base
     when "showed"
       self.section.active_question = self
     when "active"
+      self.update_attributes :state => "statistics", :countdown_to => nil
+    when "statistics"
       self.update_attributes :state => "finished", :countdown_to => nil
     end
   end

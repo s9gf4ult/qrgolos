@@ -81,10 +81,12 @@
           <%= link_to (t "buttons.start-countdown"), start_countdown_question_path(question), :method => :post, :class => "small_button" %>
           <%= link_to (t "buttons.start-vote"), switch_state_question_path(question), :method => :post, :class => "small_button" %>
         <% when "active" %>
+          <%= link_to (t "buttons.show-results"), switch_state_question_path(question), :method => :post, :class => "small_button" %>
+        <% when "statistics" %>
           <%= link_to (t "buttons.finish"), switch_state_question_path(question), :method => :post, :class => "small_button" %>
         <% end %>
 
-        <% if ["showed", "active", "finished"].include? question.state %>
+        <% if ["showed", "active", "statistics", "finished"].include? question.state %>
           <%= link_to (t "buttons.reset"), reset_state_question_path(question), :method => :post, :data => {:confirm => "Все голоса участников будут удалены, продолжить ?"}, :class => "small_button" %>
         <% end %>
         

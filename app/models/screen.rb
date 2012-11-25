@@ -3,7 +3,11 @@ class Screen < ActiveRecord::Base
   attr_accessible :state
 
   belongs_to :section
-  validates :state, :inclusion => {:in => %w( banner twitts question statistics )}
+  validates :state, :inclusion => {:in => %w( banner twitts question )}
+
+  def content
+    self.state
+  end
 
   def states
     Screen.validators_on(:state).select do |v|
