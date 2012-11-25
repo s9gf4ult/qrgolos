@@ -107,9 +107,9 @@ class QuestionsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to @question.section }
         format.json { head :no_content }
-        # if update
+        if update
           comet_section_question_changed @question.section
-        # end
+        end
       end
     end
   end
