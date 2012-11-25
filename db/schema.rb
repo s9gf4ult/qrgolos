@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121125050524) do
+ActiveRecord::Schema.define(:version => 20121125050752) do
 
   create_table "anonymous", :force => true do |t|
     t.integer  "section_id"
@@ -38,6 +38,10 @@ ActiveRecord::Schema.define(:version => 20121125050524) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "answer_variants", ["position"], :name => "index_answer_variants_on_position"
+  add_index "answer_variants", ["question_id"], :name => "index_answer_variants_on_question_id"
+  add_index "answer_variants", ["text"], :name => "index_answer_variants_on_text"
 
   create_table "meetings", :force => true do |t|
     t.string   "name"
