@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121123144602) do
+ActiveRecord::Schema.define(:version => 20121125045740) do
 
   create_table "anonymous", :force => true do |t|
     t.integer  "section_id"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(:version => 20121123144602) do
     t.text     "name"
     t.integer  "name_number"
   end
+
+  add_index "anonymous", ["active"], :name => "index_anonymous_on_active"
+  add_index "anonymous", ["aid"], :name => "index_anonymous_on_aid", :unique => true
+  add_index "anonymous", ["fake"], :name => "index_anonymous_on_fake"
+  add_index "anonymous", ["name"], :name => "index_anonymous_on_name"
+  add_index "anonymous", ["name_number"], :name => "index_anonymous_on_name_number"
+  add_index "anonymous", ["section_id"], :name => "index_anonymous_on_section_id"
 
   create_table "answer_variants", :force => true do |t|
     t.integer  "question_id"
