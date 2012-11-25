@@ -8,11 +8,11 @@ class Question < ActiveRecord::Base
   validates :question, :kind, :state, :presence => true
   validates :question, :uniqueness => {:scope => [:section_id]}
   validates :kind, :inclusion => {:in => %w(radio check)} #stars)}
-  validates :state, :inclusion => {:in => %w(new active answered finished)}
+  validates :state, :inclusion => {:in => %w(new showed active finished)}
 
   def start_countdown(seconds)
     case self.state
-    when "new", "active"
+    when "new", "active", "showed"
       self.transaction do
         self.section.active_question = self
         self.update_attributes :countdown_to => Time.now + seconds.to_i
@@ -22,7 +22,7 @@ class Question < ActiveRecord::Base
 
   def stop_countdown
     if self.stop_countdown?
-      self.update_attributes :state => "answered", :countdown_to => nil
+      self.update_attributes :state => "finished", :countdown_to => nil
       comet_section_question_changed self.section
     end
   end
@@ -47,10 +47,10 @@ class Question < ActiveRecord::Base
   def switch_state
     case self.state
     when "new"
+      self.section.showed_question = self
+    when "showed"
       self.section.active_question = self
     when "active"
-      self.update_attributes :state => "answered", :countdown_to => nil
-    when "answered"
       self.update_attributes :state => "finished", :countdown_to => nil
     end
   end

@@ -143,13 +143,6 @@ class QuestionsController < ApplicationController
   end
 
   private
-  def comet_question(question)
-    case question.state
-    when "active", "answered"
-      comet_section_question_changed question
-    end
-  end
-  
   def get_question
     @question = Question.find(params[:id])
   end

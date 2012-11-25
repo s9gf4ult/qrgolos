@@ -28,7 +28,7 @@ class Section < ActiveRecord::Base
 
   def answered_questions
     Enumerator.new do |en|
-      self.questions.where(:state => 'answered').each do |question|
+      self.questions.where(:state => 'finished').each do |question|
         if question.answered?
           en.yield question
         end
@@ -74,23 +74,40 @@ class Section < ActiveRecord::Base
     self.questions.where(:state => "active").first
   end
 
-  def statistics_question
-    if self.active_question
-      self.active_question
-    else
-      self.questions.where(:state => "answered").first
+  def active_question=(question)
+    if question == nil
+      self.transaction do
+        self.questions.where(:state => "active").each do |q|
+          q.update_attributes :state => "finished", :countdown_to => nil
+        end
+      end
+    elsif question.section == self and question.state != "active"
+      self.transaction do
+        self.questions.where(:state => ["active", "showed"]).each do |q|
+          q.update_attributes :state => (q.state == "active" ? "finished" : "new"), :countdown_to => nil
+        end
+        question.update_attributes :state => "active"
+      end
     end
   end
 
-  def active_question=(question)
-    if question == nil or (question.section == self and question.state != "active")
+  def showed_question
+    self.questions.where(:state => "showed").first
+  end
+
+  def showed_question=(question)
+    if question == nil
       self.transaction do
-        self.questions.where(:state => ["active", "answered"]).each do |q|
-          q.update_attributes :state => "finished", :countdown_to => nil
+        self.questions.where(:state => "showed").each do |q|
+          q.update_attributes :state => "new", :countdown_to => nil
         end
-        if question
-          question.update_attributes :state => "active"
+      end
+    elsif question.section == self and question.state != "showed"
+      self.transaction do
+        self.questions.where(:state => ["active", "showed"]).each do |q|
+          q.update_attributes :state => (q.state == "active" ? "finished" : "new"), :countdown_to => nil
         end
+        question.update_attributes :state => "showed"
       end
     end
   end
