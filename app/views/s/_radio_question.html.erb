@@ -1,19 +1,18 @@
 <h2><%= @active.question %></h2>
 
 
-<%= form_tag radio_votes_path, :method => :post, :id => "POST", :class => "panel" do %>
-  <%= hidden_field_tag 'anonymous[id]', @anonymous.id %>
+<%= form_tag radio_votes_path, :"data-ajax" => "false", :method => :post, :class => "panel" do %>
+<%= hidden_field_tag 'anonymous[id]', @anonymous.id %>
 
-<fieldset>
+<fieldset data-role="controlgroup">
   <% @active.answer_variants.each do |aw| %>
-    <div class="row">
+
       <%= radio_button_tag 'answer_variant[id]', aw.id %>
       <%= label :answer_variant, :id, aw.text, :value => aw.id %>
-    </div>
-   <% end %>
+
+  <% end %>
 </fieldset>
 
-<%= submit_tag (t 'votes.do-vote'), :class => "whiteButton" %>
-<div class="spinner"></div>
+<%= submit_tag (t 'votes.do-vote') %>
 <% end %>
 

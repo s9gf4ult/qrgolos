@@ -15,7 +15,7 @@ class VotesController < ApplicationController
             redirect_to s_anonymous_path(@anonymous)
           end
           format.json { head :no_content, :status => :created }
-          propogate_new_votes @anonymous.section
+          comet_section_new_votes @anonymous.section
         else
           format.html { redirect_to s_anonymous_path(@anonymous) }
           format.json { render :json => vote.errors, :status => :unprocessable_entity }
@@ -41,7 +41,7 @@ class VotesController < ApplicationController
             redirect_to s_anonymous_path(@anonymous)
           end
           format.json { head :no_content, :status => :created }
-          propogate_new_votes @anonymous.section
+          comet_section_new_votes @anonymous.section
         else
           format.html { redirect_to s_anonymous_path(@anonymous) }
           format.json { render :json => vote.errors, :status => :unprocessable_entity }
@@ -84,17 +84,29 @@ class VotesController < ApplicationController
 
   def with_current_votes(votes)
     votes.each do |vote|
-      if vote.anonymous.section != vote.answer_variant.question.section
+      if vote.anonymous.section != vote.answer_variant.question.section # anonymous inside right section
         flash[:error] = t 'votes.wrong-section'
         redirect_to s_path
         return
       end
-      if vote.anonymous.section.active_question != vote.answer_variant.question
+      if vote.anonymous.section.active_question != vote.answer_variant.question # current question is active
         flash[:error] = t 'votes.wrong-question'
         redirect_to s_path
         return
       end
     end
-    yield
+    if votes.first
+      v = votes.first
+      q = v.answer_variant.question
+      q.stop_countdown
+      if q.section.active_question == q # current question is still active after stop_countdown
+        yield
+      else
+        redirect_to s_anonymous_path(v.anonymous) # question is closed - redirect back to vote
+        return
+      end
+    else
+      yield
+    end
   end
 end

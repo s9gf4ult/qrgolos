@@ -85,7 +85,7 @@ class AnswerVariantsController < ApplicationController
         format.html { redirect_to question }
         format.json { head :no_content }
         if update
-          propogate_question_changed question.section
+          comet_section_question_changed question.section
         end
       end
     end
@@ -127,8 +127,7 @@ class AnswerVariantsController < ApplicationController
 
   def propogate_aw(answer_variant)
     if @answer_variant.question.state == "active"
-      propogate_question_changed @answer_variant.question.section
+      comet_section_question_changed @answer_variant.question.section
     end
   end
-    
 end

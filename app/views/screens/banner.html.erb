@@ -11,9 +11,8 @@ window.SCREEN_CHANNEL = '<%= screen_update_channel(@screen) %>';
   <img id="bannerImg" class="banner" height="100%" src="/screens/infotex2012/banner.png" />
 </div>
 
-<script>
+<%= javascript_tag do %>
 $(function() {
   $('#bannerImg').height($(window).height() - 128);
 });
-
-</script>
+<% end %>

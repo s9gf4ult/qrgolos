@@ -1,19 +1,18 @@
 <h2><%= @active.question %></h2>
 
 
-  <%= form_tag check_votes_path, :method => :post, :id => "POST", :class => "panel" do %>
-  <%= hidden_field_tag 'anonymous[id]', @anonymous.id %>
-  <fieldset>
-    <% @active.answer_variants.each do |aw| %>
-    <div class="row">
-      <%= check_box_tag 'answer_variant[id][]', aw.id %>
+<%= form_tag check_votes_path, :"data-ajax" => "false", :method => :post, :class => "panel" do %>
+<%= hidden_field_tag 'anonymous[id]', @anonymous.id %>
+
+<fieldset data-role="controlgroup" data-type="vertical">
+  <% @active.answer_variants.each do |aw| %>
+
+      <%= check_box_tag "answer_variant[id][]", aw.id, false, :id => "answer_variant_id_#{aw.id}" %>
       <%= label :answer_variant, :id, aw.text, :value => aw.id %>
-    </div>
-    <% end %>
-    </fieldset>
 
-<%= submit_tag (t 'votes.do-vote'), :class => "whiteButton" %>
-<div class="spinner"></div>
+  <% end %>
+</fieldset>
+
+<%= submit_tag (t 'votes.do-vote') %>
 <% end %>
-
 

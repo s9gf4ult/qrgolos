@@ -74,18 +74,24 @@ class Section < ActiveRecord::Base
     self.questions.where(:state => "active").first
   end
 
+  def statistics_question
+    if self.active_question
+      self.active_question
+    else
+      self.questions.where(:state => "answered").first
+    end
+  end
+
   def active_question=(question)
     if question == nil or (question.section == self and question.state != "active")
       self.transaction do
-        self.questions.where(:state => "active").each do |q|
-          q.update_attribute(:state, "answered")
+        self.questions.where(:state => ["active", "answered"]).each do |q|
+          q.update_attributes :state => "finished", :countdown_to => nil
         end
         if question
-          question.update_attribute(:state, "active")
+          question.update_attributes :state => "active"
         end
       end
-    elsif question != nil and question.state == 'active' and question.section == self
-      question.update_attribute(:state, "answered")
     end
   end
 

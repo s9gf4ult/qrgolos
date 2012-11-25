@@ -1,15 +1,20 @@
 class QuestionsController < ApplicationController
   include ApplicationHelper
   before_filter :authenticate_user!, :except => [:show]
-  
+  before_filter :get_question, :except => [:new, :create]
+  before_filter :stop_countdown_question, :except => [:new, :create]
+
   # GET /questions/1
   # GET /questions/1.json
   def show
-    @question = Question.find(params[:id])
-    question_breadcrumb @question
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @question }
+      format.html do
+        question_breadcrumb @question
+        render
+      end
+      format.json do
+        render :json => @question.as_json(:methods => [:countdown_remaining])
+      end
     end
   end
 
@@ -19,9 +24,11 @@ class QuestionsController < ApplicationController
     @section = Section.find(params[:section_id])
     when_section_owner @section do
       @question = @section.questions.build
-      question_breadcrumb @question
       respond_to do |format|
-        format.html # new.html.erb
+        format.html do
+          question_breadcrumb @question
+          render
+        end
         format.json { render json: @question }
       end
     end
@@ -29,7 +36,6 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1/edit
   def edit
-    @question = Question.find(params[:id])
     when_section_owner @question.section do
       question_breadcrumb @question
     end
@@ -57,14 +63,13 @@ class QuestionsController < ApplicationController
   # PUT /questions/1
   # PUT /questions/1.json
   def update
-    @question = Question.find(params[:id])
     when_section_owner @question.section do
       respond_to do |format|
-        if @question.update_attributes(params[:question].except(:state))
+        if @question.update_attributes(params[:question].except(:state, :countdown_to))
           format.html { redirect_to @question, notice: 'Question was successfully updated.' }
           format.json { head :no_content }
           if @question.state == "active"
-            propogate_question_changed @question.section
+            comet_section_question_changed @question.section
           end
         else
           format.html { render action: "edit" }
@@ -77,7 +82,6 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
-    @question = Question.find(params[:id])
     section = Section.find(@question.section)
     update = false
     if @question.state == "active"
@@ -85,48 +89,72 @@ class QuestionsController < ApplicationController
     end
     when_section_owner section do
       @question.destroy
-      
+
       respond_to do |format|
         format.html { redirect_to section }
         format.json { head :no_content }
         if update
-          propogate_question_changed session
+          comet_section_question_changed section
         end
       end
     end
   end
 
-  def activate
-    @question = Question.find(params[:id])
+  def switch_state
+    update = @question.state != "finished"
     when_section_owner @question.section do
-      @question.section.active_question = @question
+      @question.switch_state
       respond_to do |format|
-        format.html { redirect_to @question.section, notice: (t "questions.activated") }
+        format.html { redirect_to @question.section }
         format.json { head :no_content }
-        propogate_question_changed @question.section
-      end
-    end
-  end
-
-  def cancel
-    @question = Question.find(params[:id])
-    update = false
-    if @question.state == "active"
-      update = true
-    end
-    when_section_owner @question.section do
-      @question.state = "canceled"
-      respond_to do |format|
-        if @question.save
-          format.html { redirect_to @question.section, notice: (t "questions.canceled") }
-          format.json { head :no_content }
-          propogate_new_votes @question.section
-        else
-          format.html { render action: "edit" }
-          format.json { render json: @question.errors, status: :unprocessable_entity }
+        if update
+          comet_section_question_changed @question.section
         end
       end
     end
   end
 
+  def reset_state
+    update = @question.state != "finished"
+    when_section_owner @question.section do
+      @question.reset_state
+      respond_to do |format|
+        format.html { redirect_to @question.section }
+        format.json { head :no_content }
+        if update
+          comet_section_question_changed @question.section
+        end
+      end
+    end
+  end
+
+  def start_countdown
+    update = @question.state != "finished"
+    when_section_owner @question.section do
+      @question.start_countdown Settings.questions.countdown_time #  FIXME: make it configurable
+      respond_to do |format|
+        format.html { redirect_to @question.section }
+        format.json { head :no_content }
+        if update
+          comet_section_question_changed @question.section
+        end
+      end
+    end
+  end
+
+  private
+  def comet_question(question)
+    case question.state
+    when "active", "answered"
+      comet_section_question_changed question
+    end
+  end
+  
+  def get_question
+    @question = Question.find(params[:id])
+  end
+
+  def stop_countdown_question
+    @question.stop_countdown
+  end
 end

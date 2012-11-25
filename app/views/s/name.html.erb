@@ -1,23 +1,20 @@
 <!-- header -->
-<div class="toolbar">
-      <h1 id="pageTitle"></h1>
-      <%= link_to "Назад", s_anonymous_path(@anonymous), :id => "bButton", :class => "button", :target => "_self", :style => "display: block" %>
-</div>
+<div data-role="page">
 
-<div class="panel" title="QR-голос" selected="true" id="first">
-<h2><%= label_tag 'anonymous[name]', (t 'anonymous.enter-your-name') %></h2>
+    <div data-role="header" data-position="fixed">
+	<a href="index.html" data-rel="back">Назад</a>
+	<h1>Чат</h1>
+    </div>
 
-<%= form_tag set_name_path(@anonymous.aid), :class => "panel", :target => "_self" do %>
-<fieldset>
-<div class="row">
-	<label>Имя:</label>
-	<%= text_field_tag 'anonymous[name]', nil,  :id => 'name-text', :class => "nname" %>
-</div>
-</fieldset>
+    <div data-role="content">
+	<div class="panel" title="QR-голос" selected="true" id="first">
+	<h2><%= label_tag 'anonymous[name]', (t 'anonymous.enter-your-name') %></h2>
 
-  <%= submit_tag (t 'login'), :class => "whiteButton" %>
-<div class="spinner"></div>
-<% end %>
-
-
+	<%= form_tag set_name_path(@anonymous.aid), :class => "panel", :target => "_self" do %>
+	    <div class="row">
+		<%= text_field_tag 'anonymous[name]', nil,  :id => 'name-text', :class => "nname" %>
+	    </div>
+	    <%= submit_tag (t 'login') %>
+	<% end %>
+    </div>
 </div>

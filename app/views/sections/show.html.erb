@@ -32,15 +32,16 @@
     </div>
   </td>
 </tr>
-<tr>
-  <td>
-    <div class="formHeader">
-      Экраны
-    </div>
+</table>
+<hr> <!-- --------------------------------------------------------------------------------------------------- -->
+<table border="0" style="width:100%;">
+<tr style="height: 60px;">
+  <td style="width:50%;">
+  <br />
     <% @section.screens.each_with_index do |screen, idx| %>
       <div class="screen-mosaic">
         <div class="screen-block-element">
-          <%= "№ #{idx + 1}" %>
+          Экран <%= "№ #{idx + 1}" %>
         </div>
         <div class="screen-block-element">
         <%= form_for screen do |f| %>
@@ -48,35 +49,19 @@
         <% end %>
         </div>
         <div class="screen-block-element">
-          <%= link_to (t 'buttons.show'), screen, :class => "small_button", :style => "display: inline" %>
+          <%= link_to (t 'buttons.show'), screen, :class => "small_button", :style => "display: inline", :target => "_blank" %>
         </div>
       </div>
     <% end %>
-  </td>
-</tr>
-</table>
-<hr> <!-- --------------------------------------------------------------------------------------------------- -->
-<table>
-<tr style="height: 60px;">
-  <td style="width:504px;">
-      <div>
-	  <div>
-	    <span class="formHeader"><%= t 'twitts' %></span>
-	    <div style="width:20px; display: inline-block;"></div>
-	    <% if section_owner? @section %>
-		<%= link_to (t 'buttons.moderate'), twitts_edit_section_path(@section), :class => "small_button"%>
-		<%= link_to (t 'buttons.show'), twitts_section_path(@section), :class => "small_button"%>
-	    </div>
-	    <% end %>
-    </div>
+    <br />
   </td>
   <td>
-      <div>
-	  <span class="formHeader"><%= t 'sections.statistics' %></span>
-	  <div style="width:20px; display: inline-block;"></div>
-	  <%= link_to (t 'buttons.show'), section_section_statistics_path(@section), :class => "small_button" %>
+      <div class="right">
+	  <% if section_owner? @section %>
+	    <%= link_to (t 'buttons.moderate'), twitts_edit_section_path(@section), :class => "small_button"%>
+	  <% end %>
+	  <%= link_to (t 'buttons.showStatistic'), section_section_statistics_path(@section), :class => "small_button" %>
       </div>
-
   </td>
 </tr>
 </table>
@@ -86,16 +71,30 @@
 <div id="sctn">
 <% @section.questions.each do |question| %>
   <div class="name"><%= link_to question.question, question %></div>
-    <div class="descr"><%= t question.state %>, <%= t question.kind %>
+  <div class="descr"><%= t question.state %>, <%= t question.kind %>
     <% if section_owner? @section %>
       <div class="edit">
-	  <%= link_to (t "buttons.activate"), activate_question_path(question), :method => :post, :class => "small_button" %>
-	  <%= link_to (t "buttons.cancel"), cancel_question_path(question), :method => :post, :class => "small_button" %>
-	  <%= link_to (t "buttons.edit"), edit_question_path(question), :class => "small_button" %>
-	  <%= link_to (t "buttons.delete"), question, method: :delete, data: { confirm: 'Удалить вопрос?' }, :class => "small_button" %>
+        <% if question.state == "new" %>
+        <%= link_to (t 'buttons.start-countdown'), start_countdown_question_path(question), :method => :post, :class => "small_button" %>
+        <% end %>
+
+        <% case question.state %>
+        <% when "new" %>
+          <%= link_to (t "buttons.start-vote"), switch_state_question_path(question), :method => :post, :class => "small_button" %>
+        <% when "active" %>
+          <%= link_to (t "buttons.show-results"), switch_state_question_path(question), :method => :post, :class => "small_button" %>
+        <% when "answered" %>
+          <%= link_to (t "buttons.finish"), switch_state_question_path(question), :method => :post, :class => "small_button" %>
+        <% end %>
+
+        <% if question.state != "new" %>
+          <%= link_to (t "buttons.reset"), reset_state_question_path(question), :method => :post, :data => {:confirm => "Все голоса участников будут удалены, продолжить ?"}, :class => "small_button" %>
+        <% end %>
+	    <%= link_to (t "buttons.edit"), edit_question_path(question), :class => "small_button" %>
+	    <%= link_to (t "buttons.delete"), question, method: :delete, data: { confirm: 'Удалить вопрос?' }, :class => "small_button" %>
       </div>
     <% end %>
-   </div>
+  </div>
 <% end %>
 </div>
 

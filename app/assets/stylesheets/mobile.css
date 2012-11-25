@@ -1,14 +1,20 @@
 /* Mobile css
 
- *= require iui
- *= require iui-theme
- *= require iui-ext
-
+ * = r equire iui
+ * = r equire iui-theme
+ * = r equire iui-ext
+ *= require ios.css
 */
 
-.text {
-  font-weight: normal;
-  display: block;
+.panel > ul, .panel > fieldset {
+  position: relative;
+  margin: 0 0 20px 0;
+  padding: 0;
+  background: #FFFFFF;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 1px solid #999999;
+  font-size: 16px;
 }
 
 .panel p.normalText {
@@ -16,154 +22,15 @@
   padding: 0 10px 0 10px;
 }
 
-.panel > ul {
-  margin:5px 0 15px 0;
-  padding:0;
-  list-style:none;
-  -webkit-border-radius:0;
-  -moz-border-radius:0;
-  border-width:0;
-  background-color:transparent;
-
-}
-.panel > ul > li { margin:0; padding:0; border-width:0; }
-.panel > ul > li a, .row > a { text-align:left; padding:11px 0 9px 10px; background:url(/iui/listArrow.png) center right no-repeat; display:block; text-decoration:none; overflow:hidden; text-overflow:ellipsis; color:#000; font-weight:bold; font-size:17px; }
-.panel > ul > li a {
-  margin:0;
-  border:1px solid #aaa;
-  border-bottom-width:0 !important;
-  margin-top:-1px;
-  background-color:#fff;
-  border-radius: 10px;
-}
-.panel > ul > li:first-child a {
-  -webkit-border-top-right-radius:10px;
-  -webkit-border-top-left-radius:10px;
-  -moz-border-top-right-radius:10px;
-  -moz-border-top-left-radius:10px;
-}
-
-.panel > ul > li:last-child a {
-  -webkit-border-bottom-right-radius:10px;
-  -webkit-border-bottom-left-radius:10px;
-  -moz-border-bottom-right-radius:10px;
-  -moz-border-bottom-left-radius:10px;
-
-  border-bottom-width:1px !important;
-
-}
-.panel > ul > li a img { vertical-align:middle; margin-left:-4px; }
-
-.row .nname {
-  padding: 12px 10px 0 60px !important;
-}
-
-div.spinner {
-  visibility: hidden;
-  background: black url(/iui/loading.gif) no-repeat center center;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  height: 100%;
-  width: 100%;
-  opacity: 0.5;
-}
-form.progress div.spinner {
-  visibility: visible;
-}
-fieldset > div.row > span {
-  position:       absolute;
-  right:          0px;
-  padding-left:   0px;
-}
-
-body > :not(.toolbar) {
-  min-height: 100%;
-
-}
-
-.whideLi {
-  position: relative;
-  margin: 0;
-  border-bottom: 1px solid #E0E0E0 !important;
-  background-color: white;
-  padding: 8px 0 8px 10px;
-  font-size: 20px;
+.panel > h2 {
+  margin: 0 0 8px 14px;
+  font-size: inherit;
   font-weight: bold;
-  list-style: none;
-  -webkit-padding-start: 0px;
-  -moz-padding-start: 0px;
+  color: #4d4d70;
+  text-shadow: rgba(255, 255, 255, 0.75) 2px 2px 0;
 }
 
-#wrapper {
-  /*height:200px;		/* Of course you need to specify the object height */
-
-  position:relative;	/* On older OS versions "position" and "z-index" must be defined (absolute | relative), */
-  z-index:1;		/* it seems that recent webkit is less picky and works anyway. */
-
-  width:100%;
-  background:#aaa;
-  overflow:hidden;
-}
-
-#scroller {
-  /*      -webkit-touch-callout:none;*/
-  -webkit-tap-highlight-color:rgba(0,0,0,0);
-
-  float:left;
-  width:100%;
-  padding: 0px; /* 0px 40px 0px;*/
-
-  /*      -webkit-box-shadow:0 0 8px #555;        /* Don't use box shadows, they slow down drastically CSS animations */
-}
-
-#scroller ul {
-  list-style:none;
-  padding:0;
-  margin:0;
-  width:100%;
-  text-align:left;
-}
-#scroller li {
-  padding:0 10px;
-  /*height:40px;*/
-  line-height:20px;
-  border-bottom:1px solid #ccc;
-  border-top:1px solid #fff;
-  background-color:#fafafa;
-  font-size:14px;
-}
-
-#scroller li > a {
-  display:block;
-}
-
-.button {
-  background: url("/iui/backButtonBack.png") repeat-x scroll 0 0 transparent;
-  border-image: url("/iui/toolButton.png") 0 5 0 5 / 0 5px 0 5px;
-  padding: 0 4px 0 4px;
-}
-
-#bButton {
-  display: none;
-  left: 6px;
-  right: auto;
-  padding: 0;
-  max-width: 55px;
-  border-width: 0 8px 0 14px;
-}
-#bButton {
-  border-image: url("/iui/backButtonBrdr.png") 0 20 0 20 / 0 20px 0 20px;
-  padding: 0 0 0 10px;
-  width: 50px;
-  /*border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;*/
-  -webkit-border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;
-  /*-moz-border-image: url(/iui/backButtonBrdr.png) 0 8 0 14;*/
-  background: url(/iui/backButtonBack.png) repeat-x;
-}
-
-#bButton:active {
-  -webkit-border-image: url(/iui/backButtonSel.png) 0 8 0 14;
-  -moz-border-image: url(/iui/backButtonSel.png) 0 8 0 14;
-  background: url(/iui/backButtonSel.png) repeat-x;
+.ui-li .ui-btn-inner a.ui-link-inherit {
+  padding: 0.1em 11px;
+  display: block;
 }

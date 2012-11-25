@@ -8,8 +8,14 @@ function regen_chat_list() {
 	    ul = $('#twitts_list');
 	    ul.html('');
             $.each(data, function(i, el) {
-                li = $('<li class="whideLi">')
-                li.html('<span class="name_element">' + el.name + '</span>' + ': ' + '<span class="text">' + el.text + '</span>');
+	      li = $('<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c">')
+                //li.html('<h3>' + el.name + '</h3>' + '<p>' + el.text + '</p>');
+		li.html('<div class="ui-btn-inner ui-li">' +
+			  '<div class="ui-btn-text">' +
+			  '<a href="#" class="ui-link-inherit">' + '<h3 class="ui-li-heading">' + el.name + '</h3>' +
+			  '<p class="ui-li-desc">' + el.text + '</p>' + '</a>' +
+			  '</div>' +
+			'</div>');
                 ul.append(li);
             });
             //$('#twitts_list').html(ul);
@@ -22,29 +28,16 @@ $(function() {
     launch_faye_updater(window.TWITT_CHANNEL, regen_chat_list);
 
     $('#submit-twitt').click(function() {
-      form = $('#post-twitt');
+      form = $('#new_twitt');
         if ($('#twitt-text').val().trim() != '') {
             $.post(form.attr('action'), form.serialize(),
                    function() {
                        $('#twitt-text').val('');
+		       $('#post-twitt').popup('close');
                    });
-        }
-        $('#post-twitt').attr('selected',false);
-	alert('Ваше сообщение отправлено на модерацию');
+	}
+        //alert('Ваше сообщение отправлено на модерацию');
 	return false;
-    });
-
-    $('#submit-name').click(function() {
-      form = $('#name-form');
-	       if ($('#name-text').val().trim() != '') {
-		 $.post(form.attr('action'), form.serialize(),
-			function() {
-			  $('#name-text').val('');
-			});
-	       }
-	       location.reload();
-	       $('#name-form').attr('selected',false);
-    return false;
     });
 
 });

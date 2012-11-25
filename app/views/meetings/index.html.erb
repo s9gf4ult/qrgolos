@@ -5,8 +5,8 @@
  <% @my_meetings.each do |meeting| %>
  <div class="mtng">
     <div class="name" style="width: 720px;"><%= link_to meeting.name, meeting %></div>
-    <div class="date">22 - 25 ноября 2012</div>
-    
+    <div class="date">27 - 28 ноября 2012</div>
+
     <div style="clear:both;"> </div>
 
 <div>
@@ -39,4 +39,4 @@
 
 <hr>
 <%= link_to (t "buttons.back"), meetings_path, :class => "button" %>
-<%= link_to (t "buttons.create"), new_meeting_path, :class => "button", :style => "float: right;" %>
+<%= link_to (t "buttons.create"), new_meeting_path, :class => "button right" %>

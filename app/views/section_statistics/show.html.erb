@@ -2,30 +2,33 @@
 <%= stylesheet_link_tag "section_statistics" %>
 <% end %>
 
-<div>
-  <%= @section.name %>
-</div>
+<div class="formHeader"><%= @section.name %></div>
 
-<% @section.questions.each do |question| %>
-<div class="question">
-  <div class="question_text formHeader">
-    <%= question.question %>
-  </div>
-<div>
-<span>Проголосовало</span>
-<%= question.voted_count %>
-</div>
-  <div class="answer_variants">
-    <% question.formated_answer_variants.each do |aw| %>
-    <div class="answer_variant">
-      <div class="variant_text">
-        <%= aw[:text] %>
-      </div>
-      <div style="width: <%= aw[:percent] %>%" class="variant_strip" >
-      <%= "#{aw[:percent].round} %" %>
-      </div>
+  <% @section.questions.each do |question| %>
+
+    <div class="question_text">
+      <%= question.question %> <span>(проголосовало &mdash; <%= question.voted_anonymous_count %>)</span>
     </div>
+
+
+
+  <div class="answer_variants">
+
+  <% question.formated_answer_variants.each do |aw| %>
+      <div class="answer_variant" style="margin-right: 15px;">
+	<div class="variant_spacer">
+	    <div class="variant_text"> <%= aw[:text] %> &mdash; <%= "#{aw[:percent].round 2} %" %></div>
+
+	    <div style="width: <%= aw[:percent] %>%" class="variant_strip" ></div>
+
+	</div>
+      </div>
     <% end %>
   </div>
-</div>
+
+</br>
 <% end %>
+<hr>
+<div>
+  <%= link_to (t "buttons.back"), @section, :class => "button" %>
+</div>

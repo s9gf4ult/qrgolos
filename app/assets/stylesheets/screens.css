@@ -84,11 +84,11 @@ body {
 }
 
 .variant_strip {
-  padding-left: 0.5em;
-  height: 1.5em;
-  border-radius: 0.5em;
+  padding-left: 0px;
+  height: 20px;
+  border-radius: 10px;
   background-color: #18A1B1;
-  min-width: 4em;
+  /*min-width: 4em;*/
 }
 
 .variant_spacer {
@@ -98,5 +98,28 @@ body {
   border-width: 1px;
 }
 .variant_text {
-  font-size: 25px;
+  font-size: 30px;
+}
+
+.showtime {
+  float: right;
+  font-size: 16px;
+}
+
+#timer {
+  position: fixed;
+  top:0;
+  width: 200px;
+  height: 100px;
+  border-radius: 10px;
+  opacity: 0.5;
+  zoom: 1;
+  filter: alpha(opacity=50);
+  text-align: center;
+  right:0;
+  font-size: 5em;
+  color: white;
+  background-color: black;
+  box-shadow: 0px 1px 50px #777;
+  display: none;
 }

@@ -17,20 +17,48 @@ class ScreensController < ApplicationController
     @screen = Screen.find(params[:id])
     with_right_content @screen, "twitts" do
       @section = @screen.section
+      respond_to do |format|
+        format.html { render }  # question.html.erb
+        format.json do
+          ret = Jbuilder.encode do |j|
+            j.section @section
+            j.twitts @section.active_twitts do |twitt|
+              j.name twitt.anonymous.formated_name
+              j.text twitt.text
+              j.time twitt.created_at
+            end
+          end
+          render :json => ret
+        end
+      end
     end
   end
 
   def question
     @screen = Screen.find(params[:id])
+    if @screen.section.active_question
+      @screen.section.active_question.stop_countdown
+    end
     with_right_content @screen, "question" do
       @section = @screen.section
+      respond_to do |format|
+        format.html { render }  # question.html.erb
+        format.json { render :json => render_json_question(@section.active_question) }
+      end
     end
   end
 
   def statistics
     @screen = Screen.find(params[:id])
+    if @screen.section.active_question
+      @screen.section.active_question.stop_countdown
+    end
     with_right_content @screen, "statistics" do
       @section = @screen.section
+      respond_to do |format|
+        format.html { render }  # statistics.html.erb
+        format.json { render :json => render_json_question(@section.statistics_question) }
+      end
     end
   end
 
@@ -51,6 +79,21 @@ class ScreensController < ApplicationController
   end
 
   private
+
+  def render_json_question(question)
+    Jbuilder.encode do |j|
+      if question
+        q = question
+        j.question do
+          j.question q.question
+          j.countdown_remaining q.countdown_remaining
+        end
+        j.answer_variants q.formated_answer_variants
+      else
+        j.question nil
+      end
+    end
+  end
 
   def set_layout
     "screen"

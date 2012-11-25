@@ -1,45 +1,40 @@
 <% content_for :head do %>
 <%= javascript_include_tag "screen-updater.js" %>
+<%= javascript_include_tag "twitts-screen-updater.js" %>
 <% end %>
 
 <%= javascript_tag do %>
 window.FAYE_ADDRESS = '<%= Settings.faye.address %>';
 window.SCREEN_CHANNEL = '<%= screen_update_channel(@screen) %>';
+window.TWITT_MODERATED_CHANNEL = '<%= section_twitts_activated_channel(@section) %>';
 <% end %>
 
 <div id="bannerImg" style="height: 768px; margin:0 auto;">
-<table border="0" cellpadding="0" cellspacing="0" style="width: 100%; height: 100%;">
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; height: 100%;">
     <tbody>
 
-        <tr style="height: 10%;">
-            <td colspan="10" rowspan="1">
-            <img id= "HbannerI" src="/screens/infotex2012/infotex-logo.png">
-            <img id= "HbannerT" src="/screens/infotex2012/tyumen.png">
-            <img id= "HbannerQ" src="/screens/infotex2012/qrgolos.png">
+      <tr style="height: 10%;">
+        <td colspan="10" rowspan="1">
+          <img id= "HbannerI" src="/screens/infotex2012/infotex-logo.png">
+          </img>
+          <img id= "HbannerT" src="/screens/infotex2012/tyumen.png">
+          </img>
+          <img id= "HbannerQ" src="/screens/infotex2012/qrgolos.png">
+          </img>
 	    </td>
-        </tr>
-        <tr>
-            <td id="blocks" colspan="4" rowspan="9" ><img src="/screens/infotex2012/blocks.png"></td>
-            <td id="Mid_spaser" rowspan="9" style="width: 7%;"></td>
-            <td id="content" style="width: 70%;" colspan="5" rowspan="9">
-	      <div class="formHeader">Чат: <%= @section.name %></div>
-
-		  <div id="twittTable">
-		    <% @section.active_twitts.limit(6).each do |twitt| %>
-		      <div class="twittMsg">
-			<span class="tableName"><%= twitt.anonymous.formated_name %></span>:
-			<div class="tableMsg"><%= twitt.text%></div>
-		      </div>
-		    <% end %>
-		  </div>
-
-	    </td>
-        </tr>
+      </tr>
+      <tr>
+        <td id="blocks" colspan="4" rowspan="9" ><img src="/screens/infotex2012/blocks.png"></td>
+        <td id="Mid_spaser" rowspan="9" style="width: 7%;"></td>
+        <td id="content" style="width: 70%;" colspan="5" rowspan="9">
+          <!-- javascript content here -->
+        </td>
+      </tr>
     </tbody>
-</table>
+  </table>
 </div>
 
-<script>
+<%= javascript_tag do %>
 $(function() {
   $('#bannerImg').height($(window).height() * 0.86);
   $('#bannerImg').width($(window).height() * 1.3);
@@ -58,8 +53,7 @@ $(function() {
   $('#twittTable').width($('#bannerImg').width() * 0.6 + 15);
   $('.tableMsg').width($('#bannerImg').width() * 0.6);
 });
-
-</script>
+<% end %>
 
 
 
