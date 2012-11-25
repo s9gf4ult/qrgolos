@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121125050752) do
+ActiveRecord::Schema.define(:version => 20121125051132) do
 
   create_table "anonymous", :force => true do |t|
     t.integer  "section_id"
@@ -60,6 +60,12 @@ ActiveRecord::Schema.define(:version => 20121125050752) do
     t.datetime "updated_at",   :null => false
     t.datetime "countdown_to"
   end
+
+  add_index "questions", ["countdown_to"], :name => "index_questions_on_countdown_to"
+  add_index "questions", ["kind"], :name => "index_questions_on_kind"
+  add_index "questions", ["question"], :name => "index_questions_on_question"
+  add_index "questions", ["section_id"], :name => "index_questions_on_section_id"
+  add_index "questions", ["state"], :name => "index_questions_on_state"
 
   create_table "screens", :force => true do |t|
     t.integer  "section_id"
