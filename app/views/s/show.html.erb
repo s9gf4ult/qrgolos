@@ -51,8 +51,8 @@ window.VOTE_CHANNEL = '<%= section_question_changed_channel(@anonymous.section) 
 </div>
 
 
-<script>
+<%= javascript_tag do %>
 $( function(){
   $.mobile.ajaxEnabled = false;
 });
-</script>
+<% end %>

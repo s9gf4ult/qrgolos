@@ -291,10 +291,10 @@ a.navLink {
     background: url(../images/home/how-it-works.png) no-repeat;
 }
 .homeLinks li a.featureList {
-    background: url(../images/home/feature-list.png) no-repeat;
+   /*  background: url(../images/home/feature-list.png) no-repeat; */
 }
 .homeLinks li a.downloadTheApp {
-    background: url(../images/home/download-the-app.png) no-repeat;
+   /*  background: url(../images/home/download-the-app.png) no-repeat; */
 }
 .homeLinks li a.watchTheScanAd {
     background: url(../images/home/watch-the-scan-ad.png) no-repeat;

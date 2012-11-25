@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" rel="stylesheet" />
     <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script>
+    <%= javascript_tag do %>
 	    // all dialog buttons should close their parent dialog
 	    $(".ui-dialog button").live("click", function() {
 		    $("[data-role='dialog']").dialog("close");
@@ -14,7 +14,7 @@
 	    $(document).on("mobileinit", function(){
 	      $.mobile.defaultPageTransition = "slide";
 	    });
-    </script>
+    <% end %>
     <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
     <style>
 	    #footerTabs {
