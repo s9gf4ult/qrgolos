@@ -96,9 +96,9 @@ $(function() {
               redraw_timer();
             }).dequeue();
           } else {
-            if (timer.is(':visible')) {
-                boom.play();
-            }
+           // if (timer.is(':visible')) {
+               // k boom.play();
+           // }
             hide(timer);
             //boom.play(); //добавить проверку на наличие показанного таймера
           }
