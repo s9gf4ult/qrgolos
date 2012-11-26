@@ -75,6 +75,7 @@ $(function() {
     function timer_generator(data) {
       function hide(timer) {
         timer.hide();
+	clock.pause();
         counting = false;
       }
       timer = $('#timer');
@@ -95,7 +96,6 @@ $(function() {
             }).dequeue();
           } else {
             if (timer.is(':visible')) {
-                clock.pause();
                 boom.play();
             }
             hide(timer);
