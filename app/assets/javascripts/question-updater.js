@@ -84,6 +84,7 @@ $(function() {
           if (question.countdown_remaining) {
             rem = question.countdown_remaining;
             timer.show(); // показать элемент
+            clock.play();
             my_arc.rotate(0, 50, 50).animate({ arc: [70, 70, (100/30) * rem, 100, 30] }, 500, "bounce");
             counting = true;
             timer.delay(1000).queue(function() {
@@ -92,6 +93,7 @@ $(function() {
             }).dequeue();
           } else {
             hide(timer);
+            //boom.play(); //добавить проверку на наличие показанного таймера
           }
         } else {
           hide(timer);
