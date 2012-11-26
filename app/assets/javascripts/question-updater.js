@@ -76,6 +76,7 @@ $(function() {
       function hide(timer) {
         timer.hide();
 	clock.pause();
+        clock.currentTime = 0;
         counting = false;
       }
       timer = $('#timer');
