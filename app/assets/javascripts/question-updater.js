@@ -1,6 +1,7 @@
 $(function() {
     // Raphael drawer
-
+    var clock = document.getElementById('clock');
+    
     var archtype = Raphael("timer", 200, 200);
     archtype.customAttributes.arc = function (xloc, yloc, value, total, R) {
         var alpha = 360 / total * value,
@@ -74,10 +75,13 @@ $(function() {
     
     function timer_generator(data) {
       function hide(timer) {
-        timer.hide();
-	clock.pause();
-        clock.currentTime = 0;
-        counting = false;
+      timer.hide();
+      try {
+	      clock.pause();
+          clock.currentTime = 0;
+      } catch (a) {
+      };
+      counting = false;
       }
       timer = $('#timer');
       if (! counting) {
