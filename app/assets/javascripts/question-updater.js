@@ -1,4 +1,35 @@
 $(function() {
+    // Raphael drawer
+
+    var archtype = Raphael("timer", 200, 200);
+    archtype.customAttributes.arc = function (xloc, yloc, value, total, R) {
+        var alpha = 360 / total * value,
+        a = (90 - alpha) * Math.PI / 180,
+        x = xloc + R * Math.cos(a),
+        y = yloc - R * Math.sin(a),
+        path;
+        if (total == value) {
+            path = [
+                ["M", xloc, yloc - R],
+                ["A", R, R, 0, 1, 1, xloc - 0.01, yloc - R]
+            ];
+        } else {
+            path = [
+                ["M", xloc, yloc - R],
+                ["A", R, R, 0, +(alpha > 180), 1, x, y]
+            ];
+        }
+        return {
+            path: path
+        };
+    };
+
+    var my_arc = archtype.path().attr({
+        "stroke": "#3B369D",
+        "stroke-width": 50,
+        arc: [70, 70, 100, 100, 30]
+    });
+    
     var counting = false;
 
     function draw_question(data) {
@@ -43,7 +74,6 @@ $(function() {
     
     function timer_generator(data) {
       function hide(timer) {
-        timer.html('');
         timer.hide();
         counting = false;
       }
@@ -52,8 +82,9 @@ $(function() {
         question = data.question;
         if (question) {
           if (question.countdown_remaining) {
+            rem = question.countdown_remaining;
             timer.show(); // показать элемент
-            timer.html(question.countdown_remaining);
+            my_arc.rotate(0, 50, 50).animate({ arc: [70, 70, (100/30) * rem, 100, 30] }, 500, "bounce");
             counting = true;
             timer.delay(1000).queue(function() {
               counting = false;
