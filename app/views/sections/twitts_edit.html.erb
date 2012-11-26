@@ -6,13 +6,13 @@
   <% @section.twitts.each do |twitt| %>
   <tr>
     <% if twitt.state == "new" %>
-     <td class="tableStat"><%= link_to " ", activate_section_twitt(twitt), :method => :post, :class => "cansel_button" %></td>
+     <td class="tableStat"><%= link_to " ", activate_section_twitt(twitt), :title => "Скрыто. Нажмите чтобы показать", :method => :post, :class => "cansel_button" %></td>
      <td>
 	<b><%= twitt.anonymous.formated_name %></b>:
 	<div class="tableMsg"><%= twitt.text%></div>
     </td>
     <% else  %>
-      <td class="tableStat"><%= link_to " ", activate_section_twitt(twitt), :method => :post, :class => "active_button" %></td>
+      <td class="tableStat"><%= link_to " ", activate_section_twitt(twitt), :title => "Отображается. Нажмите что быскрыть", :method => :post, :class => "active_button" %></td>
       <td>
 	<b><%= twitt.anonymous.formated_name %></b>:
 	<div class="tableMsg"><%= twitt.text%></div></td>

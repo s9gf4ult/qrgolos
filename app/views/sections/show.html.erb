@@ -46,11 +46,11 @@
         </div>
         <div class="screen-block-element">
         <%= form_for screen do |f| %>
-          <%= f.select :state, screen.rev_states, {}, {:class => "screen_state_select"} %>
+          <%= f.select :state, screen.rev_states, {}, {:title => "", :class => "screen_state_select"} %>
         <% end %>
         </div>
         <div class="screen-block-element">
-          <%= link_to (t 'buttons.show'), screen, :class => "small_button", :style => "display: inline", :target => "_blank" %>
+          <%= link_to (t 'buttons.show'), screen, :class => "small_button", :title => "'Экран' откроется в новом окне", :style => "display: inline", :target => "_blank" %>
         </div>
       </div>
     <% end %>
@@ -60,9 +60,9 @@
   <td>
       <div class="right">
 	  <% if section_owner? @section %>
-	    <%= link_to (t 'buttons.moderate'), twitts_edit_section_path(@section), :class => "small_button"%>
+	    <%= link_to (t 'buttons.moderate'), twitts_edit_section_path(@section), :title => "Показать или скрыть сообщения чата", :class => "small_button"%>
 	  <% end %>
-	  <%= link_to (t 'buttons.showStatistic'), section_section_statistics_path(@section), :class => "small_button" %>
+	  <%= link_to (t 'buttons.showStatistic'), section_section_statistics_path(@section), :title => "Отобразить статистику по всем вопросам", :class => "small_button" %>
       </div>
   </td>
 </tr>
@@ -78,21 +78,21 @@
       <div class="edit">
         <% case question.state %>
         <% when "new" %>
-          <%= link_to (t "buttons.show"), switch_state_question_path(question), :method => :post, :class => "small_button" %>
+          <%= link_to (t "buttons.show"), switch_state_question_path(question), :title => "Отобразить вопрос на 'Экран'", :method => :post, :class => "small_button" %>
         <% when "showed" %>
-          <%= link_to (t "buttons.start-countdown"), start_countdown_question_path(question), :method => :post, :class => "small_button" %>
-          <%= link_to (t "buttons.start-vote"), switch_state_question_path(question), :method => :post, :class => "small_button" %>
+          <%= link_to (t "buttons.start-countdown"), start_countdown_question_path(question), :title => "Начать голосование с таймером", :method => :post, :class => "small_button" %>
+          <%= link_to (t "buttons.start-vote"), switch_state_question_path(question), :title => "Начать голосование", :method => :post, :class => "small_button" %>
         <% when "active" %>
-          <%= link_to (t "buttons.show-results"), switch_state_question_path(question), :method => :post, :class => "small_button" %>
+          <%= link_to (t "buttons.show-results"), switch_state_question_path(question), :title => "Завершить сбор голосов. Отобразить результаты на 'Экране'", :method => :post, :class => "small_button" %>
         <% when "statistics" %>
-          <%= link_to (t "buttons.finish"), switch_state_question_path(question), :method => :post, :class => "small_button" %>
+          <%= link_to (t "buttons.finish"), switch_state_question_path(question), :title => "Скрыть результаты. Закрыть вопрос", :method => :post, :class => "small_button" %>
         <% end %>
 
         <% if ["showed", "active", "statistics", "finished"].include? question.state %>
-          <%= link_to (t "buttons.reset"), reset_state_question_path(question), :method => :post, :data => {:confirm => "Все голоса участников будут удалены, продолжить ?"}, :class => "small_button" %>
+          <%= link_to (t "buttons.reset"), reset_state_question_path(question), :title => "Обнулить результаты. Перевести вопрос в статус 'Новый'", :method => :post, :data => {:confirm => "Все голоса участников будут удалены, продолжить ?"}, :class => "small_button" %>
         <% end %>
         
-	    <%= link_to (t "buttons.edit"), edit_question_path(question), :class => "small_button" %>
+	    <%= link_to (t "buttons.edit"), edit_question_path(question), :title => "Редактировать вопрос и его тип", :class => "small_button" %>
 	    <%= link_to (t "buttons.delete"), question, method: :delete, data: { confirm: 'Удалить вопрос?' }, :class => "small_button" %>
       </div>
     <% end %>
