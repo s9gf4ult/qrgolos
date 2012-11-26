@@ -38,6 +38,7 @@
 <tr style="height: 60px;">
   <td style="width:50%;">
   <br />
+  <% if section_owner? @section %>
     <% @section.screens.each_with_index do |screen, idx| %>
       <div class="screen-mosaic">
         <div class="screen-block-element">
@@ -54,6 +55,7 @@
       </div>
     <% end %>
     <br />
+    <% end %>
   </td>
   <td>
       <div class="right">
