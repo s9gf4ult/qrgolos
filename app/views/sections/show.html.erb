@@ -27,7 +27,9 @@
 	<%= t "anonymous_count" %> <b><%= @section.anonymous_count %></b>
       </div>
       <div>
-	<%= link_to (t 'sections.archive'), section_archive_path(@section) %>
+        <% if section_owner? @section %>
+	      <%= link_to (t 'sections.archive'), section_archive_path(@section) %>
+        <% end %>
       </div>
     </div>
   </td>
