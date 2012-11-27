@@ -1,5 +1,9 @@
 $(function () {
 
+    function update_screen() {
+        window.location.reload();
+    }
+
     function twitts_generator(data) {
 
         cont = $('#content');
@@ -27,5 +31,8 @@ $(function () {
         $.get($(location).attr('href'), null, twitts_generator, "json");
     }
     redraw_twitts();
-    launch_faye_updater(window.TWITT_MODERATED_CHANNEL, redraw_twitts);
+    
+    var client = new Faye.Client(window.FAYE_ADDRESS);
+    var screen_subscribe = client.subscribe(window.SCREEN_CHANNEL, update_screen);
+    var twitts_subscribe = client.subscribe(window.TWITT_CHANNEL, redraw_twitts);
 })

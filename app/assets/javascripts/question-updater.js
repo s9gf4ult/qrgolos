@@ -1,4 +1,8 @@
 $(function() {
+    function update_screen() {
+        window.location.reload();
+    }
+    
     // Raphael drawer
     var clock = document.getElementById('clock');
     
@@ -93,7 +97,7 @@ $(function() {
                clock.play();
             }
             timer.show(); // показать элемент
-            my_arc.rotate(0, 50, 50).animate({ arc: [70, 70, (100/30) * rem, 100, 30] }, 500, "bounce");
+            my_arc.rotate(0, 50, 50).animate({ arc: [70, 70, (100/window.COUNTDOWN) * rem, 100, 30] }, 500, "bounce");
             counting = true;
             timer.delay(1000).queue(function() {
               counting = false;
@@ -119,8 +123,12 @@ $(function() {
         $.get($(location).attr('href'), null, screen_generator, "json");
     }
     regenerate_screen();
-    launch_faye_updater(window.QUESTION_CHANNEL, regenerate_screen);
-    launch_faye_updater(window.VOTE_CHANNEL, regenerate_screen);
+
+
+    var client = new Faye.Client(window.FAYE_ADDRESS);
+    var screen_subscribe = client.subscribe(window.SCREEN_CHANNEL, update_screen);
+    var question_subscribe = client.subscribe(window.QUESTION_CHANNEL, regenerate_screen);
+    var vote_subscribe = client.subscribe(window.VOTE_CHANNEL, regenerate_screen);
 });
 
 

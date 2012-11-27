@@ -5,7 +5,6 @@
   <%= stylesheet_link_tag    "screens", :media => "all" %>
   <%= javascript_include_tag "jquery" %>
   <%= javascript_include_tag "#{Settings.faye.address}/client.js" %>
-  <%= javascript_include_tag "faye-updater" %>
   <%= yield :head %>
   <%= csrf_meta_tags %>
 </head>
