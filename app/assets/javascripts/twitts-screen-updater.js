@@ -34,5 +34,5 @@ $(function () {
     
     var client = new Faye.Client(window.FAYE_ADDRESS);
     var screen_subscribe = client.subscribe(window.SCREEN_CHANNEL, update_screen);
-    var twitts_subscribe = client.subscribe(window.TWITT_CHANNEL, redraw_twitts);
+    var twitts_subscribe = client.subscribe(window.TWITT_MODERATED_CHANNEL, redraw_twitts);
 })
