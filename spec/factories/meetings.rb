@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :meeting do
-    descr "Lorem Ipsum"
+    descr { Faker::Lorem.paragraph }
     sequence(:name) { |x| "Meeting #{x}" }
     association :user, :factory => :user
   end

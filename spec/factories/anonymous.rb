@@ -3,5 +3,7 @@
 FactoryGirl.define do
   factory :anonymous, :class => 'Anonymous' do
     association :section, :factory => :section
+    sequence(:name) { |x| "Anonymous #{x}" }
+    sequence(:name_number) { |x| x }
   end
 end

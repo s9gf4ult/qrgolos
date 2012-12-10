@@ -91,8 +91,10 @@ class Section < ActiveRecord::Base
       end
     elsif question.section == self and question.state != "active"
       self.transaction do
-        self.questions.where(:state => ["active", "showed"]).each do |q|
-          q.update_attributes :state => (q.state == "active" ? "finished" : "new"), :countdown_to => nil
+        self.questions.where(:state => ["active", "showed", "statistics"]).each do |q|
+          if q.id != question.id
+            q.update_attributes :state => (q.state == "showed" ? "new" : "finished"), :countdown_to => nil
+          end
         end
         question.update_attributes :state => "active"
       end
@@ -112,8 +114,10 @@ class Section < ActiveRecord::Base
       end
     elsif question.section == self and question.state != "showed"
       self.transaction do
-        self.questions.where(:state => ["active", "showed"]).each do |q|
-          q.update_attributes :state => (q.state == "active" ? "finished" : "new"), :countdown_to => nil
+        self.questions.where(:state => ["active", "showed", "statistics"]).each do |q|
+          if q.id != question.id
+            q.update_attributes :state => (q.state == "showed" ? "new" : "finished"), :countdown_to => nil
+          end
         end
         question.update_attributes :state => "showed"
       end

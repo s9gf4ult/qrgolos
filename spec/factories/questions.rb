@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :question do
     association :section, :factory => :section
     kind { ["check", "radio"].sample }
-    question "What ?"
+    sequence(:question) { |x| "Question #{x} ?" }
   end
 end

@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :section do
     sequence(:name) { |x| "Section #{x}" }
     anonymous_count 0
-    descr "Lorem Ipusm"
+    descr { Faker::Lorem.paragraph }
     association :meeting, :factory => :meeting
   end
 end

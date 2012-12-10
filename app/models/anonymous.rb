@@ -17,9 +17,12 @@ class Anonymous < ActiveRecord::Base
   #  FIXME: needs some kind of validation, this is not critical parameter, but
   # it must be fixed
   # validates :name_number, :uniqueness => {:scope => [:section_id, :name]}
-
-  def name=(name)
-    write_attribute(:name, name.to_s.strip)
+  validates_each :name_number do |record, attr, value|
+    if value != nil
+      if Anonymous.where(:name => record.name, :name_number => value).first
+        record.errors.add(attr, "Name and name number must be unique")
+      end
+    end
   end
 
   def formated_name
@@ -59,6 +62,20 @@ class Anonymous < ActiveRecord::Base
       1
     else
       an.name_number + 1
+    end
+  end
+
+  def actuate_name_number
+    if self.new_record?
+      self.name_number = self.find_name_number
+    else
+      if self.name_number
+        if Anonymous.where(:name => self.name, :name_number => self.name_number, :section_id => self.section.id).count > 1
+          self.name_number = self.find_name_number
+        end
+      else
+        self.name_number = self.find_name_number
+      end
     end
   end
 
