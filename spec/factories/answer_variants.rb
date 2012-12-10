@@ -5,7 +5,7 @@ FactoryGirl.define do
     sequence(:text) {|x| "Variant #{x}" }
     association :question, :factory => :question
     position do
-      question
+      question                  # initiate question generation at first
       self.last_position
     end
   end
