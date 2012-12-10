@@ -21,5 +21,9 @@ class Vote < ActiveRecord::Base
         record.errors.add(attr, (I18n.translate "votes.wrong-vote-value"))
       end
     end
+    v = Vote.where(:answer_variant_id => record.answer_variant.id, :anonymous_id => anonymous.id).first
+    if v and v.id != record.id
+      record.errors.add(:answer_variant, 'vote must be unique')
+    end
   end
 end
