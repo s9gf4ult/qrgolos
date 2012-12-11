@@ -41,21 +41,24 @@ class ApplicationController < ActionController::Base
     add_breadcrumb answer_variant.text, answer_variant
   end
 
-  def when_meeting_owner(meeting)
+  def when_meeting_owner(meeting, path=meetings_path)
     if meeting_owner? meeting
       yield
     else
       flash[:error] = t "meetings.no-access"
-      redirect_to meetings_path
+      redirect_to path
     end
   end
 
-  def when_section_owner(section)
+  def when_section_owner(section, path=nil)
+    if not path
+      path = section.meeting
+    end
     if section_owner? section
       yield
     else
       flash[:error] = t "sections.no-access"
-      redirect_to section.meeting
+      redirect_to path
     end
   end
 

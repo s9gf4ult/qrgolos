@@ -53,7 +53,7 @@ class MeetingsController < ApplicationController
   # POST /meetings
   # POST /meetings.json
   def create
-    @meeting = current_user.meetings.build(params[:meeting])
+    @meeting = current_user.meetings.build(params[:meeting].except(:id, :user_id, :created_at, :updated_at))
 
     respond_to do |format|
       if @meeting.save
@@ -72,7 +72,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find(params[:id])
     when_meeting_owner @meeting do 
       respond_to do |format|
-        if @meeting.update_attributes(params[:meeting])
+        if @meeting.update_attributes(params[:meeting].except(:id, :user_id, :created_at, :updated_at))
           format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
           format.json { head :no_content }
         else

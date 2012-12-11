@@ -34,132 +34,189 @@ describe MeetingsController do
   #   {}
   # end
 
-  # describe "GET index" do
-  #   it "assigns all meetings as @meetings" do
-  #     meeting = Meeting.create! valid_attributes
-  #     get :index, {}, valid_session
-  #     assigns(:meetings).should eq([meeting])
-  #   end
-  # end
+  describe "GET index" do
+    it "assigns all meetings as @meetings when not authenticated" do
+      meeting = FactoryGirl.create :meeting
+      get :index
+      assigns(:meetings).should eq([meeting])
+    end
 
-  # describe "GET show" do
-  #   it "assigns the requested meeting as @meeting" do
-  #     meeting = Meeting.create! valid_attributes
-  #     get :show, {:id => meeting.to_param}, valid_session
-  #     assigns(:meeting).should eq(meeting)
-  #   end
-  # end
+    it "assigns my meetings to @my_meetings, and other to @meetings when authenticated" do
+      m1 = FactoryGirl.create :meeting
+      m2 = FactoryGirl.create :meeting
+      sign_in m1.user
+      get :index
+      assigns(:meetings).should eq([m2])
+      assigns(:my_meetings).should eq([m1])
+    end
+  end
 
-  # describe "GET new" do
-  #   it "assigns a new meeting as @meeting" do
-  #     get :new, {}, valid_session
-  #     assigns(:meeting).should be_a_new(Meeting)
-  #   end
-  # end
+  describe "GET show" do
+    it "assigns the requested meeting as @meeting" do
+      meeting = FactoryGirl.create :meeting
+      get :show, {:id => meeting.to_param}
+      assigns(:meeting).should eq(meeting)
+    end
+  end
 
-  # describe "GET edit" do
-  #   it "assigns the requested meeting as @meeting" do
-  #     meeting = Meeting.create! valid_attributes
-  #     get :edit, {:id => meeting.to_param}, valid_session
-  #     assigns(:meeting).should eq(meeting)
-  #   end
-  # end
+  describe "GET new" do
+    it "should redirect when not authenticated" do
+      get :new
+      expect(response).to redirect_to(new_user_session_path)
+    end
 
-  # describe "POST create" do
-  #   describe "with valid params" do
-  #     it "creates a new Meeting" do
-  #       expect {
-  #         post :create, {:meeting => valid_attributes}, valid_session
-  #       }.to change(Meeting, :count).by(1)
-  #     end
+    it "should assign @meeting to new meeting when authenticated" do
+      user = FactoryGirl.create :user
+      sign_in user
+      get :new
+      assigns(:meeting).should be_a_new(Meeting)
+      expect(response).to render_template("new")
+    end
+  end
 
-  #     it "assigns a newly created meeting as @meeting" do
-  #       post :create, {:meeting => valid_attributes}, valid_session
-  #       assigns(:meeting).should be_a(Meeting)
-  #       assigns(:meeting).should be_persisted
-  #     end
+  describe "GET edit" do
+    it "should redirect when not authenticated" do
+      m = FactoryGirl.create :meeting
+      get :edit, {:id => m.to_param}
+      expect(response).to redirect_to(new_user_session_path)
+    end
+    
+    it "assigns the requested meeting as @meeting" do
+      meeting = FactoryGirl.create :meeting
+      sign_in meeting.user
+      get :edit, {:id => meeting.to_param}
+      assigns(:meeting).should eq(meeting)
+      expect(response).to render_template("edit")
+    end
 
-  #     it "redirects to the created meeting" do
-  #       post :create, {:meeting => valid_attributes}, valid_session
-  #       response.should redirect_to(Meeting.last)
-  #     end
-  #   end
+    it "should not accept edit foreign meetings" do
+      meeting = FactoryGirl.create :meeting
+      user = FactoryGirl.create :user
+      sign_in user
+      get :edit, {:id => meeting.to_param}
+      expect(response).to redirect_to(meetings_path)
+    end
+      
+  end
 
-  #   describe "with invalid params" do
-  #     it "assigns a newly created but unsaved meeting as @meeting" do
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Meeting.any_instance.stub(:save).and_return(false)
-  #       post :create, {:meeting => {}}, valid_session
-  #       assigns(:meeting).should be_a_new(Meeting)
-  #     end
+  describe "POST create" do
+    it "redirect when not authenticated" do
+      m = FactoryGirl.build :meeting
+      post :create, {:meeting => m.attributes}
+      expect(response).to redirect_to(new_user_session_path)
+    end
+    
+    describe "with valid params" do
+      before :each do
+        @m = FactoryGirl.build :meeting
+        @user = @m.user
+        sign_in @user
+      end
+      
+      it "creates a new Meeting" do
+        expect {
+          post :create, {:meeting => @m.attributes}
+        }.to change(Meeting, :count).by(1)
+      end
 
-  #     it "re-renders the 'new' template" do
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Meeting.any_instance.stub(:save).and_return(false)
-  #       post :create, {:meeting => {}}, valid_session
-  #       response.should render_template("new")
-  #     end
-  #   end
-  # end
+      it "assigns a newly created meeting as @meeting" do
+        post :create, {:meeting => @m.attributes}
+        assigns(:meeting).should be_a(Meeting)
+        assigns(:meeting).should be_persisted
+        assigns(:meeting).user.should == @user
+      end
 
-  # describe "PUT update" do
-  #   describe "with valid params" do
-  #     it "updates the requested meeting" do
-  #       meeting = Meeting.create! valid_attributes
-  #       # Assuming there are no other meetings in the database, this
-  #       # specifies that the Meeting created on the previous line
-  #       # receives the :update_attributes message with whatever params are
-  #       # submitted in the request.
-  #       Meeting.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-  #       put :update, {:id => meeting.to_param, :meeting => {'these' => 'params'}}, valid_session
-  #     end
+      it "redirects to the created meeting" do
+        post :create, {:meeting => @m.attributes}
+        response.should redirect_to(Meeting.last)
+      end
+    end
 
-  #     it "assigns the requested meeting as @meeting" do
-  #       meeting = Meeting.create! valid_attributes
-  #       put :update, {:id => meeting.to_param, :meeting => valid_attributes}, valid_session
-  #       assigns(:meeting).should eq(meeting)
-  #     end
+    describe "with invalid params" do
+      before :each do
+        # Trigger the behavior that occurs when invalid params are submitted
+        @user = FactoryGirl.create :user
+        sign_in @user
+        Meeting.any_instance.stub(:save).and_return(false)
+        post :create, {:meeting => {}}
+      end
+      
+      it "assigns a newly created but unsaved meeting as @meeting" do
+        assigns(:meeting).should be_a_new(Meeting)
+      end
 
-  #     it "redirects to the meeting" do
-  #       meeting = Meeting.create! valid_attributes
-  #       put :update, {:id => meeting.to_param, :meeting => valid_attributes}, valid_session
-  #       response.should redirect_to(meeting)
-  #     end
-  #   end
+      it "re-renders the 'new' template" do
+        response.should render_template("new")
+      end
+    end
+  end
 
-  #   describe "with invalid params" do
-  #     it "assigns the meeting as @meeting" do
-  #       meeting = Meeting.create! valid_attributes
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Meeting.any_instance.stub(:save).and_return(false)
-  #       put :update, {:id => meeting.to_param, :meeting => {}}, valid_session
-  #       assigns(:meeting).should eq(meeting)
-  #     end
+  describe "PUT update" do
+    it "should not update if not authenticated" do
+      m = FactoryGirl.create :meeting
+      m2 = FactoryGirl.build :meeting
+      put :update, {:id => m.to_param, :meeting => m2.attributes}
+      expect(response).to redirect_to(new_user_session_path)
+    end
 
-  #     it "re-renders the 'edit' template" do
-  #       meeting = Meeting.create! valid_attributes
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Meeting.any_instance.stub(:save).and_return(false)
-  #       put :update, {:id => meeting.to_param, :meeting => {}}, valid_session
-  #       response.should render_template("edit")
-  #     end
-  #   end
-  # end
+    it "should reject update when not owner of meeting" do 
+      m = FactoryGirl.create :meeting
+      m2 = FactoryGirl.build :meeting
+      u = FactoryGirl.create :user
+      sign_in u
+      put :update, {:id => m.to_param, :meeting => m2.attributes}
+      expect(response).to redirect_to(meetings_path)
+    end
+      
+    describe "with valid params" do
+      before :each do
+        @m = FactoryGirl.create :meeting
+        m2 = FactoryGirl.build :meeting
+        @attrs = m2.attributes.merge(:id => @m.id)
+        @user = @m.user
+        sign_in @user
+      end
 
-  # describe "DELETE destroy" do
-  #   it "destroys the requested meeting" do
-  #     meeting = Meeting.create! valid_attributes
-  #     expect {
-  #       delete :destroy, {:id => meeting.to_param}, valid_session
-  #     }.to change(Meeting, :count).by(-1)
-  #   end
+      it "assigns the requested meeting as @meeting" do
+        put :update, {:id => @m.to_param, :meeting => @attrs}
+        assigns(:meeting).should eq(@m)
+      end
 
-  #   it "redirects to the meetings list" do
-  #     meeting = Meeting.create! valid_attributes
-  #     delete :destroy, {:id => meeting.to_param}, valid_session
-  #     response.should redirect_to(meetings_url)
-  #   end
-  # end
-  pending "commented for a better times"
-  
+      it "redirects to the meeting" do
+        put :update, {:id => @m.to_param, :meeting => @attrs}
+        response.should redirect_to(@m)
+      end
+    end
+  end
+
+  describe "DELETE destroy" do
+    it "should reject when not authenticated" do
+      m = FactoryGirl.create :meeting
+      delete :destroy, {:id => m.to_param}
+      expect(response).to redirect_to(new_user_session_path)
+    end
+
+    it "should reject when not owner of meeting" do
+      m = FactoryGirl.create :meeting
+      u = FactoryGirl.create :user
+      sign_in u
+      delete :destroy, {:id => m.to_param}
+      expect(response).to redirect_to(meetings_path)
+    end
+    
+    it "destroys the requested meeting" do
+      meeting = FactoryGirl.create :meeting
+      sign_in meeting.user
+      expect {
+        delete :destroy, {:id => meeting.to_param}
+      }.to change(Meeting, :count).by(-1)
+    end
+
+    it "redirects to the meetings list" do
+      meeting = FactoryGirl.create :meeting
+      sign_in meeting.user
+      delete :destroy, {:id => meeting.to_param}
+      response.should redirect_to(meetings_url)
+    end
+  end
 end

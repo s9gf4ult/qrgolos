@@ -74,8 +74,8 @@ class SectionsController < ApplicationController
   # POST /sections.json
   def create
     meeting = Meeting.find(params[:meeting][:id])
-    when_meeting_owner meeting do
-      @section = meeting.sections.build(params[:section].except(:anonymous_count, :screens_count))
+    when_meeting_owner meeting, meeting do
+      @section = meeting.sections.build(params[:section].except(:anonymous_count, :screens_count, :id, :meeting_id, :created_at, :updated_at))
       respond_to do |format|
         if @section.save
           @section.anonymous_count = params[:section][:anonymous_count] || 0 
@@ -97,7 +97,7 @@ class SectionsController < ApplicationController
     @section = Section.find(params[:id])
     when_section_owner @section do
       respond_to do |format|
-        if @section.update_attributes(params[:section])
+        if @section.update_attributes(params[:section].except(:id, :meeting_id, :created_at, :updated_at))
           format.html { redirect_to @section, notice: 'Section was successfully updated.' }
           format.json { head :no_content }
           remove_section_archive(@section)
