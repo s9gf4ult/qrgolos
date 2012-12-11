@@ -2,21 +2,21 @@ class SectionsController < ApplicationController
   include ApplicationHelper
   before_filter :authenticate_user!, :except => [:show, :twitts]
 
-  def twitts_edit
+  def twitts_edit               #  FIXME: move to separate controller
     @section = Section.find(params[:id])
-    when_section_owner @section do
+    when_section_owner @section, @section do
       section_breadcrumb @section
       add_breadcrumb (t 'sections.twitts-edit'), twitts_edit_section_path(@section)
     end
   end
 
-  def twitts
+  def twitts                    #  FIXME: move to separate controller
     @section = Section.find(params[:id])
     section_breadcrumb @section
     add_breadcrumb (t 'sections.twitts'), twitts_section_path(@section)
   end
 
-  def activate_twitt
+  def activate_twitt            #  FIXME: move to separate controller
     twitt = Twitt.find(params[:twitt_id])
     when_section_owner twitt.anonymous.section do
       twitt.state = if twitt.state == "new"; then "active" else "new" end
@@ -32,7 +32,7 @@ class SectionsController < ApplicationController
       end
     end
   end
-  
+
   # GET /sections/1
   # GET /sections/1.json
   def show
@@ -54,7 +54,7 @@ class SectionsController < ApplicationController
     when_meeting_owner @meeting do
       @section = @meeting.sections.build
       section_breadcrumb @section
-      
+
       respond_to do |format|
         format.html # new.html.erb
         format.json { render json: @section }
@@ -78,7 +78,7 @@ class SectionsController < ApplicationController
       @section = meeting.sections.build(params[:section].except(:anonymous_count, :screens_count, :id, :meeting_id, :created_at, :updated_at))
       respond_to do |format|
         if @section.save
-          @section.anonymous_count = params[:section][:anonymous_count] || 0 
+          @section.anonymous_count = params[:section][:anonymous_count] || 0
           @section.screens_count = params[:section][:screens_count] || 0
           format.html { redirect_to @section, notice: 'Section was successfully created.' }
           format.json { render json: @section, status: :created, location: @section }

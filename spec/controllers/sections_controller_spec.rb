@@ -189,4 +189,78 @@ describe SectionsController do
       end
     end
   end
+
+  describe "GET twitts_edit" do
+    describe "without authentication" do
+      before :each do
+        @s = FactoryGirl.create :section
+      end
+
+      it "should redirect if not authenticated" do
+        get :twitts_edit, {:id => @s.to_param}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+
+      it "should reject if not section owner" do
+        sign_in FactoryGirl.create(:user)
+        get :twitts_edit, {:id => @s.to_param}
+        expect(response).to redirect_to(@s)
+      end
+    end
+  end
+
+  describe "with authentication" do
+    before :each do
+      @s = FactoryGirl.create :section
+      sign_in @s.meeting.user
+    end
+
+    it "should render template" do
+      get :twitts_edit, {:id => @s.to_param}
+      expect(response).to render_template("twitts_edit")
+    end
+  end
+
+  describe "GET twitts_edit" do
+    describe "without authentication" do
+      before :each do
+        @s = FactoryGirl.create :section
+      end
+
+      it "should redirect if not authenticated" do
+        get :twitts_edit, {:id => @s.to_param}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+
+      it "should reject if not section owner" do
+        sign_in FactoryGirl.create(:user)
+        get :twitts_edit, {:id => @s.to_param}
+        expect(response).to redirect_to(@s)
+      end
+    end
+    
+    describe "with authentication" do
+      before :each do
+        @s = FactoryGirl.create :section
+        sign_in @s.meeting.user
+      end
+
+      it "should render template" do
+        get :twitts_edit, {:id => @s.to_param}
+        expect(response).to render_template("twitts_edit")
+      end
+    end
+  end
+
+  describe "GET twitts" do
+    before :each do
+      @s = FactoryGirl.create :section
+    end
+
+    it "should render template" do
+      get :twitts, {:id => @s.to_param}
+      expect(response).to render_template("twitts")
+    end
+  end
+  pending "must be changed when controllers will be rewriten"
 end
