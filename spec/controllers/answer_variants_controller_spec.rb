@@ -20,145 +20,248 @@ require 'spec_helper'
 
 describe AnswerVariantsController do
 
-  # This should return the minimal set of attributes required to create a valid
-  # AnswerVariant. As you add validations to AnswerVariant, be sure to
-  # update the return value of this method accordingly.
-  # def valid_attributes
-  #   {}
-  # end
+  describe "GET show" do
+    it "assigns the requested answer_variant as @answer_variant" do
+      answer_variant = FactoryGirl.create :answer_variant
+      get :show, {:id => answer_variant.to_param}
+      assigns(:answer_variant).should eq(answer_variant)
+    end
+  end
 
-  # # This should return the minimal set of values that should be in the session
-  # # in order to pass any filters (e.g. authentication) defined in
-  # # AnswerVariantsController. Be sure to keep this updated too.
-  # def valid_session
-  #   {}
-  # end
+  describe "GET new" do
+    describe "withou authentication" do
+      before :each do
+        @aw = FactoryGirl.build :answer_variant
+      end
 
-  # describe "GET index" do
-  #   it "assigns all answer_variants as @answer_variants" do
-  #     answer_variant = AnswerVariant.create! valid_attributes
-  #     get :index, {}, valid_session
-  #     assigns(:answer_variants).should eq([answer_variant])
-  #   end
-  # end
+      it "should require authentication" do
+        get :new, {:question_id => @aw.question.id}
+        expect(response).to redirect_to(new_user_session_path)
+      end
 
-  # describe "GET show" do
-  #   it "assigns the requested answer_variant as @answer_variant" do
-  #     answer_variant = AnswerVariant.create! valid_attributes
-  #     get :show, {:id => answer_variant.to_param}, valid_session
-  #     assigns(:answer_variant).should eq(answer_variant)
-  #   end
-  # end
+      it "should require user is section's owner" do
+        sign_in FactoryGirl.create(:user)
+        get :new, {:question_id => @aw.question.id}
+        expect(response).to redirect_to(@aw.question)
+      end
+    end
 
-  # describe "GET new" do
-  #   it "assigns a new answer_variant as @answer_variant" do
-  #     get :new, {}, valid_session
-  #     assigns(:answer_variant).should be_a_new(AnswerVariant)
-  #   end
-  # end
+    describe "with authentication" do
+      before :each do
+        @aw = FactoryGirl.build :answer_variant
+        @user = @aw.question.section.meeting.user
+        sign_in @user
+      end
+    
+      it "assigns a new answer_variant as @answer_variant" do
+        get :new, {:question_id => @aw.question.id}
+        assigns(:answer_variant).should be_a_new(AnswerVariant)
+      end
 
-  # describe "GET edit" do
-  #   it "assigns the requested answer_variant as @answer_variant" do
-  #     answer_variant = AnswerVariant.create! valid_attributes
-  #     get :edit, {:id => answer_variant.to_param}, valid_session
-  #     assigns(:answer_variant).should eq(answer_variant)
-  #   end
-  # end
+      it "should render 'new' template" do
+        get :new, {:question_id => @aw.question.id}
+        expect(response).to render_template("new")
+      end
+    end
+  end
 
-  # describe "POST create" do
-  #   describe "with valid params" do
-  #     it "creates a new AnswerVariant" do
-  #       expect {
-  #         post :create, {:answer_variant => valid_attributes}, valid_session
-  #       }.to change(AnswerVariant, :count).by(1)
-  #     end
+  describe "GET edit" do
+    describe "without authentication" do
+      before :each do
+        @aw = FactoryGirl.create :answer_variant
+      end
 
-  #     it "assigns a newly created answer_variant as @answer_variant" do
-  #       post :create, {:answer_variant => valid_attributes}, valid_session
-  #       assigns(:answer_variant).should be_a(AnswerVariant)
-  #       assigns(:answer_variant).should be_persisted
-  #     end
+      it "should require authentication" do
+        get :edit, {:id => @aw.to_param}
+        expect(response).to redirect_to(new_user_session_path)
+      end
 
-  #     it "redirects to the created answer_variant" do
-  #       post :create, {:answer_variant => valid_attributes}, valid_session
-  #       response.should redirect_to(AnswerVariant.last)
-  #     end
-  #   end
+      it "should require user is section's owner" do
+        sign_in FactoryGirl.create(:user)
+        get :edit, {:id => @aw.to_param}
+        expect(response).to redirect_to(@aw.question)
+      end
+    end
 
-  #   describe "with invalid params" do
-  #     it "assigns a newly created but unsaved answer_variant as @answer_variant" do
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       AnswerVariant.any_instance.stub(:save).and_return(false)
-  #       post :create, {:answer_variant => {}}, valid_session
-  #       assigns(:answer_variant).should be_a_new(AnswerVariant)
-  #     end
+    describe "with authentication" do
+      before :each do
+        @aw = FactoryGirl.create :answer_variant
+        @user = @aw.question.section.meeting.user
+        sign_in @user
+      end
 
-  #     it "re-renders the 'new' template" do
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       AnswerVariant.any_instance.stub(:save).and_return(false)
-  #       post :create, {:answer_variant => {}}, valid_session
-  #       response.should render_template("new")
-  #     end
-  #   end
-  # end
+      it "assigns the requested answer_variant as @answer_variant" do
+        get :edit, {:id => @aw.to_param}
+        assigns(:answer_variant).should eq(@aw)
+      end
 
-  # describe "PUT update" do
-  #   describe "with valid params" do
-  #     it "updates the requested answer_variant" do
-  #       answer_variant = AnswerVariant.create! valid_attributes
-  #       # Assuming there are no other answer_variants in the database, this
-  #       # specifies that the AnswerVariant created on the previous line
-  #       # receives the :update_attributes message with whatever params are
-  #       # submitted in the request.
-  #       AnswerVariant.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-  #       put :update, {:id => answer_variant.to_param, :answer_variant => {'these' => 'params'}}, valid_session
-  #     end
+      it "should render 'edit' template" do
+        get :edit, {:id => @aw.to_param}
+        expect(response).to render_template("edit")
+      end
+    end
+  end
 
-  #     it "assigns the requested answer_variant as @answer_variant" do
-  #       answer_variant = AnswerVariant.create! valid_attributes
-  #       put :update, {:id => answer_variant.to_param, :answer_variant => valid_attributes}, valid_session
-  #       assigns(:answer_variant).should eq(answer_variant)
-  #     end
+  describe "POST create" do
+    describe "without authentication" do
+      before :each do
+        @aw = FactoryGirl.build :answer_variant
+      end
 
-  #     it "redirects to the answer_variant" do
-  #       answer_variant = AnswerVariant.create! valid_attributes
-  #       put :update, {:id => answer_variant.to_param, :answer_variant => valid_attributes}, valid_session
-  #       response.should redirect_to(answer_variant)
-  #     end
-  #   end
+      it "should require authentication" do
+        post :create, {:answer_variant => @aw.attributes, :question => {:id => @aw.question.id}}
+        expect(response).to redirect_to(new_user_session_path)
+      end
 
-  #   describe "with invalid params" do
-  #     it "assigns the answer_variant as @answer_variant" do
-  #       answer_variant = AnswerVariant.create! valid_attributes
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       AnswerVariant.any_instance.stub(:save).and_return(false)
-  #       put :update, {:id => answer_variant.to_param, :answer_variant => {}}, valid_session
-  #       assigns(:answer_variant).should eq(answer_variant)
-  #     end
+      it "should require user is section's owner" do
+        sign_in FactoryGirl.create(:user)
+        post :create, {:answer_variant => @aw.attributes, :question => {:id => @aw.question.id}}
+        expect(response).to redirect_to(@aw.question)
+      end
+    end
 
-  #     it "re-renders the 'edit' template" do
-  #       answer_variant = AnswerVariant.create! valid_attributes
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       AnswerVariant.any_instance.stub(:save).and_return(false)
-  #       put :update, {:id => answer_variant.to_param, :answer_variant => {}}, valid_session
-  #       response.should render_template("edit")
-  #     end
-  #   end
-  # end
+    describe "with authentication" do
+      before :each do
+        @aw = FactoryGirl.build :answer_variant
+        @user = @aw.question.section.meeting.user
+        sign_in @user
+      end
+    
+      describe "with valid params" do
+        it "creates a new AnswerVariant" do
+          expect {
+            post :create, {:answer_variant => @aw.attributes, :question => {:id => @aw.question.id}}
+          }.to change(AnswerVariant, :count).by(1)
+        end
 
-  # describe "DELETE destroy" do
-  #   it "destroys the requested answer_variant" do
-  #     answer_variant = AnswerVariant.create! valid_attributes
-  #     expect {
-  #       delete :destroy, {:id => answer_variant.to_param}, valid_session
-  #     }.to change(AnswerVariant, :count).by(-1)
-  #   end
+        it "creates a question's AnswerVariant" do
+          expect do
+            post :create, {:answer_variant => @aw.attributes, :question => {:id => @aw.question.id}}
+          end.to change(@aw.question.answer_variants, :count).by(1)
+        end
 
-  #   it "redirects to the answer_variants list" do
-  #     answer_variant = AnswerVariant.create! valid_attributes
-  #     delete :destroy, {:id => answer_variant.to_param}, valid_session
-  #     response.should redirect_to(answer_variants_url)
-  #   end
-  # end
-  pending "commented"
+        it "assigns a newly created answer_variant as @answer_variant" do
+          post :create, {:answer_variant => @aw.attributes, :question => {:id => @aw.question.id}}
+          assigns(:answer_variant).should be_a(AnswerVariant)
+          assigns(:answer_variant).should be_persisted
+        end
+
+        it "redirects to the created answer_variant" do
+          post :create, {:answer_variant => @aw.attributes, :question => {:id => @aw.question.id}}
+          response.should redirect_to(@aw.question)
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved answer_variant as @answer_variant" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          AnswerVariant.any_instance.stub(:save).and_return(false)
+          post :create, {:answer_variant => {}, :question => {:id => @aw.question.id}}
+          assigns(:answer_variant).should be_a_new(AnswerVariant)
+        end
+
+        it "re-renders the 'new' template" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          AnswerVariant.any_instance.stub(:save).and_return(false)
+          post :create, {:answer_variant => {}, :question => {:id => @aw.question.id}}
+          response.should render_template("new")
+        end
+      end
+    end
+  end
+
+  describe "PUT update" do
+    describe "without authentication" do
+      before :each do
+        @aw = FactoryGirl.create :answer_variant
+        @aw2 = FactoryGirl.build :answer_variant
+      end
+
+      it "should require authentication" do
+        put :update, {:id => @aw.to_param, :answer_variant => @aw2.attributes}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+
+      it "should require user is section's owner" do
+        sign_in FactoryGirl.create(:user)
+        put :update, {:id => @aw.to_param, :answer_variant => @aw2.attributes}
+        expect(response).to redirect_to(@aw.question)
+      end
+    end
+
+    describe "with authentication" do
+      before :each do
+        @aw = FactoryGirl.create :answer_variant
+        @aw2 = FactoryGirl.build :answer_variant
+        @user = @aw.question.section.meeting.user
+        sign_in @user
+      end
+    
+      describe "with valid params" do
+        it "assigns the requested answer_variant as @answer_variant" do
+          put :update, {:id => @aw.to_param, :answer_variant => @aw2.attributes}
+          assigns(:answer_variant).should eq(@aw)
+        end
+
+        it "redirects to the question" do
+          put :update, {:id => @aw.to_param, :answer_variant => @aw2.attributes}
+          response.should redirect_to(@aw.question)
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the answer_variant as @answer_variant" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          AnswerVariant.any_instance.stub(:save).and_return(false)
+          put :update, {:id => @aw.to_param, :answer_variant => {}}
+          assigns(:answer_variant).should eq(@aw)
+        end
+
+        it "re-renders the 'edit' template" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          AnswerVariant.any_instance.stub(:save).and_return(false)
+          put :update, {:id => @aw.to_param, :answer_variant => {}}
+          response.should render_template("edit")
+        end
+      end
+    end
+  end
+  
+  describe "DELETE destroy" do
+    describe "without authentication" do
+      before :each do
+        @aw = FactoryGirl.create :answer_variant
+      end
+
+      it "should require authentication" do
+        delete :destroy, {:id => @aw.to_param}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+
+      it "should require user is section's owner" do
+        sign_in FactoryGirl.create(:user)
+        delete :destroy, {:id => @aw.to_param}
+        expect(response).to redirect_to(@aw.question)
+      end
+    end
+
+    describe "with authentication" do
+      before :each do
+        @aw = FactoryGirl.create :answer_variant
+        @user = @aw.question.section.meeting.user
+        sign_in @user
+      end
+      
+      it "destroys the requested answer_variant" do
+        expect {
+          delete :destroy, {:id => @aw.to_param}
+        }.to change(AnswerVariant, :count).by(-1)
+      end
+
+      it "redirects to the answer_variants list" do
+        delete :destroy, {:id => @aw.to_param}
+        response.should redirect_to(@aw.question)
+      end
+    end
+  end
 end

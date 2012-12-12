@@ -15,7 +15,7 @@ class AnswerVariantsController < ApplicationController
   # GET /answer_variants/new.json
   def new
     question = Question.find(params[:question_id])
-    when_section_owner question.section do
+    when_section_owner question.section, question do
       @answer_variant = question.answer_variants.build
       answer_variant_breadcrumb @answer_variant
       respond_to do |format|
@@ -28,7 +28,7 @@ class AnswerVariantsController < ApplicationController
   # GET /answer_variants/1/edit
   def edit
     @answer_variant = AnswerVariant.find(params[:id])
-    when_section_owner @answer_variant.question.section do
+    when_section_owner @answer_variant.question.section, @answer_variant.question do
       answer_variant_breadcrumb @answer_variant
     end
   end
@@ -37,8 +37,8 @@ class AnswerVariantsController < ApplicationController
   # POST /answer_variants.json
   def create
     question = Question.find(params[:question][:id])
-    when_section_owner question.section do
-      @answer_variant = question.answer_variants.build(params[:answer_variant].except(:position))
+    when_section_owner question.section, question do
+      @answer_variant = question.answer_variants.build(params[:answer_variant].except(:position, :id, :question_id, :created_at, :updated_at))
       @answer_variant.position = @answer_variant.last_position
 
       respond_to do |format|
@@ -58,10 +58,10 @@ class AnswerVariantsController < ApplicationController
   # PUT /answer_variants/1.json
   def update
     @answer_variant = AnswerVariant.find(params[:id])
-    when_section_owner @answer_variant.question.section do
+    when_section_owner @answer_variant.question.section, @answer_variant.question do
       respond_to do |format|
-        if @answer_variant.update_attributes(params[:answer_variant].except(:position))
-          format.html { redirect_to @answer_variant, notice: 'Answer variant was successfully updated.' }
+        if @answer_variant.update_attributes(params[:answer_variant].except(:position, :id, :question_id, :created_at, :updated_at))
+          format.html { redirect_to @answer_variant.question, notice: 'Answer variant was successfully updated.' }
           format.json { head :no_content }
           propogate_aw @answer_variant
         else
@@ -76,7 +76,7 @@ class AnswerVariantsController < ApplicationController
   # DELETE /answer_variants/1.json
   def destroy
     @answer_variant = AnswerVariant.find(params[:id])
-    when_section_owner @answer_variant.question.section do
+    when_section_owner @answer_variant.question.section, @answer_variant.question do
       question = Question.find(@answer_variant.question)
       update = question.state == "active"
       @answer_variant.destroy
