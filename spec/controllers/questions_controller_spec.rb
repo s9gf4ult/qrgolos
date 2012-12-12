@@ -20,145 +20,236 @@ require 'spec_helper'
 
 describe QuestionsController do
 
-  # This should return the minimal set of attributes required to create a valid
-  # Question. As you add validations to Question, be sure to
-  # update the return value of this method accordingly.
-  # def valid_attributes
-  #   {}
-  # end
+  describe "GET show" do
+    it "assigns the requested question as @question" do
+      question = FactoryGirl.create :question
+      get :show, {:id => question.to_param}
+      assigns(:question).should eq(question)
+    end
+  end
 
-  # # This should return the minimal set of values that should be in the session
-  # # in order to pass any filters (e.g. authentication) defined in
-  # # QuestionsController. Be sure to keep this updated too.
-  # def valid_session
-  #   {}
-  # end
+  describe "GET new" do
+    describe "whtout authorization" do
+      before :each do
+        @s = FactoryGirl.create :section
+      end
+    
+      it "should require authentication" do
+        get :new, {:section_id => @s.id}
+        expect(response).to redirect_to(new_user_session_path)
+      end
 
-  # describe "GET index" do
-  #   it "assigns all questions as @questions" do
-  #     question = Question.create! valid_attributes
-  #     get :index, {}, valid_session
-  #     assigns(:questions).should eq([question])
-  #   end
-  # end
+      it "should require user is owner of section" do
+        sign_in FactoryGirl.create(:user)
+        get :new, {:section_id => @s.id}
+        expect(response).to redirect_to(@s)
+      end
+    end
+    describe "with authorization" do
+      before :each do
+        @s = FactoryGirl.create :section
+        @user = @s.meeting.user
+        sign_in @user
+      end
+      
+      it "assigns a new question as @question" do
+        get :new, {:section_id => @s.id}
+        assigns(:question).should be_a_new(Question)
+      end
+    end
+  end
 
-  # describe "GET show" do
-  #   it "assigns the requested question as @question" do
-  #     question = Question.create! valid_attributes
-  #     get :show, {:id => question.to_param}, valid_session
-  #     assigns(:question).should eq(question)
-  #   end
-  # end
+  describe "GET edit" do
+    describe "without authentication" do
+      before :each do
+        @q = FactoryGirl.create :question
+      end
+      
+      it "should require authentication" do
+        get :edit, {:id => @q.to_param}
+        expect(response).to redirect_to(new_user_session_path)
+      end
 
-  # describe "GET new" do
-  #   it "assigns a new question as @question" do
-  #     get :new, {}, valid_session
-  #     assigns(:question).should be_a_new(Question)
-  #   end
-  # end
+      it "should require user is owner of the section" do
+        sign_in FactoryGirl.create(:user)
+        get :edit, {:id => @q.to_param}
+        expect(response).to redirect_to(@q.section)
+      end
+    end
 
-  # describe "GET edit" do
-  #   it "assigns the requested question as @question" do
-  #     question = Question.create! valid_attributes
-  #     get :edit, {:id => question.to_param}, valid_session
-  #     assigns(:question).should eq(question)
-  #   end
-  # end
+    describe "with authentication" do
+      before :each do
+        @q = FactoryGirl.create :question
+        @user = @q.section.meeting.user
+        sign_in @user
+      end
 
-  # describe "POST create" do
-  #   describe "with valid params" do
-  #     it "creates a new Question" do
-  #       expect {
-  #         post :create, {:question => valid_attributes}, valid_session
-  #       }.to change(Question, :count).by(1)
-  #     end
+      it "assigns the requested question as @question" do
+        get :edit, {:id => @q.to_param}
+        assigns(:question).should eq(@q)
+      end
+    end
+  end
 
-  #     it "assigns a newly created question as @question" do
-  #       post :create, {:question => valid_attributes}, valid_session
-  #       assigns(:question).should be_a(Question)
-  #       assigns(:question).should be_persisted
-  #     end
+  describe "POST create" do
+    describe "whtout authentication" do
+      before :each do
+        @q = FactoryGirl.build :question
+      end
 
-  #     it "redirects to the created question" do
-  #       post :create, {:question => valid_attributes}, valid_session
-  #       response.should redirect_to(Question.last)
-  #     end
-  #   end
+      it "should require authentication" do
+        post :create, {:question => @q.attributes, :section => {:id => @q.section.id}}
+        expect(response).to redirect_to(new_user_session_path)
+      end
 
-  #   describe "with invalid params" do
-  #     it "assigns a newly created but unsaved question as @question" do
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Question.any_instance.stub(:save).and_return(false)
-  #       post :create, {:question => {}}, valid_session
-  #       assigns(:question).should be_a_new(Question)
-  #     end
+      it "should require user is owner of section" do
+        sign_in FactoryGirl.create(:user)
+        post :create, {:question => @q.attributes, :section => {:id => @q.section.id}}
+        expect(response).to redirect_to(@q.section)
+      end
+    end
+    
+    describe "with authentication" do
+      before :each do
+        @q = FactoryGirl.build :question
+        @user = @q.section.meeting.user
+        sign_in @user
+      end
+      
+      describe "with valid params" do
+        it "creates a new Question" do
+          expect {
+            post :create, {:question => @q.attributes, :section => {:id => @q.section.id}}
+          }.to change(Question, :count).by(1)
+        end
 
-  #     it "re-renders the 'new' template" do
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Question.any_instance.stub(:save).and_return(false)
-  #       post :create, {:question => {}}, valid_session
-  #       response.should render_template("new")
-  #     end
-  #   end
-  # end
+        it "assigns a newly created question as @question" do
+          post :create, {:question => @q.attributes, :section => {:id => @q.section.id}}
+          assigns(:question).should be_a(Question)
+          assigns(:question).should be_persisted
+        end
 
-  # describe "PUT update" do
-  #   describe "with valid params" do
-  #     it "updates the requested question" do
-  #       question = Question.create! valid_attributes
-  #       # Assuming there are no other questions in the database, this
-  #       # specifies that the Question created on the previous line
-  #       # receives the :update_attributes message with whatever params are
-  #       # submitted in the request.
-  #       Question.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-  #       put :update, {:id => question.to_param, :question => {'these' => 'params'}}, valid_session
-  #     end
+        it "redirects to the created question" do
+          post :create, {:question => @q.attributes, :section => {:id => @q.section.id}}
+          response.should redirect_to(Question.last)
+        end
 
-  #     it "assigns the requested question as @question" do
-  #       question = Question.create! valid_attributes
-  #       put :update, {:id => question.to_param, :question => valid_attributes}, valid_session
-  #       assigns(:question).should eq(question)
-  #     end
+        it "should be assigned to section" do
+          post :create, {:question => @q.attributes, :section => {:id => @q.section.id}}
+          assigns(:question).section.id.should == @q.section.id
+        end
+      end
 
-  #     it "redirects to the question" do
-  #       question = Question.create! valid_attributes
-  #       put :update, {:id => question.to_param, :question => valid_attributes}, valid_session
-  #       response.should redirect_to(question)
-  #     end
-  #   end
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved question as @question" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Question.any_instance.stub(:save).and_return(false)
+          post :create, {:question => {}, :section => {:id => @q.section.id}}
+          assigns(:question).should be_a_new(Question)
+        end
 
-  #   describe "with invalid params" do
-  #     it "assigns the question as @question" do
-  #       question = Question.create! valid_attributes
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Question.any_instance.stub(:save).and_return(false)
-  #       put :update, {:id => question.to_param, :question => {}}, valid_session
-  #       assigns(:question).should eq(question)
-  #     end
+        it "re-renders the 'new' template" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Question.any_instance.stub(:save).and_return(false)
+          post :create, {:question => {}, :section => {:id => @q.section.id}}
+          response.should render_template("new")
+        end
+      end
+    end
+  end
 
-  #     it "re-renders the 'edit' template" do
-  #       question = Question.create! valid_attributes
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Question.any_instance.stub(:save).and_return(false)
-  #       put :update, {:id => question.to_param, :question => {}}, valid_session
-  #       response.should render_template("edit")
-  #     end
-  #   end
-  # end
+  describe "PUT update" do
+    describe "without authentication" do
+      before :each do
+        @q = FactoryGirl.create :question
+        @q2 = FactoryGirl.build :question
+      end
 
-  # describe "DELETE destroy" do
-  #   it "destroys the requested question" do
-  #     question = Question.create! valid_attributes
-  #     expect {
-  #       delete :destroy, {:id => question.to_param}, valid_session
-  #     }.to change(Question, :count).by(-1)
-  #   end
+      it "should require authentication" do
+        put :update, {:id => @q.to_param, :question => @q2.attributes}
+        expect(response).to redirect_to(new_user_session_path)
+      end
 
-  #   it "redirects to the questions list" do
-  #     question = Question.create! valid_attributes
-  #     delete :destroy, {:id => question.to_param}, valid_session
-  #     response.should redirect_to(questions_url)
-  #   end
-  # end
-  pending "commented for a better times"
+      it "should require user is owner of section" do
+        sign_in FactoryGirl.create(:user)
+        put :update, {:id => @q.to_param, :question => @q2.attributes}
+        expect(response).to redirect_to(@q.section)
+      end
+    end
+
+    describe "with authentication" do
+      before :each do
+        @q = FactoryGirl.create :question
+        @q2 = FactoryGirl.build :question
+        @user = @q.section.meeting.user
+        sign_in @user
+      end
+    
+      describe "with valid params" do
+        it "assigns the requested question as @question" do
+          put :update, {:id => @q.to_param, :question => @q2.attributes}
+          assigns(:question).should eq(@q)
+        end
+
+        it "redirects to the question's section" do
+          put :update, {:id => @q.to_param, :question => @q2.attributes}
+          response.should redirect_to(@q.section)
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the question as @question" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Question.any_instance.stub(:save).and_return(false)
+          put :update, {:id => @q.to_param, :question => {}}
+          assigns(:question).should eq(@q)
+        end
+
+        it "re-renders the 'edit' template" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Question.any_instance.stub(:save).and_return(false)
+          put :update, {:id => @q.to_param, :question => {}}
+          response.should render_template("edit")
+        end
+      end
+    end
+  end
+
+  describe "DELETE destroy" do
+    describe "without authentication" do
+      before :each do
+        @q = FactoryGirl.create :question
+      end
+
+      it "should require authentication" do
+        delete :destroy, {:id => @q.to_param}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+
+      it "should require user is owner of section" do
+        sign_in FactoryGirl.create(:user)
+        delete :destroy, {:id => @q.to_param}
+        expect(response).to redirect_to(@q.section)
+      end
+    end
+
+    describe "with authentication" do
+      before :each do
+        @q = FactoryGirl.create :question
+        @user = @q.section.meeting.user
+        sign_in @user
+      end
+      
+      it "destroys the requested question" do
+        expect {
+          delete :destroy, {:id => @q.to_param}
+        }.to change(Question, :count).by(-1)
+      end
+
+      it "redirects to the questions list" do
+        delete :destroy, {:id => @q.to_param}
+        response.should redirect_to(@q.section)
+      end
+    end
+  end
 end

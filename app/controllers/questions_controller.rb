@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new.json
   def new
     @section = Section.find(params[:section_id])
-    when_section_owner @section do
+    when_section_owner @section, @section do
       @question = @section.questions.build
       respond_to do |format|
         format.html do
@@ -36,7 +36,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1/edit
   def edit
-    when_section_owner @question.section do
+    when_section_owner @question.section, @question.section do
       question_breadcrumb @question
     end
   end
@@ -45,8 +45,8 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     section = Section.find(params[:section][:id])
-    when_section_owner section do
-      @question = section.questions.build(params[:question].except(:state))
+    when_section_owner section, section do
+      @question = section.questions.build(params[:question].except(:state, :id, :section_id, :created_at, :updated_at))
 
       respond_to do |format|
         if @question.save
@@ -63,13 +63,14 @@ class QuestionsController < ApplicationController
   # PUT /questions/1
   # PUT /questions/1.json
   def update
-    when_section_owner @question.section do
+    section = @question.section
+    when_section_owner section, section do
       respond_to do |format|
-        if @question.update_attributes(params[:question].except(:state, :countdown_to))
-          format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+        if @question.update_attributes(params[:question].except(:state, :countdown_to, :id, :section_id, :created_at, :updated_at))
+          format.html { redirect_to section, notice: 'Question was successfully updated.' }
           format.json { head :no_content }
           if ["active", "showed", "statistics"].include? @question.state
-            comet_section_question_changed @question.section
+            comet_section_question_changed section
           end
         else
           format.html { render action: "edit" }
@@ -84,7 +85,7 @@ class QuestionsController < ApplicationController
   def destroy
     section = Section.find(@question.section)
     update = ["active", "showed"].include? @question.state
-    when_section_owner section do
+    when_section_owner section, section do
       @question.destroy
 
       respond_to do |format|
