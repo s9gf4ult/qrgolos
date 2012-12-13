@@ -25,7 +25,11 @@ class SController < ApplicationController
   end
 
   def name
-    # name.html.erb
+    if @anonymous.name_number
+      redirect_to twitt_path(@anonymous.aid)
+    else
+      render
+    end
   end
 
   def show
@@ -38,14 +42,13 @@ class SController < ApplicationController
 
   def twitt
     if @anonymous.name_number == nil
-      redirect_to name_path
-      return
-    end
-
-    @twitt = @anonymous.twitts.build
-    respond_to do |format|
-      format.html { render }
-      format.json { render :json => @anonymous.section.formated_active_twitts.take(20) }
+      redirect_to name_path(@anonymous.aid)
+    else
+      @twitt = @anonymous.twitts.build
+      respond_to do |format|
+        format.html { render }
+        format.json { render :json => @anonymous.section.formated_active_twitts.take(20) }
+      end
     end
   end
 
