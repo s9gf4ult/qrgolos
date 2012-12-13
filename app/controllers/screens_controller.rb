@@ -1,4 +1,5 @@
 class ScreensController < ApplicationController
+  before_filter :authenticate_user!, :only => [:update]
   layout :set_layout
   
   def show
@@ -50,9 +51,9 @@ class ScreensController < ApplicationController
 
   def update
     @screen = Screen.find(params[:id])
-    when_section_owner @screen.section do
+    when_section_owner @screen.section, @screen.section do
       respond_to do |format|
-        if @screen.update_attributes(params[:screen])
+        if @screen.update_attributes(params[:screen].except(:id, :section_id, :created_at, :updated_at))
           format.html { redirect_to @screen.section }
           format.json { head :no_content }
           comet_screen_update @screen

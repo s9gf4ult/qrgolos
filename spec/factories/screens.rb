@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :screen do
-    section_id 1
-    state "MyString"
+    association :section, :factory => :section
+    state { ["banner", "twitts", "question"].sample }
   end
 end
