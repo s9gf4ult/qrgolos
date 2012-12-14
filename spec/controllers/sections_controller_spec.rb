@@ -262,5 +262,4 @@ describe SectionsController do
       expect(response).to render_template("twitts")
     end
   end
-  pending "must be changed when controllers will be rewriten"
 end
