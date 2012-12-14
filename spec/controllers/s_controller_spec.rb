@@ -97,10 +97,5 @@ describe SController do
       @a.name_number.should_not == nil
       @a.name.should == @name
     end
-    
-    # it "should not accept set name twice" do
-    #   post :set_name, {:id => @a.aid, :anonymous => {:name => @name}}
-    #   post :set_name, {:id => @a.aid, :anonymous => {:name => Faker::Name.first_name}}
-    #   expect(response).to respond_to(
   end
 end
