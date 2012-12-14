@@ -3,7 +3,7 @@ class TwittsController < ApplicationController
   before_filter :get_and_check_anonymous, :only => [:create]
   
   def create
-    @twitt = @anonymous.twitts.build(params[:twitt].except(:state))
+    @twitt = @anonymous.twitts.build(params[:twitt].except(:state, :id, :anonymous_id, :created_at, :updated_at))
     respond_to do |format|
       if @twitt.save
         format.html { head :no_content }

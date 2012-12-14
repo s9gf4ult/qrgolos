@@ -68,9 +68,15 @@ class ApplicationController < ActionController::Base
   end
 
   def get_and_check_anonymous   #  FIXME: moved to helper, fix in controllers
-    @anonymous = Anonymous.find(params[:anonymous][:id])
+    @anonymous = Anonymous.where(:aid => params[:anonymous][:aid]).first
     #  FIXME: make anonymous remember last time user entered
-    if @anonymous.id != session[:anonymous_id]
+    if @anonymous == nil or @anonymous.id != session[:anonymous_id]
+      anon = Anonymous.where(:id => session[:anonymous_id]).first
+      if anon
+        redirect_to twitt_path(anon.aid)
+      else
+        redirect_to s_path
+      end
     end
   end
 end

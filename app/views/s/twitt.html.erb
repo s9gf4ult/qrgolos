@@ -27,9 +27,9 @@ window.TWITT_CHANNEL = '<%= section_twitts_activated_channel(@anonymous.section)
 
 <div data-role="popup" data-overlay-theme="a" id="post-twitt">
 
-<%= form_for @twitt, :"data-ajax" => "false", :method => "post"  do |f| %>
+<%= form_for @twitt, "data-ajax" => "false", :method => "post"  do |f| %>
   <%= fields_for @twitt.anonymous do |af| %>
-  <%= af.hidden_field :id %>
+  <%= af.hidden_field :aid %>
   <% end %>
 <div style="padding:10px 20px;">
     <h2>Отправить сообщение</h2>
