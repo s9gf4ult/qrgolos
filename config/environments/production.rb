@@ -47,7 +47,7 @@ Ruvote::Application.configure do
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( jquery.cycle.all.2.72.js iui.js anonymous-vote.js anonymous-chat.js MyScroll.js section_statistics.css screen-updater.js sections.css mobile.css )
-  config.assets.precompile << /(^[^_\/]|\/[^_])[^\/]*$/
+  config.assets.precompile += %w( application/static.home.js application/application.js )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

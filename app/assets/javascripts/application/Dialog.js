@@ -1,4 +1,4 @@
-//= require Class
+//= require application/Class
 
 var Dialog = Class.extend({
     initialize: function (options) {

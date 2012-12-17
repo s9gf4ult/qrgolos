@@ -1,5 +1,5 @@
-//= require Dialog
-//= require Class
+//= require application/Dialog
+//= require application/Class
 
 var QRGClass = Class.extend({
     initialize: function(options) {

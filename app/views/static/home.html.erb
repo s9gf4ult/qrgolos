@@ -1,41 +1,22 @@
 <% content_for :head do %>
-<%= javascript_include_tag "jquery.cycle.all.2.72.js" %>
+<%= javascript_include_tag "application/static.home" %>
 <% end %>
 
-<script type="text/javascript">
-$(document).ready(function() {
-   $('#homeSlider').cycle({
-      fx: 'cover', // выберите тип анимации, ex: fade, scrollUp, shuffle,...
-      delay:    -2000,
-      before: function(curr, next, opts) {
-			opts.animOut.opacity = 0;
-      },
-      pager: '#homeSliderControls',
-
-      pagerAnchorBuilder: function(idx, slide) {
-      return '<a href="#"></a>';
-    }
-      });
-});
-
-$('#breadcrumbs-one').hide();
-</script>
- 
- <div id="homeSlider">
-   <img class="hsImage" src="/slider/1.png"/>
-   <img class="hsImage" src="/slider/2.png"/>
-   <img class="hsImage" src="/slider/3.png"/>
-   <img class="hsImage" src="/slider/4.png"/>
+<div id="homeSlider">
+  <img class="hsImage" src="/slider/1.png"/>
+  <img class="hsImage" src="/slider/2.png"/>
+  <img class="hsImage" src="/slider/3.png"/>
+  <img class="hsImage" src="/slider/4.png"/>
 </div>
 
-     <div id="homeSliderControls">
-    </div>
+<div id="homeSliderControls">
+</div>
 
-    
-    <ul class="homeLinks">
-        <li><a class="aboutService" href="#"><%= t :Demo %></a></li>
-        <li><a class="featureList" href="#"><%= t :FeatureList %></a></li>
-        <li><a class="gallery" href="#"><%= t :Gallery %></a></li>
-        <li><a class="downloadTheApp" href="#"><%= t :AnyLink %></a></li>
-<!--        <li><a class="watchTheScanAd" onclick="Scan.showPromoVideo();">Watch the Scan Ad</a></li>-->
-    </ul>
+
+<ul class="homeLinks">
+  <li><a class="aboutService" href="#"><%= t :Demo %></a></li>
+  <li><a class="featureList" href="#"><%= t :FeatureList %></a></li>
+  <li><a class="gallery" href="#"><%= t :Gallery %></a></li>
+  <li><a class="downloadTheApp" href="#"><%= t :AnyLink %></a></li>
+  <!--        <li><a class="watchTheScanAd" onclick="Scan.showPromoVideo();">Watch the Scan Ad</a></li>-->
+</ul>

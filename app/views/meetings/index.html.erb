@@ -1,3 +1,7 @@
+<% content_for :head do %>
+<%= javascript_include_tag "application/application" %>
+<% end %>
+
 <% if user_signed_in? %>
 <div class="formHeader">Мои мероприятия</div>
 
