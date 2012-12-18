@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
     if @anonymous == nil or @anonymous.id != session[:anonymous_id]
       anon = Anonymous.where(:id => session[:anonymous_id]).first
       if anon
-        redirect_to twitt_path(anon.aid)
+        redirect_to s_anonymous_path(anon.aid)
       else
         redirect_to s_path
       end
