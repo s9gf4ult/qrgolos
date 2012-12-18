@@ -2,7 +2,7 @@
 
 
 <%= form_tag check_votes_path, :"data-ajax" => "false", :method => :post, :class => "panel" do %>
-<%= hidden_field_tag 'anonymous[id]', @anonymous.id %>
+<%= hidden_field_tag 'anonymous[aid]', @anonymous.aid %>
 
 <fieldset data-role="controlgroup" data-type="vertical">
   <% @active.answer_variants.each do |aw| %>
