@@ -1,3 +1,7 @@
+<% content_for :head do %>
+<%= javascript_include_tag "application/application" %>
+<% end %>
+
 <div class="formHeader">Новый вопрос</div>
 
 <%= render 'form' %>
