@@ -51,6 +51,9 @@ Ruvote::Application.configure do
 application/static.home.js
 application/application.js
 mobile/anonymous-vote.js
+mobile/anonymous-chat.js
+mobile/anonymous-name.js
+mobile.css
 sections.css
 section_statistics.css
 )

@@ -1,3 +1,5 @@
+//= require jquery
+
 function make_faye_client() {
     return new Faye.Client(FAYE_ADDRESS);
 }

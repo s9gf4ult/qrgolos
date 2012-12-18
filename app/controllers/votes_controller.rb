@@ -9,6 +9,7 @@ class VotesController < ApplicationController
     vote.answer_variant = answer_variant
     with_current_votes [vote] do
       respond_to do |format|
+        puts ">>>>>>>>>>>>>>>>>>> bla bla bla"
         if vote.save
           format.html do
             flash[:notice] = t 'votes.thanks'
