@@ -1,3 +1,8 @@
+//= require jquery
+//= require mobile/jquery.mobile-1.2.0
+//= require mobile/faye-updater
+//= require mobile/mobile
+//= require_self
 
 function regen_chat_list() {
     $.ajax({
@@ -25,7 +30,8 @@ function regen_chat_list() {
 
 $(function() {
     regen_chat_list();
-    launch_faye_updater(window.TWITT_CHANNEL, regen_chat_list);
+    var client = make_faye_client();
+    faye_subscribe(client, window.TWITT_CHANNEL, regen_chat_list);
 
     $('#submit-twitt').click(function() {
       form = $('#new_twitt');

@@ -50,6 +50,7 @@ Ruvote::Application.configure do
   config.assets.precompile += %w(
 application/static.home.js
 application/application.js
+mobile/anonymous-vote.js
 sections.css
 section_statistics.css
 )
