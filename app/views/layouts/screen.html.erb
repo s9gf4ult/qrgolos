@@ -3,7 +3,6 @@
 <head>
   <link href='http://fonts.googleapis.com/css?family=PT+Sans&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    "screens", :media => "all" %>
-  <%= javascript_include_tag "jquery" %>
   <%= javascript_include_tag "#{Settings.faye.address}/client.js" %>
   <%= yield :head %>
   <%= csrf_meta_tags %>

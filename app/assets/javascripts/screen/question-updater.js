@@ -1,3 +1,9 @@
+//= require jquery
+//= require screen/raphael
+//= require faye-updater
+//= require_self
+
+
 $(function() {
     function update_screen() {
         window.location.reload();
@@ -125,10 +131,26 @@ $(function() {
     regenerate_screen();
 
 
-    var client = new Faye.Client(window.FAYE_ADDRESS);
-    var screen_subscribe = client.subscribe(window.SCREEN_CHANNEL, update_screen);
-    var question_subscribe = client.subscribe(window.QUESTION_CHANNEL, regenerate_screen);
-    var vote_subscribe = client.subscribe(window.VOTE_CHANNEL, regenerate_screen);
+    var client = make_faye_client()
+    faye_subscribe(client, window.SCREEN_CHANNEL, update_screen);
+    faye_subscribe(client, window.QUESTION_CHANNEL, regenerate_screen);
+    faye_subscribe(client, window.VOTE_CHANNEL, regenerate_screen);
 });
 
 
+$(function() {
+  $('#bannerImg').height($(window).height() * 0.86);
+  $('#bannerImg').width($(window).height() * 1.3);
+  $('#bannerImg').css("padding", $(window).height() * 0.05);
+
+  $('#blocks').width($('#bannerImg').width() * 0.25 );
+  $('#blocks > img').width($('#bannerImg').width() * 0.25);
+  $('#HbannerI').width($('#bannerImg').width() * 0.25);
+
+  $('#HbannerT').height($(window).height() * 0.0685);
+  $('#HbannerT').css("padding-bottom", $(window).height() * 0.04);
+
+  $('#HbannerQ').height($(window).height() * 0.0685);
+  $('#HbannerQ').css("padding-bottom", $(window).height() * 0.04);
+
+});

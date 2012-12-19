@@ -1,3 +1,7 @@
+//= require jquery
+//= require faye-updater
+//= require_self
+
 $(function () {
 
     function update_screen() {
@@ -32,7 +36,27 @@ $(function () {
     }
     redraw_twitts();
     
-    var client = new Faye.Client(window.FAYE_ADDRESS);
-    var screen_subscribe = client.subscribe(window.SCREEN_CHANNEL, update_screen);
-    var twitts_subscribe = client.subscribe(window.TWITT_MODERATED_CHANNEL, redraw_twitts);
+    var client = make_faye_client()
+    faye_subscribe(client, window.SCREEN_CHANNEL, update_screen);
+    faye_subscribe(client, window.TWITT_MODERATED_CHANNEL, redraw_twitts);
 })
+
+
+$(function() {
+  $('#bannerImg').height($(window).height() * 0.86);
+  $('#bannerImg').width($(window).height() * 1.3);
+  $('#bannerImg').css("padding", $(window).height() * 0.05);
+
+  $('#blocks').width($('#bannerImg').width() * 0.25 );
+  $('#blocks > img').width($('#bannerImg').width() * 0.25);
+  $('#HbannerI').width($('#bannerImg').width() * 0.25);
+
+  $('#HbannerT').height($(window).height() * 0.0685);
+  $('#HbannerT').css("padding-bottom", $(window).height() * 0.04);
+
+  $('#HbannerQ').height($(window).height() * 0.0685);
+  $('#HbannerQ').css("padding-bottom", $(window).height() * 0.04);
+
+  $('#twittTable').width($('#bannerImg').width() * 0.6 + 15);
+  $('.tableMsg').width($('#bannerImg').width() * 0.6);
+});

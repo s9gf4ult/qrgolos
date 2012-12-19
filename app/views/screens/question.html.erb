@@ -1,7 +1,5 @@
 <% content_for :head do %>
-<%= javascript_include_tag "raphael.js" %>
-<%= javascript_include_tag "question-updater.js" %>
-<!--< %= stylesheet_link_tag "section_statistics" %> -->
+<%= javascript_include_tag "screen/question-updater" %>
 <% end %>
 
 <%= javascript_tag do %>
@@ -46,21 +44,3 @@ window.COUNTDOWN = <%= Settings.questions.countdown_time %>;
   </table>
 </div>
 <div id="timer"></div>
-<%= javascript_tag do %>
-$(function() {
-  $('#bannerImg').height($(window).height() * 0.86);
-  $('#bannerImg').width($(window).height() * 1.3);
-  $('#bannerImg').css("padding", $(window).height() * 0.05);
-
-  $('#blocks').width($('#bannerImg').width() * 0.25 );
-  $('#blocks > img').width($('#bannerImg').width() * 0.25);
-  $('#HbannerI').width($('#bannerImg').width() * 0.25);
-
-  $('#HbannerT').height($(window).height() * 0.0685);
-  $('#HbannerT').css("padding-bottom", $(window).height() * 0.04);
-
-  $('#HbannerQ').height($(window).height() * 0.0685);
-  $('#HbannerQ').css("padding-bottom", $(window).height() * 0.04);
-
-});
-<% end %>

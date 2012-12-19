@@ -1,6 +1,5 @@
 <% content_for :head do %>
-<%= javascript_include_tag "faye-updater.js" %>
-<%= javascript_include_tag "screen-updater.js" %>
+<%= javascript_include_tag "screen/banner-updater" %>
 <% end %>
 
 <%= javascript_tag do %>
@@ -13,7 +12,4 @@ window.SCREEN_CHANNEL = '<%= screen_update_channel(@screen) %>';
 </div>
 
 <%= javascript_tag do %>
-$(function() {
-  $('#bannerImg').height($(window).height() - 128);
-});
 <% end %>

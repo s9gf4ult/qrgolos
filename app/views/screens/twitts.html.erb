@@ -1,5 +1,5 @@
 <% content_for :head do %>
-<%= javascript_include_tag "twitts-screen-updater.js" %>
+<%= javascript_include_tag "screen/twitts-updater" %>
 <% end %>
 
 <%= javascript_tag do %>
@@ -32,30 +32,3 @@ window.TWITT_MODERATED_CHANNEL = '<%= section_twitts_activated_channel(@section)
     </tbody>
   </table>
 </div>
-
-<%= javascript_tag do %>
-$(function() {
-  $('#bannerImg').height($(window).height() * 0.86);
-  $('#bannerImg').width($(window).height() * 1.3);
-  $('#bannerImg').css("padding", $(window).height() * 0.05);
-
-  $('#blocks').width($('#bannerImg').width() * 0.25 );
-  $('#blocks > img').width($('#bannerImg').width() * 0.25);
-  $('#HbannerI').width($('#bannerImg').width() * 0.25);
-
-  $('#HbannerT').height($(window).height() * 0.0685);
-  $('#HbannerT').css("padding-bottom", $(window).height() * 0.04);
-
-  $('#HbannerQ').height($(window).height() * 0.0685);
-  $('#HbannerQ').css("padding-bottom", $(window).height() * 0.04);
-
-  $('#twittTable').width($('#bannerImg').width() * 0.6 + 15);
-  $('.tableMsg').width($('#bannerImg').width() * 0.6);
-});
-<% end %>
-
-
-
-
-
-
