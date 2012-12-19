@@ -56,10 +56,12 @@ mobile/anonymous-name.js
 screen/banner-updater.js
 screen/twitts-updater.js
 screen/question-updater.js
+
+application/application.css
+application/sections.css
+application/section_statistics.css
 mobile.css
-sections.css
 screens.css
-section_statistics.css
 )
 
   # Disable delivery errors, bad email addresses will be ignored
