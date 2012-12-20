@@ -87,3 +87,5 @@ ru:
   banner: "Заставка"
   wrong_aid: "Не верный id, введите снова"
   NewAnswerVariant: "Добавить вариант ответа"
+  bringed_up: "Поднято"
+  bringed_down: "Опущено"
