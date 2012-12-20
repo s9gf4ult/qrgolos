@@ -1,9 +1,6 @@
 /* Mobile css
-
- * = r equire iui
- * = r equire iui-theme
- * = r equire iui-ext
- *= require ios.css
+ *= require mobile/jquery.mobile
+ *= require mobile/ios
 */
 
 .panel > ul, .panel > fieldset {

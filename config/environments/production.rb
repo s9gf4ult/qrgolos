@@ -60,7 +60,7 @@ screen/question-updater.js
 application/application.css
 application/sections.css
 application/section_statistics.css
-mobile.css
+mobile/mobile.css
 screens.css
 )
 
