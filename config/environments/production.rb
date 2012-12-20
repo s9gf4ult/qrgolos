@@ -61,7 +61,7 @@ application/application.css
 application/sections.css
 application/section_statistics.css
 mobile/mobile.css
-screens.css
+screen/screens.css
 )
 
   # Disable delivery errors, bad email addresses will be ignored
